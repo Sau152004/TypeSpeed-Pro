@@ -1,0 +1,228 @@
+{% extends "layouts/main.njk" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-8">
+    <!-- Profile Header -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+        <div class="flex items-center space-x-4">
+            <div class="w-16 h-16 bg-primary-500 rounded-full flex items-center justify-center">
+                <span class="text-white text-2xl font-bold">
+                    {{ user.username[0].upper() }}
+                </span>
+            </div>
+            <div>
+                <h1 class="text-2xl font-bold">{{ user.username }}</h1>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Member since {{ user.created_at.toDateString() if user.created_at else 'Recently' }}
+                </p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                    Last login: {{ user.last_login.toDateString() if user.last_login else 'Never' }}
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Statistics -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-bold">Your Statistics</h2>
+            <select id="timeframe-select" class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm">
+                <option value="all">All Time</option>
+                <option value="month">This Month</option>
+                <option value="week">This Week</option>
+                <option value="today">Today</option>
+            </select>
+        </div>
+        
+        <div id="user-stats">
+            <div class="text-center py-8">
+                <div class="loading-dots mx-auto">
+                    <div></div><div></div><div></div><div></div>
+                </div>
+                <p class="mt-4 text-gray-500 dark:text-gray-400">Loading your statistics...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Personal Best -->
+    <div class="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900 dark:to-orange-900 dark:bg-opacity-20 rounded-xl shadow-lg p-6">
+        <div class="flex items-center mb-4">
+            <span class="text-2xl mr-3">🏆</span>
+            <h2 class="text-xl font-bold">Personal Best</h2>
+        </div>
+        
+        <div id="personal-best">
+            <div class="text-center py-4">
+                <div class="loading-dots mx-auto">
+                    <div></div><div></div><div></div><div></div>
+                </div>
+                <p class="mt-2 text-gray-500 dark:text-gray-400">Loading your best scores...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recent Tests -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-bold">Recent Tests</h2>
+            <button id="view-all-history" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                View All →
+            </button>
+        </div>
+        
+        <div id="test-history">
+            <div class="text-center py-8">
+                <div class="loading-dots mx-auto">
+                    <div></div><div></div><div></div><div></div>
+                </div>
+                <p class="mt-4 text-gray-500 dark:text-gray-400">Loading your test history...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Progress Chart -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+        <h2 class="text-xl font-bold mb-6">Progress Over Time</h2>
+        
+        <div id="progress-chart">
+            <div class="h-64 bg-gray-50 dark:bg-gray-900 rounded-lg flex items-center justify-center">
+                <div class="text-center">
+                    <div class="loading-dots mx-auto">
+                        <div></div><div></div><div></div><div></div>
+                    </div>
+                    <p class="mt-4 text-gray-500 dark:text-gray-400">Loading progress chart...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+        <h2 class="text-xl font-bold mb-6">Quick Actions</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <a href="/" class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center">
+                <div class="text-2xl mb-2">⌨️</div>
+                <div class="font-medium">Take New Test</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400">Start typing test</div>
+            </a>
+            
+            <a href="/leaderboard" class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center">
+                <div class="text-2xl mb-2">🏆</div>
+                <div class="font-medium">View Leaderboard</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400">See rankings</div>
+            </a>
+            
+            <button id="export-data" class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-center">
+                <div class="text-2xl mb-2">📊</div>
+                <div class="font-medium">Export Data</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400">Download results</div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+.loading-dots {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.loading-dots div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #3b82f6;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loading-dots div:nth-child(1) {
+    left: 8px;
+    animation: loading1 0.6s infinite;
+}
+
+.loading-dots div:nth-child(2) {
+    left: 8px;
+    animation: loading2 0.6s infinite;
+}
+
+.loading-dots div:nth-child(3) {
+    left: 32px;
+    animation: loading2 0.6s infinite;
+}
+
+.loading-dots div:nth-child(4) {
+    left: 56px;
+    animation: loading3 0.6s infinite;
+}
+
+@keyframes loading1 {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+@keyframes loading3 {
+    0% { transform: scale(1); }
+    100% { transform: scale(0); }
+}
+
+@keyframes loading2 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(24px, 0); }
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script src="/js/profile.js"></script>
+
+<script>
+// Enhanced profile management
+document.addEventListener('DOMContentLoaded', function() {
+    // Timeframe selector
+    const timeframeSelect = document.getElementById('timeframe-select');
+    if (timeframeSelect) {
+        timeframeSelect.addEventListener('change', function() {
+            if (window.profileManager) {
+                window.profileManager.loadUserStats(this.value);
+            }
+        });
+    }
+    
+    // Export data functionality
+    const exportBtn = document.getElementById('export-data');
+    if (exportBtn) {
+        exportBtn.addEventListener('click', async function() {
+            try {
+                const response = await fetch('/api/user/export');
+                const blob = await response.blob();
+                
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `typespeed-pro-data-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                
+                window.URL.revokeObjectURL(url);
+            } catch (error) {
+                console.error('Export failed:', error);
+                alert('Failed to export data. Please try again.');
+            }
+        });
+    }
+    
+    // View all history
+    const viewAllBtn = document.getElementById('view-all-history');
+    if (viewAllBtn) {
+        viewAllBtn.addEventListener('click', function() {
+            // Scroll to test history and expand
+            document.getElementById('test-history').scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+});
+</script>
+{% endblock %}

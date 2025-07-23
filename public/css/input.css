@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  .typing-area {
+    font-family: 'JetBrains Mono', 'Consolas', 'Monaco', monospace;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+  
+  .card {
+    @apply bg-white dark:bg-dark-surface rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6;
+  }
+  
+  .typing-char-correct {
+    @apply text-typing-correct bg-typing-correct bg-opacity-20;
+  }
+  
+  .typing-char-incorrect {
+    @apply text-typing-incorrect bg-typing-incorrect bg-opacity-20;
+  }
+  
+  .typing-char-current {
+    @apply bg-typing-current text-white animate-pulse;
+  }
+  
+  .typing-char-pending {
+    @apply text-typing-pending;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}

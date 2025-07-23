@@ -1,0 +1,144 @@
+<div class="card max-w-4xl mx-auto">
+    <!-- Test Configuration -->
+    <div class="flex flex-wrap items-center justify-between mb-6 gap-4">
+        <!-- Test Mode Selector -->
+        <div class="flex items-center space-x-2">
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Mode:</label>
+            <select id="test-mode" class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                <option value="time">Time</option>
+                <option value="words">Words</option>
+                <option value="quote">Quote</option>
+                <option value="custom">Custom</option>
+            </select>
+        </div>
+        
+        <!-- Test Duration/Length -->
+        <div class="flex items-center space-x-2" id="test-config">
+            <div id="time-options" class="flex space-x-2">
+                <button class="config-btn active" data-value="15">15s</button>
+                <button class="config-btn" data-value="30">30s</button>
+                <button class="config-btn" data-value="60">60s</button>
+                <button class="config-btn" data-value="120">120s</button>
+            </div>
+            
+            <div id="word-options" class="hidden flex space-x-2">
+                <button class="config-btn" data-value="25">25</button>
+                <button class="config-btn active" data-value="50">50</button>
+                <button class="config-btn" data-value="100">100</button>
+            </div>
+        </div>
+        
+        <!-- Reset Button -->
+        <button id="reset-test" class="btn-secondary">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            Reset
+        </button>
+    </div>
+    
+    <!-- Stats Display -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="text-center">
+            <div class="text-2xl md:text-3xl font-bold text-primary-600 dark:text-primary-400" id="wpm-display">0</div>
+            <div class="text-sm text-gray-500 dark:text-gray-400">WPM</div>
+        </div>
+        <div class="text-center">
+            <div class="text-2xl md:text-3xl font-bold text-green-600 dark:text-green-400" id="accuracy-display">100%</div>
+            <div class="text-sm text-gray-500 dark:text-gray-400">Accuracy</div>
+        </div>
+        <div class="text-center">
+            <div class="text-2xl md:text-3xl font-bold text-blue-600 dark:text-blue-400" id="time-display">--</div>
+            <div class="text-sm text-gray-500 dark:text-gray-400">Time</div>
+        </div>
+        <div class="text-center">
+            <div class="text-2xl md:text-3xl font-bold text-purple-600 dark:text-purple-400" id="raw-wpm-display">0</div>
+            <div class="text-sm text-gray-500 dark:text-gray-400">Raw</div>
+        </div>
+    </div>
+    
+    <!-- Typing Text Display -->
+    <div class="mb-6">
+        <div id="text-display" class="typing-area text-xl md:text-2xl leading-relaxed p-6 bg-gray-50 dark:bg-gray-800 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 min-h-[200px] focus-within:border-primary-500 transition-colors">
+            <!-- Text will be populated by JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Typing Input -->
+    <div class="mb-6">
+        <input 
+            type="text" 
+            id="typing-input" 
+            class="w-full typing-area text-xl p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+            placeholder="Click here and start typing..."
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            disabled
+        />
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="mb-4">
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+            <div id="progress-bar" class="bg-primary-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="flex justify-center space-x-4">
+        <button id="start-test" class="btn-primary px-8 py-3 text-lg">
+            Start Test
+        </button>
+        <button id="stop-test" class="btn-secondary px-8 py-3 text-lg hidden">
+            Stop Test
+        </button>
+    </div>
+</div>
+
+<!-- Custom Text Modal -->
+<div id="custom-text-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white dark:bg-dark-surface rounded-xl p-6 max-w-2xl w-full mx-4">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Custom Text</h3>
+            <button id="close-custom-modal" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <textarea 
+            id="custom-text-input" 
+            class="w-full h-40 p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+            placeholder="Enter your custom text here..."
+        ></textarea>
+        <div class="flex justify-end space-x-3 mt-4">
+            <button id="cancel-custom" class="btn-secondary">Cancel</button>
+            <button id="apply-custom" class="btn-primary">Apply Text</button>
+        </div>
+    </div>
+</div>
+
+<style>
+.config-btn {
+    @apply px-3 py-1 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors;
+}
+
+.config-btn.active {
+    @apply bg-primary-500 text-white border-primary-500 hover:bg-primary-600;
+}
+
+.typing-char {
+    @apply transition-colors duration-100;
+}
+
+.typing-cursor {
+    @apply inline-block w-0.5 bg-primary-500 animate-pulse;
+    height: 1.2em;
+}
+
+#text-display.focused {
+    @apply border-primary-500 bg-white dark:bg-gray-700;
+}
+</style>

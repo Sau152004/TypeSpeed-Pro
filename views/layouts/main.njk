@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" class="{{ theme }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block description %}Professional typing test platform with real-time feedback, advanced analytics, and global leaderboards. Improve your typing speed and accuracy.{% endblock %}">
+    <meta name="keywords" content="typing test, typing speed, WPM, typing practice, keyboard skills, touch typing">
+    <meta name="author" content="TypeSpeed Pro">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url if request else 'https://typespeed.pro' }}">
+    <meta property="og:title" content="{% block og_title %}{{ title or 'TypeSpeed Pro - Professional Typing Test' }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}The most advanced typing test platform with real-time feedback and comprehensive analytics.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}/images/og-image.png{% endblock %}">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.url if request else 'https://typespeed.pro' }}">
+    <meta property="twitter:title" content="{% block twitter_title %}{{ title or 'TypeSpeed Pro - Professional Typing Test' }}{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}The most advanced typing test platform with real-time feedback and comprehensive analytics.{% endblock %}">
+    <meta property="twitter:image" content="{% block twitter_image %}/images/og-image.png{% endblock %}">
+    
+    <title>{% block title %}{{ title or 'TypeSpeed Pro - Professional Typing Test' }}{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link href="/css/output.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--scrollbar-thumb-hover);
+        }
+        
+        /* CSS Variables for theming */
+        :root {
+            --scrollbar-track: #f1f5f9;
+            --scrollbar-thumb: #cbd5e1;
+            --scrollbar-thumb-hover: #94a3b8;
+        }
+        
+        .dark {
+            --scrollbar-track: #1f2937;
+            --scrollbar-thumb: #4b5563;
+            --scrollbar-thumb-hover: #6b7280;
+        }
+        
+        /* Animation utilities */
+        .animate-slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        .animate-slide-out {
+            animation: slideOut 0.3s ease-in;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .animate-scale-in {
+            animation: scaleIn 0.2s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Custom font families */
+        .font-mono {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+        }
+        
+        .font-sans {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        
+        /* Loading spinner */
+        .loading-spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #3b82f6;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Typing cursor */
+        .typing-cursor {
+            border-left: 2px solid #3b82f6;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { border-color: #3b82f6; }
+            51%, 100% { border-color: transparent; }
+        }
+        
+        /* Focus visible styles */
+        .focus-visible:focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+        
+        /* Print styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+    
+    {% block head %}{% endblock %}
+</head>
+<body class="font-sans bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+    <!-- Skip to main content -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded-lg z-50">
+        Skip to main content
+    </a>
+    
+    <!-- Header -->
+    {% include "partials/header.njk" %}
+    
+    <!-- Main Navigation -->
+    {% include "partials/navbar.njk" %}
+    
+    <!-- Main Content -->
+    <main id="main-content" class="min-h-screen">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    {% include "partials/footer.njk" %}
+    
+    <!-- Settings Modal -->
+    {% include "partials/settings-modal.njk" %}
+    
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2 max-w-sm">
+        <!-- Toasts will be inserted here -->
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-sm mx-4">
+            <div class="flex items-center space-x-3">
+                <div class="loading-spinner"></div>
+                <span class="text-lg font-medium">Loading...</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Error Boundary -->
+    <div id="error-boundary" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4">
+            <div class="text-center">
+                <div class="text-4xl mb-4">⚠️</div>
+                <h3 class="text-lg font-semibold mb-2">Something went wrong</h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-4" id="error-message">
+                    An unexpected error occurred. Please refresh the page and try again.
+                </p>
+                <div class="space-x-2">
+                    <button onclick="window.location.reload()" class="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg">
+                        Refresh Page
+                    </button>
+                    <button onclick="document.getElementById('error-boundary').classList.add('hidden')" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-lg">
+                        Dismiss
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script>
+        // Global configuration
+        window.APP_CONFIG = {
+            apiUrl: '{{ "/api" if isProduction else "/api" }}',
+            isProduction: {{ 'true' if isProduction else 'false' }},
+            user: {{ user | dump | safe if user else 'null' }},
+            theme: '{{ theme }}',
+            currentPage: '{{ currentPage }}'
+        };
+        
+        // Set current user for global access
+        window.currentUser = window.APP_CONFIG.user;
+    </script>
+    
+    <!-- Socket.IO -->
+    {% if isProduction %}
+        <script src="/socket.io/socket.io.js"></script>
+    {% else %}
+        <script src="/socket.io/socket.io.js"></script>
+    {% endif %}
+    
+    <!-- Core JavaScript -->
+    <script src="/js/theme-manager.js"></script>
+    <script src="/js/sound-manager.js"></script>
+    <script src="/js/api-client.js"></script>
+    <script src="/js/stats-calculator.js"></script>
+    <script src="/js/main.js"></script>
+    
+    <!-- Page-specific scripts -->
+    {% block scripts %}{% endblock %}
+    
+    <!-- Global error handler -->
+    <script>
+        // Global error handling
+        window.addEventListener('error', function(event) {
+            console.error('Global error:', event.error);
+            if (!window.APP_CONFIG.isProduction) {
+                console.error('Error stack:', event.error.stack);
+            }
+        });
+        
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('Unhandled promise rejection:', event.reason);
+            event.preventDefault();
+        });
+        
+        // Service worker registration (for PWA support)
+        if ('serviceWorker' in navigator && window.APP_CONFIG.isProduction) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(function(registrationError) {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+        
+        // Initialize Socket.IO connection
+        if (typeof io !== 'undefined') {
+            window.socket = io();
+            
+            // Join user session if logged in
+            if (window.currentUser) {
+                window.socket.emit('join-user', window.currentUser.id);
+            }
+            
+            // Handle connection status
+            window.socket.on('connect', function() {
+                console.log('Socket connected');
+            });
+            
+            window.socket.on('disconnect', function() {
+                console.log('Socket disconnected');
+            });
+        }
+        
+        // Utility functions
+        window.showToast = function(message, type = 'info', duration = 3000) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const colors = {
+                success: 'bg-green-500',
+                error: 'bg-red-500',
+                warning: 'bg-yellow-500',
+                info: 'bg-blue-500'
+            };
+            
+            toast.className = `${colors[type] || colors.info} text-white px-4 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-x-full opacity-0`;
+            toast.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span>${message}</span>
+                    <button onclick="this.closest('.transform').remove()" class="ml-4 text-white hover:text-gray-200">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Animate in
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-x-full', 'opacity-0');
+            });
+            
+            // Auto-remove after duration
+            setTimeout(() => {
+                toast.classList.add('translate-x-full', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        };
+        
+        window.showLoading = function(show = true) {
+            const overlay = document.getElementById('loading-overlay');
+            if (show) {
+                overlay.classList.remove('hidden');
+                overlay.classList.add('flex');
+            } else {
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex');
+            }
+        };
+        
+        window.showError = function(message) {
+            const boundary = document.getElementById('error-boundary');
+            const messageEl = document.getElementById('error-message');
+            messageEl.textContent = message;
+            boundary.classList.remove('hidden');
+            boundary.classList.add('flex');
+        };
+    </script>
+    
+    <!-- Analytics (if production) -->
+    {% if isProduction %}
+    <!-- Add your analytics code here -->
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,56 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# dotenv environment variables
+.env
+
+# Build output (for Tailwind or future builds)
+public/css/output.css
+
+# Optional npm cache directory
+.npm
+
+# Debugging stuff
+*.sublime-workspace
+*.vscode/
+
+# Mac system files
+.DS_Store
+
+# Optional coverage files
+coverage/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# Database files (if local dev DBs are stored)
+*.sqlite
+*.sqlite3
+
+# Test results
+/test-results/
+
+# Optional - compiled views (if you cache or precompile .njk)
+*.njk.js
+
+# Optional Tailwind JIT cache
+.tailwind/
+
+# IDE specific
+.idea/

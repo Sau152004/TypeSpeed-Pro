@@ -1,0 +1,412 @@
+{% extends "layouts/main.njk" %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto space-y-8">
+    <!-- Hero Section -->
+    <div class="text-center py-12">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+            Master Your <span class="text-primary-600">Typing Speed</span>
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            Improve your typing skills with our professional typing test. Track your progress and achieve your personal best.
+        </p>
+    </div>
+    
+    <!-- Typing Test Area -->
+    <section id="typing-test">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <!-- Test Configuration -->
+            <div class="flex flex-wrap items-center justify-between mb-6 gap-4">
+                <!-- Test Mode Selector -->
+                <div class="flex items-center space-x-2">
+                    <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Mode:</label>
+                    <select id="test-mode" class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                        <option value="time">Time</option>
+                        <option value="words">Words</option>
+                        <option value="quote">Quote</option>
+                    </select>
+                </div>
+                
+                <!-- Test Duration/Length -->
+                <div class="flex items-center space-x-2" id="test-config">
+                    <div id="time-options" class="flex space-x-2">
+                        <button class="config-btn active" data-value="15">15s</button>
+                        <button class="config-btn" data-value="30">30s</button>
+                        <button class="config-btn" data-value="60">60s</button>
+                        <button class="config-btn" data-value="120">120s</button>
+                    </div>
+                    
+                    <div id="word-options" class="hidden flex space-x-2">
+                        <button class="config-btn" data-value="25">25</button>
+                        <button class="config-btn active" data-value="50">50</button>
+                        <button class="config-btn" data-value="100">100</button>
+                    </div>
+                </div>
+                
+                <!-- Reset Button -->
+                <button id="reset-test" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                    🔄 Reset
+                </button>
+            </div>
+            
+            <!-- Stats Display -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-primary-600" id="wpm-display">0</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">WPM</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-green-600" id="accuracy-display">100%</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Accuracy</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-blue-600" id="time-display">--</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Time</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-purple-600" id="raw-wpm-display">0</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">Raw</div>
+                </div>
+            </div>
+            
+            <!-- Typing Text Display -->
+            <div class="mb-6">
+                <div id="text-display" class="font-mono text-xl md:text-2xl leading-relaxed p-6 bg-gray-50 dark:bg-gray-900 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 min-h-[200px] focus-within:border-primary-500 transition-colors">
+                    <p class="text-gray-500 dark:text-gray-400 text-center mt-16">Loading text... Click "Start Test" to begin!</p>
+                </div>
+            </div>
+            
+            <!-- Typing Input -->
+            <div class="mb-6">
+                <input 
+                    type="text" 
+                    id="typing-input" 
+                    class="w-full font-mono text-xl p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+                    placeholder="Click here and start typing..."
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    disabled
+                />
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="mb-4">
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                    <div id="progress-bar" class="bg-primary-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex justify-center space-x-4">
+                <button id="start-test" class="px-8 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors text-lg">
+                    🚀 Start Test
+                </button>
+                <button id="stop-test" class="px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors text-lg hidden">
+                    ⏹️ Stop Test
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Results Panel -->
+    <section id="results-panel">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6" id="results-container">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-bold">Test Results</h2>
+                <button id="share-results" class="hidden px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+                    📤 Share
+                </button>
+            </div>
+            
+            <div id="results-content" class="hidden">
+                <!-- Detailed Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+                        <div class="text-3xl font-bold text-primary-600" id="final-wpm">0</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">WPM</div>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+                        <div class="text-3xl font-bold text-green-600" id="final-accuracy">100%</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">Accuracy</div>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+                        <div class="text-3xl font-bold text-blue-600" id="final-time">0s</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">Time</div>
+                    </div>
+                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
+                        <div class="text-3xl font-bold text-purple-600" id="final-raw-wpm">0</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">Raw WPM</div>
+                    </div>
+                </div>
+                
+                <!-- Additional Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="text-center">
+                        <div class="text-lg font-semibold" id="correct-chars">0</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">Correct</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-lg font-semibold text-red-500" id="incorrect-chars">0</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">Errors</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-lg font-semibold" id="total-chars">0</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">Total</div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <button id="retry-test" class="px-6 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-colors">
+                        🔄 Try Again
+                    </button>
+                    
+                    {% if user %}
+                    <button id="save-result" class="px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors">
+                        💾 Save Result
+                    </button>
+                    {% else %}
+                    <a href="/auth/login" class="px-6 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors inline-block">
+                        🔑 Login to Save
+                    </a>
+                    {% endif %}
+                    
+                    <button id="share-results-btn" class="px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors">
+                        📤 Share Results
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Initial State -->
+            <div id="no-results" class="text-center py-12">
+                <div class="text-4xl mb-4">⌨️</div>
+                <h3 class="text-lg font-medium mb-2">No Results Yet</h3>
+                <p class="text-gray-500 dark:text-gray-400">Complete a typing test to see your detailed results and statistics.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="py-16">
+        <h2 class="text-3xl font-bold text-center mb-12">Why Choose TypeSpeed Pro?</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl">⚡</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Real-time Feedback</h3>
+                <p class="text-gray-600 dark:text-gray-300">Get instant feedback on your typing accuracy and speed as you type.</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl">📊</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Progress Tracking</h3>
+                <p class="text-gray-600 dark:text-gray-300">Monitor your improvement over time with detailed statistics.</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl">🏆</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Global Competition</h3>
+                <p class="text-gray-600 dark:text-gray-300">Compete with typists worldwide on our leaderboards.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.config-btn {
+    @apply px-3 py-1 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors;
+}
+
+.config-btn.active {
+    @apply bg-primary-500 text-white border-primary-500 hover:bg-primary-600;
+}
+
+.typing-char {
+    @apply transition-colors duration-100;
+}
+
+.typing-char-correct {
+    color: #10b981;
+    background-color: rgba(16, 185, 129, 0.2);
+}
+
+.typing-char-incorrect {
+    color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.2);
+}
+
+.typing-char-current {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.typing-char-pending {
+    color: #6b7280;
+}
+
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    background-color: #3b82f6;
+    animation: blink 1s infinite;
+    height: 1.2em;
+    margin-left: 1px;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+#text-display.focused {
+    border-color: #3b82f6;
+    background-color: white;
+}
+
+.dark #text-display.focused {
+    background-color: #374151;
+}
+
+/* Add some nice hover effects */
+.config-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#start-test:hover, #stop-test:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Loading animation */
+.loading-dots {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.loading-dots div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #3b82f6;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loading-dots div:nth-child(1) {
+    left: 8px;
+    animation: loading1 0.6s infinite;
+}
+
+.loading-dots div:nth-child(2) {
+    left: 8px;
+    animation: loading2 0.6s infinite;
+}
+
+.loading-dots div:nth-child(3) {
+    left: 32px;
+    animation: loading2 0.6s infinite;
+}
+
+.loading-dots div:nth-child(4) {
+    left: 56px;
+    animation: loading3 0.6s infinite;
+}
+
+@keyframes loading1 {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+@keyframes loading3 {
+    0% { transform: scale(1); }
+    100% { transform: scale(0); }
+}
+
+@keyframes loading2 {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(24px, 0); }
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<!-- Load dependencies first -->
+<script src="/js/stats-calculator.js"></script>
+<script src="/js/sound-manager.js"></script>
+<script src="/js/theme-manager.js"></script>
+<script src="/js/api-client.js"></script>
+
+<!-- Load main engines -->
+<script src="/js/typing-engine.js"></script>
+
+<!-- Load app last -->
+<script src="/js/app.js"></script>
+
+<!-- Initialize everything -->
+<script>
+// Make user data available to JavaScript
+window.user = {{ user | dump | safe if user else 'null' }};
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Initializing TypeSpeed Pro...');
+    
+    // Add some startup flair
+    const textDisplay = document.getElementById('text-display');
+    if (textDisplay) {
+        textDisplay.innerHTML = `
+            <div class="text-center">
+                <div class="loading-dots">
+                    <div></div><div></div><div></div><div></div>
+                </div>
+                <p class="mt-4 text-gray-500 dark:text-gray-400">Generating typing text...</p>
+            </div>
+        `;
+    }
+    
+    // Initialize with a slight delay for better UX
+    setTimeout(() => {
+        if (window.typingEngine) {
+            window.typingEngine.generateText().then(() => {
+                console.log('✅ Initial text generated successfully');
+            }).catch(err => {
+                console.error('❌ Failed to generate initial text:', err);
+                // Fallback text
+                if (textDisplay) {
+                    textDisplay.innerHTML = '<p class="text-gray-500 dark:text-gray-400 text-center mt-16">Click "Start Test" to begin typing!</p>';
+                }
+            });
+        }
+    }, 500);
+    
+    // Add some nice keyboard shortcuts hints
+    const hints = [
+        'Press Ctrl+Enter to start a test',
+        'Press Ctrl+R to reset',
+        'Press Escape to stop a test',
+        'Click anywhere to focus the input'
+    ];
+    
+    console.log('💡 Keyboard shortcuts:');
+    hints.forEach(hint => console.log(`   ${hint}`));
+});
+
+// Add a nice welcome message
+console.log(`
+🎯 Welcome to TypeSpeed Pro!
+📊 Track your typing progress
+⚡ Real-time feedback
+🏆 Compete globally
+`);
+</script>
+{% endblock %}

@@ -1,0 +1,272 @@
+{% extends "layouts/main.njk" %}
+
+{% block title %}About - TypeSpeed Pro{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-12">
+    <!-- Hero Section -->
+    <div class="text-center py-16">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6">
+            About <span class="text-primary-600">TypeSpeed Pro</span>
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            The most advanced typing test platform designed to help you improve your typing speed, accuracy, and consistency with real-time feedback and comprehensive analytics.
+        </p>
+    </div>
+
+    <!-- Mission Section -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+                <h2 class="text-3xl font-bold mb-4">Our Mission</h2>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    We believe that excellent typing skills are fundamental in today's digital world. TypeSpeed Pro was created to provide the most effective and engaging way to master touch typing.
+                </p>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Our platform combines cutting-edge technology with proven teaching methods to deliver personalized training experiences that adapt to your skill level and learning pace.
+                </p>
+            </div>
+            <div class="text-center">
+                <div class="text-6xl mb-4">🎯</div>
+                <div class="text-2xl font-bold text-primary-600">Excellence in Typing</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center">
+            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-2xl">⚡</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Real-time Feedback</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+                Get instant visual feedback on every keystroke with color-coded accuracy indicators and live WPM calculations.
+            </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center">
+            <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-2xl">📊</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Advanced Analytics</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+                Track your progress with detailed statistics, performance charts, and personalized insights to identify areas for improvement.
+            </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center">
+            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-2xl">🏆</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Global Competition</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+                Compete with typists worldwide on our live leaderboards and challenge yourself to reach new personal bests.
+            </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center">
+            <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-2xl">🎨</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Customizable Experience</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+                Personalize your typing environment with themes, fonts, and settings that match your preferences and learning style.
+            </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center">
+            <div class="w-16 h-16 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-2xl">📱</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Cross-Platform</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+                Practice anywhere, anytime. Our responsive design works seamlessly across desktop, tablet, and mobile devices.
+            </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center">
+            <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-2xl">🔒</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Privacy First</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+                Your data is secure and private. We use industry-standard encryption and never share your personal information.
+            </p>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="bg-gradient-to-r from-primary-50 to-blue-50 dark:from-primary-900 dark:to-blue-900 dark:bg-opacity-20 rounded-xl p-8">
+        <h2 class="text-3xl font-bold text-center mb-8">Platform Statistics</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div>
+                <div class="text-3xl font-bold text-primary-600" id="total-users">10,000+</div>
+                <div class="text-sm text-gray-600 dark:text-gray-300">Active Users</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-green-600" id="total-tests">500,000+</div>
+                <div class="text-sm text-gray-600 dark:text-gray-300">Tests Completed</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-blue-600" id="avg-improvement">25%</div>
+                <div class="text-sm text-gray-600 dark:text-gray-300">Avg. Improvement</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-purple-600" id="countries">50+</div>
+                <div class="text-sm text-gray-600 dark:text-gray-300">Countries</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold text-center mb-8">How It Works</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="text-center">
+                <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-xl font-bold text-primary-600">1</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Choose Your Test</h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Select from time-based tests, word count challenges, inspirational quotes, or upload your own custom text.
+                </p>
+            </div>
+            <div class="text-center">
+                <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-xl font-bold text-primary-600">2</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Type & Learn</h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Start typing and receive instant feedback. Our algorithm analyzes every keystroke to provide real-time guidance.
+                </p>
+            </div>
+            <div class="text-center">
+                <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-xl font-bold text-primary-600">3</span>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Track Progress</h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Review detailed analytics, celebrate achievements, and set new goals to continue improving your typing skills.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technology Stack -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold text-center mb-8">Built with Modern Technology</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="p-4">
+                <div class="text-3xl mb-2">⚡</div>
+                <div class="font-semibold">Node.js</div>
+                <div class="text-sm text-gray-500">Server Runtime</div>
+            </div>
+            <div class="p-4">
+                <div class="text-3xl mb-2">🎨</div>
+                <div class="font-semibold">Tailwind CSS</div>
+                <div class="text-sm text-gray-500">Modern Styling</div>
+            </div>
+            <div class="p-4">
+                <div class="text-3xl mb-2">📊</div>
+                <div class="font-semibold">PostgreSQL</div>
+                <div class="text-sm text-gray-500">Database</div>
+            </div>
+            <div class="p-4">
+                <div class="text-3xl mb-2">🔄</div>
+                <div class="font-semibold">Socket.IO</div>
+                <div class="text-sm text-gray-500">Real-time Updates</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+        <div class="space-y-6">
+            <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                <h3 class="text-xl font-semibold mb-2">Is TypeSpeed Pro free to use?</h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Yes! TypeSpeed Pro is completely free to use. You can take unlimited typing tests, track your progress, and compete on leaderboards without any cost.
+                </p>
+            </div>
+            <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                <h3 class="text-xl font-semibold mb-2">Do I need to create an account?</h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                    You can use TypeSpeed Pro as a guest, but creating an account allows you to save your progress, view detailed statistics, and appear on leaderboards.
+                </p>
+            </div>
+            <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                <h3 class="text-xl font-semibold mb-2">How accurate are the WPM calculations?</h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Our WPM calculations follow the standard method of dividing characters typed by 5 (average word length) and adjusting for time. We also provide raw WPM for comparison.
+                </p>
+            </div>
+            <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                <h3 class="text-xl font-semibold mb-2">Can I use my own text for typing tests?</h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Absolutely! Our custom text feature allows you to paste your own content and practice typing with text that's relevant to your work or interests.
+                </p>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold mb-2">What's the best way to improve my typing speed?</h3>
+                <p class="text-gray-600 dark:text-gray-300">
+                    Focus on accuracy first - speed will naturally follow. Practice regularly with short sessions, use proper finger placement, and gradually increase difficulty as you improve.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="bg-gradient-to-r from-primary-500 to-blue-600 rounded-xl text-white p-8 text-center">
+        <h2 class="text-3xl font-bold mb-4">Ready to Start Typing?</h2>
+        <p class="text-xl mb-6 opacity-90">
+            Join thousands of users improving their typing skills every day.
+        </p>
+        <div class="space-x-4">
+            <a href="/" class="inline-block bg-white text-primary-600 font-semibold py-3 px-6 rounded-lg hover:bg-gray-100 transition-colors">
+                Start Typing Test
+            </a>
+            {% if not user %}
+            <a href="/auth/register" class="inline-block border-2 border-white text-white font-semibold py-3 px-6 rounded-lg hover:bg-white hover:text-primary-600 transition-colors">
+                Create Account
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+.animate-counter {
+    animation: countUp 2s ease-out;
+}
+
+@keyframes countUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate counters when they come into view
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-counter');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('[id^="total-"], [id^="avg-"], [id^="countries"]').forEach(el => {
+        observer.observe(el);
+    });
+});
+</script>
+{% endblock %}

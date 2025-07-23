@@ -1,0 +1,29 @@
+{% extends "layouts/main.njk" %}
+
+{% block title %}Server Error - TypeSpeed Pro{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center">
+    <div class="max-w-md mx-auto text-center">
+        <div class="mb-8">
+            <div class="text-9xl font-bold text-red-500 mb-4">500</div>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Server Error</h1>
+            <p class="text-gray-600 dark:text-gray-300 mb-8">
+                Something went wrong on our end. We're working to fix it!
+            </p>
+        </div>
+        
+        <div class="space-y-4">
+            <button onclick="window.location.reload()" class="inline-block bg-primary-500 hover:bg-primary-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+                🔄 Try Again
+            </button>
+            
+            <a href="/" class="block text-primary-600 hover:text-primary-700">
+                🏠 Back to Home
+            </a>
+        </div>
+        
+        <div class="mt-12 text-6xl animate-pulse">⚠️</div>
+    </div>
+</div>
+{% endblock %}
