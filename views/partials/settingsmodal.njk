@@ -1,0 +1,630 @@
+{# 
+  Settings Modal Partial
+  Usage: {% include "partials/settingsmodal.njk" %}
+  
+  Expected data structure:
+  - user: { preferences: {}, profile: {} }
+  - settings: { typing: {}, display: {}, accessibility: {} }
+#}
+
+<!-- Modal Overlay -->
+<div id="settingsModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <!-- Background overlay -->
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="closeSettingsModal()"></div>
+
+        <!-- Modal positioning -->
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+        <!-- Modal content -->
+        <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="text-2xl mr-3">⚙️</div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-white" id="modal-title">
+                                Settings
+                            </h3>
+                            <p class="text-sm text-primary-100">
+                                Customize your typing experience
+                            </p>
+                        </div>
+                    </div>
+                    <button onclick="closeSettingsModal()" class="text-primary-100 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex">
+                <!-- Sidebar Navigation -->
+                <div class="w-64 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700">
+                    <nav class="p-4 space-y-2">
+                        {% set navItems = [
+                            { id: 'typing', label: 'Typing Settings', icon: '⌨️' },
+                            { id: 'display', label: 'Display & Theme', icon: '🎨' },
+                            { id: 'sound', label: 'Sound & Audio', icon: '🔊' },
+                            { id: 'accessibility', label: 'Accessibility', icon: '♿' },
+                            { id: 'account', label: 'Account Settings', icon: '👤' },
+                            { id: 'privacy', label: 'Privacy & Data', icon: '🔒' },
+                            { id: 'keyboard', label: 'Keyboard Layout', icon: '⌨️' },
+                            { id: 'advanced', label: 'Advanced', icon: '🔧' }
+                        ] %}
+                        
+                        {% for item in navItems %}
+                        <button class="w-full text-left px-3 py-2 rounded-lg transition-colors settings-nav-item
+                            {% if loop.first %}bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300{% else %}text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800{% endif %}"
+                            data-section="{{ item.id }}">
+                            <span class="mr-3">{{ item.icon }}</span>
+                            {{ item.label }}
+                        </button>
+                        {% endfor %}
+                    </nav>
+                </div>
+
+                <!-- Main Content -->
+                <div class="flex-1 p-6 max-h-96 overflow-y-auto">
+                    <!-- Typing Settings -->
+                    <div id="typing-section" class="settings-section">
+                        <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Typing Settings</h4>
+                        
+                        <div class="space-y-6">
+                            <!-- Test Duration -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Default Test Duration
+                                </label>
+                                <select class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                                    <option value="15">15 seconds</option>
+                                    <option value="30" selected>30 seconds</option>
+                                    <option value="60">1 minute</option>
+                                    <option value="120">2 minutes</option>
+                                    <option value="300">5 minutes</option>
+                                </select>
+                            </div>
+
+                            <!-- Difficulty Level -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Difficulty Level
+                                </label>
+                                <div class="grid grid-cols-3 gap-3">
+                                    {% set difficulties = [
+                                        { value: 'easy', label: 'Easy', desc: 'Common words' },
+                                        { value: 'medium', label: 'Medium', desc: 'Mixed content' },
+                                        { value: 'hard', label: 'Hard', desc: 'Complex text' }
+                                    ] %}
+                                    {% for diff in difficulties %}
+                                    <label class="relative">
+                                        <input type="radio" name="difficulty" value="{{ diff.value }}" class="sr-only peer" {% if diff.value == 'medium' %}checked{% endif %}>
+                                        <div class="p-3 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-primary-500 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-900 dark:peer-checked:bg-opacity-20 transition-colors">
+                                            <div class="text-sm font-medium text-gray-900 dark:text-white">{{ diff.label }}</div>
+                                            <div class="text-xs text-gray-500 dark:text-gray-400">{{ diff.desc }}</div>
+                                        </div>
+                                    </label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <!-- Text Categories -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Preferred Text Categories
+                                </label>
+                                <div class="grid grid-cols-2 gap-3">
+                                    {% set categories = ['Literature', 'Technology', 'Science', 'Business', 'News', 'Programming'] %}
+                                    {% for category in categories %}
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500" {% if loop.index <= 3 %}checked{% endif %}>
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">{{ category }}</span>
+                                    </label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <!-- Error Handling -->
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500" checked>
+                                    <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Stop test on too many errors</span>
+                                </label>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Automatically end test if accuracy drops below 70%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Display & Theme Settings -->
+                    <div id="display-section" class="settings-section hidden">
+                        <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Display & Theme</h4>
+                        
+                        <div class="space-y-6">
+                            <!-- Theme Selection -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                                    Theme Preference
+                                </label>
+                                <div class="grid grid-cols-3 gap-3">
+                                    {% set themes = [
+                                        { value: 'light', label: 'Light', icon: '☀️' },
+                                        { value: 'dark', label: 'Dark', icon: '🌙' },
+                                        { value: 'auto', label: 'Auto', icon: '🔄' }
+                                    ] %}
+                                    {% for theme in themes %}
+                                    <label class="relative">
+                                        <input type="radio" name="theme" value="{{ theme.value }}" class="sr-only peer" {% if theme.value == 'auto' %}checked{% endif %}>
+                                        <div class="p-4 border-2 border-gray-200 dark:border-gray-600 rounded-lg cursor-pointer peer-checked:border-primary-500 peer-checked:bg-primary-50 dark:peer-checked:bg-primary-900 dark:peer-checked:bg-opacity-20 transition-colors text-center">
+                                            <div class="text-2xl mb-1">{{ theme.icon }}</div>
+                                            <div class="text-sm font-medium text-gray-900 dark:text-white">{{ theme.label }}</div>
+                                        </div>
+                                    </label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <!-- Font Settings -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Font Family
+                                </label>
+                                <select class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                                    <option value="inter">Inter (Default)</option>
+                                    <option value="roboto-mono">Roboto Mono</option>
+                                    <option value="fira-code">Fira Code</option>
+                                    <option value="jetbrains-mono">JetBrains Mono</option>
+                                    <option value="source-code-pro">Source Code Pro</option>
+                                </select>
+                            </div>
+
+                            <!-- Font Size -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Font Size: <span id="fontSize">18px</span>
+                                </label>
+                                <input type="range" min="14" max="24" value="18" class="w-full" onchange="document.getElementById('fontSize').textContent = this.value + 'px'">
+                            </div>
+
+                            <!-- Color Scheme -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                                    Accent Color
+                                </label>
+                                <div class="flex space-x-3">
+                                    {% set colors = ['blue', 'green', 'purple', 'red', 'yellow', 'pink'] %}
+                                    {% for color in colors %}
+                                    <button class="w-8 h-8 rounded-full bg-{{ color }}-500 border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors {% if color == 'blue' %}ring-2 ring-gray-400{% endif %}"></button>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <!-- Display Options -->
+                            <div class="space-y-3">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500" checked>
+                                    <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Show live WPM counter</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500" checked>
+                                    <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Highlight incorrect characters</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                    <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Show cursor during typing</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sound & Audio Settings -->
+                    <div id="sound-section" class="settings-section hidden">
+                        <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Sound & Audio</h4>
+                        
+                        <div class="space-y-6">
+                            <!-- Master Volume -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Master Volume: <span id="masterVolume">70%</span>
+                                </label>
+                                <input type="range" min="0" max="100" value="70" class="w-full" onchange="document.getElementById('masterVolume').textContent = this.value + '%'">
+                            </div>
+
+                            <!-- Sound Effects -->
+                            <div class="space-y-4">
+                                <h5 class="font-medium text-gray-900 dark:text-white">Sound Effects</h5>
+                                
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <label class="flex items-center">
+                                            <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500" checked>
+                                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Keystroke sounds</span>
+                                        </label>
+                                        <button class="text-sm text-primary-600 hover:text-primary-700">Test</button>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <label class="flex items-center">
+                                            <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500" checked>
+                                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Error notification sounds</span>
+                                        </label>
+                                        <button class="text-sm text-primary-600 hover:text-primary-700">Test</button>
+                                    </div>
+                                    
+                                    <div class="flex items-center justify-between">
+                                        <label class="flex items-center">
+                                            <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Achievement sounds</span>
+                                        </label>
+                                        <button class="text-sm text-primary-600 hover:text-primary-700">Test</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Keyboard Sound Type -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Keyboard Sound Type
+                                </label>
+                                <select class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                                    <option value="mechanical">Mechanical</option>
+                                    <option value="typewriter">Typewriter</option>
+                                    <option value="soft" selected>Soft</option>
+                                    <option value="none">None</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Accessibility Settings -->
+                    <div id="accessibility-section" class="settings-section hidden">
+                        <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Accessibility</h4>
+                        
+                        <div class="space-y-6">
+                            <!-- Visual Accessibility -->
+                            <div>
+                                <h5 class="font-medium text-gray-900 dark:text-white mb-3">Visual Accessibility</h5>
+                                <div class="space-y-3">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">High contrast mode</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Reduce motion and animations</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Large cursor for better visibility</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Motor Accessibility -->
+                            <div>
+                                <h5 class="font-medium text-gray-900 dark:text-white mb-3">Motor Accessibility</h5>
+                                <div class="space-y-3">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Sticky keys support</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Slower typing mode</span>
+                                    </label>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                            Key repeat delay: <span id="keyDelay">250ms</span>
+                                        </label>
+                                        <input type="range" min="100" max="500" step="50" value="250" class="w-full" onchange="document.getElementById('keyDelay').textContent = this.value + 'ms'">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Screen Reader -->
+                            <div>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                    <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Enhanced screen reader support</span>
+                                </label>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Provides detailed descriptions of typing progress</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Settings -->
+                    <div id="account-section" class="settings-section hidden">
+                        <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Account Settings</h4>
+                        
+                        <div class="space-y-6">
+                            <!-- Profile Information -->
+                            <div>
+                                <h5 class="font-medium text-gray-900 dark:text-white mb-3">Profile Information</h5>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            Display Name
+                                        </label>
+                                        <input type="text" value="TypeSpeedPro User" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                            Country
+                                        </label>
+                                        <select class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                                            <option value="">Select Country</option>
+                                            <option value="US">United States</option>
+                                            <option value="UK">United Kingdom</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="AU">Australia</option>
+                                            <option value="DE">Germany</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Email Settings -->
+                            <div>
+                                <h5 class="font-medium text-gray-900 dark:text-white mb-3">Email Notifications</h5>
+                                <div class="space-y-3">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500" checked>
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Weekly progress reports</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Achievement notifications</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Leaderboard updates</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Account Actions -->
+                            <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+                                <div class="flex space-x-3">
+                                    <button class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+                                        Export Data
+                                    </button>
+                                    <button class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors">
+                                        Delete Account
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy & Data Settings -->
+                    <div id="privacy-section" class="settings-section hidden">
+                        <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Privacy & Data</h4>
+                        
+                        <div class="space-y-6">
+                            <!-- Data Collection -->
+                            <div>
+                                <h5 class="font-medium text-gray-900 dark:text-white mb-3">Data Collection</h5>
+                                <div class="space-y-3">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500" checked>
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Allow analytics to improve service</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Share typing data for research</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Profile Visibility -->
+                            <div>
+                                <h5 class="font-medium text-gray-900 dark:text-white mb-3">Profile Visibility</h5>
+                                <div class="space-y-3">
+                                    <label class="flex items-center">
+                                        <input type="radio" name="profile-visibility" value="public" class="border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500" checked>
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Public - Visible on leaderboards</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="profile-visibility" value="friends" class="border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Friends only</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="profile-visibility" value="private" class="border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Private - Hidden from all</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keyboard Layout Settings -->
+                    <div id="keyboard-section" class="settings-section hidden">
+                        <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Keyboard Layout</h4>
+                        
+                        <div class="space-y-6">
+                            <!-- Layout Selection -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Keyboard Layout
+                                </label>
+                                <select class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                                    <option value="qwerty" selected>QWERTY</option>
+                                    <option value="dvorak">Dvorak</option>
+                                    <option value="colemak">Colemak</option>
+                                    <option value="azerty">AZERTY</option>
+                                    <option value="qwertz">QWERTZ</option>
+                                </select>
+                            </div>
+
+                            <!-- Visual Keyboard -->
+                            <div>
+                                <label class="flex items-center mb-3">
+                                    <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500" checked>
+                                    <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Show virtual keyboard</span>
+                                </label>
+                            </div>
+
+                            <!-- Key Highlighting -->
+                            <div>
+                                <h5 class="font-medium text-gray-900 dark:text-white mb-3">Key Highlighting</h5>
+                                <div class="space-y-3">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500" checked>
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Highlight next key to press</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Show finger placement hints</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Advanced Settings -->
+                    <div id="advanced-section" class="settings-section hidden">
+                        <h4 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Advanced Settings</h4>
+                        
+                        <div class="space-y-6">
+                            <!-- Performance -->
+                            <div>
+                                <h5 class="font-medium text-gray-900 dark:text-white mb-3">Performance</h5>
+                                <div class="space-y-3">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Enable hardware acceleration</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500" checked>
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Preload next test content</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Data Management -->
+                            <div>
+                                <h5 class="font-medium text-gray-900 dark:text-white mb-3">Data Management</h5>
+                                <div class="flex space-x-3">
+                                    <button class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg transition-colors">
+                                        Clear Cache
+                                    </button>
+                                    <button class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+                                        Reset All Settings
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Developer Options -->
+                            <div>
+                                <h5 class="font-medium text-gray-900 dark:text-white mb-3">Developer Options</h5>
+                                <div class="space-y-3">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Enable debug mode</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="rounded border-gray-300 dark:border-gray-600 text-primary-600 focus:ring-primary-500">
+                                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Show performance metrics</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-gray-50 dark:bg-gray-900 px-6 py-4 flex justify-between items-center border-t border-gray-200 dark:border-gray-700">
+                <div class="text-sm text-gray-500 dark:text-gray-400">
+                    Settings are automatically saved
+                </div>
+                <div class="flex space-x-3">
+                    <button onclick="resetSettings()" class="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                        Reset to Defaults
+                    </button>
+                    <button onclick="closeSettingsModal()" class="px-6 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-colors">
+                        Done
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Settings Modal JavaScript
+function openSettingsModal() {
+    document.getElementById('settingsModal').classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+}
+
+function closeSettingsModal() {
+    document.getElementById('settingsModal').classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+}
+
+function resetSettings() {
+    if (confirm('Are you sure you want to reset all settings to defaults? This action cannot be undone.')) {
+        // Reset all form elements to defaults
+        document.querySelectorAll('#settingsModal input[type="checkbox"]').forEach(checkbox => {
+            checkbox.checked = checkbox.hasAttribute('checked');
+        });
+        document.querySelectorAll('#settingsModal input[type="radio"]').forEach(radio => {
+            radio.checked = radio.hasAttribute('checked');
+        });
+        document.querySelectorAll('#settingsModal select').forEach(select => {
+            select.selectedIndex = 0;
+        });
+        document.querySelectorAll('#settingsModal input[type="range"]').forEach(range => {
+            range.value = range.getAttribute('value');
+            // Trigger change event to update display
+            range.dispatchEvent(new Event('change'));
+        });
+        
+        // Show success message
+        alert('Settings have been reset to defaults.');
+    }
+}
+
+// Navigation between settings sections
+document.addEventListener('DOMContentLoaded', function() {
+    const navItems = document.querySelectorAll('.settings-nav-item');
+    const sections = document.querySelectorAll('.settings-section');
+    
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const sectionId = this.dataset.section;
+            
+            // Update active nav item
+            navItems.forEach(nav => {
+                nav.classList.remove('bg-primary-100', 'dark:bg-primary-900', 'text-primary-700', 'dark:text-primary-300');
+                nav.classList.add('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
+            });
+            this.classList.add('bg-primary-100', 'dark:bg-primary-900', 'text-primary-700', 'dark:text-primary-300');
+            this.classList.remove('text-gray-600', 'dark:text-gray-300', 'hover:bg-gray-100', 'dark:hover:bg-gray-800');
+            
+            // Show corresponding section
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId + '-section').classList.remove('hidden');
+        });
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !document.getElementById('settingsModal').classList.contains('hidden')) {
+            closeSettingsModal();
+        }
+    });
+    
+    // Auto-save settings on change
+    document.querySelectorAll('#settingsModal input, #settingsModal select').forEach(element => {
+        element.addEventListener('change', function() {
+            // Here you would typically save to localStorage or send to server
+            console.log('Setting changed:', this.name || this.dataset.setting, this.value || this.checked);
+        });
+    });
+});
+</script>

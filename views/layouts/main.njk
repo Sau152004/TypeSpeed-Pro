@@ -1,130 +1,113 @@
 <!DOCTYPE html>
-<html lang="en" class="{{ theme }}">
+<html lang="{{ lang or 'en' }}" class="{{ theme }}" dir="{{ dir or 'ltr' }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="{% block description %}Professional typing test platform with real-time feedback, advanced analytics, and global leaderboards. Improve your typing speed and accuracy.{% endblock %}">
-    <meta name="keywords" content="typing test, typing speed, WPM, typing practice, keyboard skills, touch typing">
+    <meta name="keywords" content="{% block keywords %}typing test, typing speed, WPM, typing practice, keyboard skills, touch typing, typing tutor, speed test{% endblock %}">
     <meta name="author" content="TypeSpeed Pro">
+    <meta name="robots" content="{% block robots %}index, follow{% endblock %}">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="color-scheme" content="light dark">
+    
+    <!-- Canonical URL -->
+    {% if canonicalUrl %}
+    <link rel="canonical" href="{{ siteUrl }}{{ canonicalUrl }}">
+    {% endif %}
+    
+    <!-- Alternate languages -->
+    {% if alternateLanguages %}
+        {% for lang in alternateLanguages %}
+        <link rel="alternate" hreflang="{{ lang.code }}" href="{{ lang.url }}">
+        {% endfor %}
+    {% endif %}
     
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ request.url if request else 'https://typespeed.pro' }}">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{{ siteUrl }}{{ canonicalUrl or currentPath }}">
     <meta property="og:title" content="{% block og_title %}{{ title or 'TypeSpeed Pro - Professional Typing Test' }}{% endblock %}">
     <meta property="og:description" content="{% block og_description %}The most advanced typing test platform with real-time feedback and comprehensive analytics.{% endblock %}">
-    <meta property="og:image" content="{% block og_image %}/images/og-image.png{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ siteUrl }}/images/og-image.png{% endblock %}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="TypeSpeed Pro - Professional Typing Test Platform">
+    <meta property="og:site_name" content="TypeSpeed Pro">
+    <meta property="og:locale" content="{{ locale or 'en_US' }}">
     
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="{{ request.url if request else 'https://typespeed.pro' }}">
-    <meta property="twitter:title" content="{% block twitter_title %}{{ title or 'TypeSpeed Pro - Professional Typing Test' }}{% endblock %}">
-    <meta property="twitter:description" content="{% block twitter_description %}The most advanced typing test platform with real-time feedback and comprehensive analytics.{% endblock %}">
-    <meta property="twitter:image" content="{% block twitter_image %}/images/og-image.png{% endblock %}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@typespeedpro">
+    <meta name="twitter:creator" content="@typespeedpro">
+    <meta name="twitter:url" content="{{ siteUrl }}{{ canonicalUrl or currentPath }}">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ title or 'TypeSpeed Pro - Professional Typing Test' }}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}The most advanced typing test platform with real-time feedback and comprehensive analytics.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ siteUrl }}/images/og-image.png{% endblock %}">
+    <meta name="twitter:image:alt" content="TypeSpeed Pro Platform Screenshot">
+    
+    <!-- Apple/iOS specific -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="TypeSpeed Pro">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- Microsoft specific -->
+    <meta name="msapplication-TileColor" content="#3b82f6">
+    <meta name="msapplication-config" content="/browserconfig.xml">
     
     <title>{% block title %}{{ title or 'TypeSpeed Pro - Professional Typing Test' }}{% endblock %}</title>
     
-    <!-- Favicon -->
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://api.typespeedpro.com" crossorigin>
+    
+    <!-- DNS prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    
+    <!-- Favicon and icons -->
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#3b82f6">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/css/output.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" as="style">
+    <link rel="preload" href="/js/main.js" as="script">
     
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Styles -->
-    <link href="/css/output.css" rel="stylesheet">
-    
-    <!-- Custom CSS -->
+    <!-- Critical CSS -->
     <style>
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+        /* Critical above-the-fold styles */
+        .critical-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
         }
         
-        ::-webkit-scrollbar-track {
-            background: var(--scrollbar-track);
+        .dark .critical-loading {
+            background: #111827;
         }
         
-        ::-webkit-scrollbar-thumb {
-            background: var(--scrollbar-thumb);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--scrollbar-thumb-hover);
-        }
-        
-        /* CSS Variables for theming */
-        :root {
-            --scrollbar-track: #f1f5f9;
-            --scrollbar-thumb: #cbd5e1;
-            --scrollbar-thumb-hover: #94a3b8;
-        }
-        
-        .dark {
-            --scrollbar-track: #1f2937;
-            --scrollbar-thumb: #4b5563;
-            --scrollbar-thumb-hover: #6b7280;
-        }
-        
-        /* Animation utilities */
-        .animate-slide-in {
-            animation: slideIn 0.3s ease-out;
-        }
-        
-        .animate-slide-out {
-            animation: slideOut 0.3s ease-in;
-        }
-        
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        .animate-scale-in {
-            animation: scaleIn 0.2s ease-out;
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes scaleIn {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        
-        /* Custom font families */
-        .font-mono {
-            font-family: 'JetBrains Mono', 'Courier New', monospace;
-        }
-        
-        .font-sans {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-        }
-        
-        /* Loading spinner */
         .loading-spinner {
-            border: 3px solid #f3f4f6;
+            border: 3px solid #e2e8f0;
             border-top: 3px solid #3b82f6;
             border-radius: 50%;
-            width: 24px;
-            height: 24px;
+            width: 40px;
+            height: 40px;
             animation: spin 1s linear infinite;
         }
         
@@ -133,87 +116,441 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* Typing cursor */
+        /* Font face declarations for faster loading */
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2') format('woff2');
+        }
+        
+        /* System font fallbacks */
+        .font-sans {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        .font-mono {
+            font-family: 'JetBrains Mono', 'SF Mono', Monaco, Inconsolata, 'Roboto Mono', Consolas, 'Courier New', monospace;
+        }
+    </style>
+    
+    <!-- Main Styles -->
+    <link href="/css/output.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        /* CSS Custom Properties for theming */
+        :root {
+            --color-primary: 59 130 246;
+            --color-primary-50: 239 246 255;
+            --color-primary-500: 59 130 246;
+            --color-primary-600: 37 99 235;
+            --scrollbar-track: #f1f5f9;
+            --scrollbar-thumb: #cbd5e1;
+            --scrollbar-thumb-hover: #94a3b8;
+            --shadow-primary: 0 4px 6px -1px rgba(59, 130, 246, 0.1);
+        }
+        
+        [data-theme="dark"], .dark {
+            --scrollbar-track: #1f2937;
+            --scrollbar-thumb: #4b5563;
+            --scrollbar-thumb-hover: #6b7280;
+        }
+        
+        /* Enhanced scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 4px;
+            border: 1px solid var(--scrollbar-track);
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--scrollbar-thumb-hover);
+        }
+        
+        ::-webkit-scrollbar-corner {
+            background: var(--scrollbar-track);
+        }
+        
+        /* Enhanced animations */
+        @keyframes slideInDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeInScale {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .animate-slide-in-down { animation: slideInDown 0.3s ease-out; }
+        .animate-slide-in-up { animation: slideInUp 0.3s ease-out; }
+        .animate-slide-in-left { animation: slideInLeft 0.3s ease-out; }
+        .animate-slide-in-right { animation: slideInRight 0.3s ease-out; }
+        .animate-fade-in-scale { animation: fadeInScale 0.4s ease-out; }
+        .animate-pulse-slow { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        
+        /* Typography enhancements */
+        .text-balance {
+            text-wrap: balance;
+        }
+        
+        /* Focus management */
+        .focus-ring {
+            @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900;
+        }
+        
+        /* Typing-specific styles */
+        .typing-text {
+            line-height: 1.6;
+            letter-spacing: 0.02em;
+        }
+        
         .typing-cursor {
-            border-left: 2px solid #3b82f6;
+            display: inline-block;
+            width: 2px;
+            background-color: rgb(59 130 246);
             animation: blink 1s infinite;
         }
         
         @keyframes blink {
-            0%, 50% { border-color: #3b82f6; }
-            51%, 100% { border-color: transparent; }
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
         
-        /* Focus visible styles */
-        .focus-visible:focus {
-            outline: 2px solid #3b82f6;
-            outline-offset: 2px;
+        .correct-char {
+            background-color: rgba(34, 197, 94, 0.2);
+            color: rgb(34, 197, 94);
+        }
+        
+        .incorrect-char {
+            background-color: rgba(239, 68, 68, 0.2);
+            color: rgb(239, 68, 68);
+        }
+        
+        .current-char {
+            background-color: rgba(59, 130, 246, 0.3);
+            border-radius: 2px;
+        }
+        
+        /* Accessibility enhancements */
+        .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
+        }
+        
+        .sr-only:focus {
+            position: static !important;
+            width: auto !important;
+            height: auto !important;
+            padding: 0.5rem 1rem !important;
+            margin: 0 !important;
+            overflow: visible !important;
+            clip: auto !important;
+            white-space: normal !important;
+            background: rgb(59 130 246) !important;
+            color: white !important;
+            border-radius: 0.5rem !important;
+            z-index: 50 !important;
+        }
+        
+        /* Reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            
+            .typing-cursor {
+                animation: none;
+                opacity: 1;
+            }
+        }
+        
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            .correct-char {
+                background-color: rgba(0, 255, 0, 0.3);
+                color: rgb(0, 128, 0);
+            }
+            
+            .incorrect-char {
+                background-color: rgba(255, 0, 0, 0.3);
+                color: rgb(255, 0, 0);
+            }
         }
         
         /* Print styles */
         @media print {
-            .no-print {
+            .no-print, .print-hidden {
                 display: none !important;
             }
+            
+            .print-visible {
+                display: block !important;
+            }
+            
+            .print-break-before {
+                page-break-before: always;
+            }
+            
+            .print-break-after {
+                page-break-after: always;
+            }
+            
+            body {
+                color: black !important;
+                background: white !important;
+            }
+        }
+        
+        /* Loading states */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        .dark .skeleton {
+            background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+            background-size: 200% 100%;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Safe area insets for mobile devices */
+        .safe-area-top {
+            padding-top: env(safe-area-inset-top);
+        }
+        
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        .safe-area-left {
+            padding-left: env(safe-area-inset-left);
+        }
+        
+        .safe-area-right {
+            padding-right: env(safe-area-inset-right);
         }
     </style>
     
+    <!-- Structured Data -->
+    {% if structuredData %}
+    <script type="application/ld+json">
+        {{ structuredData | dump | safe }}
+    </script>
+    {% endif %}
+    
     {% block head %}{% endblock %}
 </head>
-<body class="font-sans bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
-    <!-- Skip to main content -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded-lg z-50">
-        Skip to main content
-    </a>
+<body class="font-sans bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200 safe-area-top safe-area-bottom">
+    <!-- Critical loading screen -->
+    <div id="critical-loading" class="critical-loading">
+        <div class="text-center">
+            <div class="loading-spinner mb-4"></div>
+            <div class="text-lg font-medium text-gray-700 dark:text-gray-300">
+                Loading TypeSpeed Pro...
+            </div>
+        </div>
+    </div>
+    
+    <!-- Skip navigation links -->
+    <nav class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 space-x-2" aria-label="Skip navigation">
+        <a href="#main-content" class="focus-ring bg-primary-600 text-white px-4 py-2 rounded-lg">
+            Skip to main content
+        </a>
+        <a href="#navigation" class="focus-ring bg-primary-600 text-white px-4 py-2 rounded-lg">
+            Skip to navigation
+        </a>
+        <a href="#footer" class="focus-ring bg-primary-600 text-white px-4 py-2 rounded-lg">
+            Skip to footer
+        </a>
+    </nav>
+    
+    <!-- Announcement Banner -->
+    {% if announcement %}
+    <div class="bg-primary-600 text-white py-2 px-4 text-center text-sm no-print" role="banner">
+        <div class="container mx-auto">
+            {{ announcement.message }}
+            {% if announcement.link %}
+            <a href="{{ announcement.link }}" class="underline hover:no-underline ml-2">
+                {{ announcement.linkText or 'Learn more' }}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
     
     <!-- Header -->
-    {% include "partials/header.njk" %}
+    {# {% include "partials/header.njk" %} #}
     
+    {% include "partials/settingsmodal.njk" %}
+
     <!-- Main Navigation -->
-    {% include "partials/navbar.njk" %}
+    <nav id="navigation" aria-label="Main navigation">
+        {% include "partials/navbar.njk" %}
+    </nav>
+    
+    <!-- Breadcrumb Navigation -->
+    {% if breadcrumbs and breadcrumbs.length > 1 %}
+    <nav aria-label="Breadcrumb" class="container mx-auto px-4 sm:px-6 lg:px-8 py-2 no-print">
+        <ol class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+            {% for crumb in breadcrumbs %}
+                <li class="flex items-center">
+                    {% if not loop.first %}
+                        <svg class="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                    {% endif %}
+                    {% if crumb.url and not loop.last %}
+                        <a href="{{ crumb.url }}" class="hover:text-primary-600 transition-colors">
+                            {{ crumb.name }}
+                        </a>
+                    {% else %}
+                        <span class="{% if loop.last %}text-gray-900 dark:text-gray-100 font-medium{% endif %}">
+                            {{ crumb.name }}
+                        </span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    </nav>
+    {% endif %}
     
     <!-- Main Content -->
-    <main id="main-content" class="min-h-screen">
+    <main id="main-content" class="min-h-screen" role="main">
+        <!-- Page Header -->
+        {% if pageTitle or pageDescription %}
+        <header class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 no-print">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                {% if pageTitle %}
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                    {{ pageTitle }}
+                </h1>
+                {% endif %}
+                {% if pageDescription %}
+                <p class="text-lg text-gray-600 dark:text-gray-300 text-balance">
+                    {{ pageDescription }}
+                </p>
+                {% endif %}
+            </div>
+        </header>
+        {% endif %}
+        
+        <!-- Content Area -->
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {% block content %}{% endblock %}
         </div>
     </main>
     
     <!-- Footer -->
-    {% include "partials/footer.njk" %}
+    <footer id="footer" role="contentinfo">
+        {% include "partials/footer.njk" %}
+    </footer>
     
-    <!-- Settings Modal -->
-    {% include "partials/settings-modal.njk" %}
+    <!-- Modals and Overlays -->
+    {% include "partials/settingsmodal.njk" %}
+    
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-consent" class="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 z-40 transform translate-y-full transition-transform duration-300 no-print" role="banner" aria-live="polite">
+        <div class="container mx-auto flex flex-col sm:flex-row items-center justify-between">
+            <div class="text-sm mb-3 sm:mb-0 sm:mr-4">
+                We use cookies to enhance your experience and analyze site usage. 
+                <a href="/cookies" class="underline hover:no-underline">Learn more</a>
+            </div>
+            <div class="flex space-x-2">
+                <button id="accept-cookies" class="bg-primary-600 hover:bg-primary-700 px-4 py-2 rounded text-sm font-medium transition-colors">
+                    Accept All
+                </button>
+                <button id="customize-cookies" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded text-sm font-medium transition-colors">
+                    Customize
+                </button>
+                <button id="decline-cookies" class="text-gray-300 hover:text-white px-2 py-2 text-sm">
+                    Decline
+                </button>
+            </div>
+        </div>
+    </div>
     
     <!-- Toast Notifications Container -->
-    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2 max-w-sm">
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2 max-w-sm no-print" role="region" aria-live="polite" aria-label="Notifications">
         <!-- Toasts will be inserted here -->
     </div>
     
     <!-- Loading Overlay -->
-    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
-        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-sm mx-4">
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center no-print" role="dialog" aria-modal="true" aria-labelledby="loading-title">
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-sm mx-4 shadow-xl">
             <div class="flex items-center space-x-3">
                 <div class="loading-spinner"></div>
-                <span class="text-lg font-medium">Loading...</span>
+                <span id="loading-title" class="text-lg font-medium">Loading...</span>
             </div>
         </div>
     </div>
     
     <!-- Error Boundary -->
-    <div id="error-boundary" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
-        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4">
+    <div id="error-boundary" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center no-print" role="dialog" aria-modal="true" aria-labelledby="error-title">
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4 shadow-xl">
             <div class="text-center">
-                <div class="text-4xl mb-4">⚠️</div>
-                <h3 class="text-lg font-semibold mb-2">Something went wrong</h3>
+                <div class="text-4xl mb-4" role="img" aria-label="Warning">⚠️</div>
+                <h3 id="error-title" class="text-lg font-semibold mb-2">Something went wrong</h3>
                 <p class="text-gray-600 dark:text-gray-400 mb-4" id="error-message">
                     An unexpected error occurred. Please refresh the page and try again.
                 </p>
                 <div class="space-x-2">
-                    <button onclick="window.location.reload()" class="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg">
+                    <button onclick="window.location.reload()" class="bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 rounded-lg focus-ring">
                         Refresh Page
                     </button>
-                    <button onclick="document.getElementById('error-boundary').classList.add('hidden')" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-lg">
+                    <button onclick="document.getElementById('error-boundary').classList.add('hidden')" class="bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-lg focus-ring">
                         Dismiss
                     </button>
                 </div>
@@ -221,102 +558,262 @@
         </div>
     </div>
     
+    <!-- Offline Indicator -->
+    <div id="offline-indicator" class="fixed top-4 left-1/2 transform -translate-x-1/2 bg-orange-500 text-white px-4 py-2 rounded-lg shadow-lg z-40 hidden no-print" role="alert">
+        <div class="flex items-center space-x-2">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+            </svg>
+            <span>You're offline. Some features may not work.</span>
+        </div>
+    </div>
+    
+    <!-- Update Available Banner -->
+    <div id="update-banner" class="fixed top-0 left-0 right-0 bg-blue-600 text-white p-2 text-center z-40 transform -translate-y-full transition-transform duration-300 no-print" role="banner">
+        <div class="flex items-center justify-center space-x-4">
+            <span>A new version of TypeSpeed Pro is available!</span>
+            <button id="update-app" class="bg-white text-blue-600 px-3 py-1 rounded text-sm font-medium hover:bg-gray-100">
+                Update Now
+            </button>
+            <button id="dismiss-update" class="text-blue-100 hover:text-white">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Keyboard Shortcuts Help -->
+    <div id="shortcuts-help" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center no-print" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-2xl mx-4 max-h-96 overflow-y-auto">
+            <div class="flex items-center justify-between mb-4">
+                <h3 id="shortcuts-title" class="text-lg font-semibold">Keyboard Shortcuts</h3>
+                <button onclick="document.getElementById('shortcuts-help').classList.add('hidden')" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div>
+                    <h4 class="font-medium mb-2">General</h4>
+                    <div class="space-y-1">
+                        <div class="flex justify-between"><span>New Test</span> <kbd class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">Ctrl + N</kbd></div>
+                        <div class="flex justify-between"><span>Reset Test</span> <kbd class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">Ctrl + R</kbd></div>
+                        <div class="flex justify-between"><span>Settings</span> <kbd class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">Ctrl + ,</kbd></div>
+                        <div class="flex justify-between"><span>Help</span> <kbd class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">?</kbd></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-2">Navigation</h4>
+                    <div class="space-y-1">
+                        <div class="flex justify-between"><span>Home</span> <kbd class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">Alt + H</kbd></div>
+                        <div class="flex justify-between"><span>Profile</span> <kbd class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">Alt + P</kbd></div>
+                        <div class="flex justify-between"><span>Leaderboard</span> <kbd class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">Alt + L</kbd></div>
+                        <div class="flex justify-between"><span>Practice</span> <kbd class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">Alt + R</kbd></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Scripts -->
     <script>
-        // Global configuration
+        // Critical path configuration
         window.APP_CONFIG = {
-            apiUrl: '{{ "/api" if isProduction else "/api" }}',
+            apiUrl: '/api',
+            wsUrl: window.location.protocol === 'https:' ? 'wss:' : 'ws:' + '//' + window.location.host,
             isProduction: {{ 'true' if isProduction else 'false' }},
+            isDevelopment: {{ 'true' if isDevelopment else 'false' }},
             user: {{ user | dump | safe if user else 'null' }},
             theme: '{{ theme }}',
-            currentPage: '{{ currentPage }}'
+            currentPage: '{{ currentPage }}',
+            currentPath: '{{ currentPath }}',
+            version: '{{ appVersion }}',
+            features: {
+                offline: true,
+                pwa: {{ 'true' if isProduction else 'false' }},
+                analytics: {{ 'true' if isProduction else 'false' }},
+                soundEffects: true,
+                keyboards: true,
+                competitions: true
+            },
+            settings: {
+                autoSave: true,
+                soundEnabled: {{ user.settings.soundEnabled | default(true) if user else 'true' }},
+                theme: '{{ user.settings.theme | default("system") if user else "system" }}',
+                fontSize: {{ user.settings.fontSize | default(16) if user else '16' }},
+                keyboardLayout: '{{ user.settings.keyboardLayout | default("qwerty") if user else "qwerty" }}'
+            }
         };
         
-        // Set current user for global access
+        // Set global user reference
         window.currentUser = window.APP_CONFIG.user;
+        
+        // Hide critical loading screen once DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const loading = document.getElementById('critical-loading');
+                if (loading) {
+                    loading.style.display = 'none';
+                }
+            }, 100);
+        });
     </script>
     
     <!-- Socket.IO -->
-    {% if isProduction %}
-        <script src="/socket.io/socket.io.js"></script>
-    {% else %}
-        <script src="/socket.io/socket.io.js"></script>
-    {% endif %}
+    <script src="/socket.io/socket.io.js" async></script>
     
-    <!-- Core JavaScript -->
-    <script src="/js/theme-manager.js"></script>
-    <script src="/js/sound-manager.js"></script>
-    <script src="/js/api-client.js"></script>
-    <script src="/js/stats-calculator.js"></script>
-    <script src="/js/main.js"></script>
+    <!-- Core JavaScript modules -->
+    <script src="/js/utils.js" defer></script>
+    <script src="/js/theme-manager.js" defer></script>
+    <script src="/js/sound-manager.js" defer></script>
+    <script src="/js/api-client.js" defer></script>
+    <script src="/js/stats-calculator.js" defer></script>
+    <script src="/js/keyboard-manager.js" defer></script>
+    <script src="/js/analytics.js" defer></script>
+    <script src="/js/offline-manager.js" defer></script>
+    <script src="/js/main.js" defer></script>
     
     <!-- Page-specific scripts -->
     {% block scripts %}{% endblock %}
     
-    <!-- Global error handler -->
+    <!-- Application initialization -->
     <script>
-        // Global error handling
-        window.addEventListener('error', function(event) {
-            console.error('Global error:', event.error);
-            if (!window.APP_CONFIG.isProduction) {
-                console.error('Error stack:', event.error.stack);
+        // Initialize application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize theme manager
+            if (window.ThemeManager) {
+                window.ThemeManager.init();
             }
-        });
-        
-        window.addEventListener('unhandledrejection', function(event) {
-            console.error('Unhandled promise rejection:', event.reason);
-            event.preventDefault();
-        });
-        
-        // Service worker registration (for PWA support)
-        if ('serviceWorker' in navigator && window.APP_CONFIG.isProduction) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(function(registration) {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch(function(registrationError) {
-                        console.log('SW registration failed: ', registrationError);
+            
+            // Initialize sound manager
+            if (window.SoundManager) {
+                window.SoundManager.init();
+            }
+            
+            // Initialize offline detection
+            window.addEventListener('online', function() {
+                document.getElementById('offline-indicator').classList.add('hidden');
+                window.showToast('Connection restored', 'success');
+            });
+            
+            window.addEventListener('offline', function() {
+                document.getElementById('offline-indicator').classList.remove('hidden');
+            });
+            
+            // Initialize cookie consent
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    document.getElementById('cookie-consent').classList.remove('translate-y-full');
+                }, 2000);
+            }
+            
+            // Cookie consent handlers
+            document.getElementById('accept-cookies').addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'accepted');
+                document.getElementById('cookie-consent').classList.add('translate-y-full');
+            });
+            
+            document.getElementById('decline-cookies').addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'declined');
+                document.getElementById('cookie-consent').classList.add('translate-y-full');
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Help shortcut
+                if (e.key === '?' && !e.ctrlKey && !e.altKey) {
+                    document.getElementById('shortcuts-help').classList.remove('hidden');
+                    e.preventDefault();
+                }
+                
+                // Global shortcuts
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key) {
+                        case 'n':
+                            e.preventDefault();
+                            window.location.href = '/test';
+                            break;
+                        case ',':
+                            e.preventDefault();
+                            if (window.openSettingsModal) window.openSettingsModal();
+                            break;
+                    }
+                }
+                
+                // Alt shortcuts
+                if (e.altKey) {
+                    switch(e.key) {
+                        case 'h':
+                            e.preventDefault();
+                            window.location.href = '/';
+                            break;
+                        case 'p':
+                            e.preventDefault();
+                            window.location.href = '/profile';
+                            break;
+                        case 'l':
+                            e.preventDefault();
+                            window.location.href = '/leaderboard';
+                            break;
+                        case 'r':
+                            e.preventDefault();
+                            window.location.href = '/practice';
+                            break;
+                    }
+                }
+            });
+            
+            // Initialize Socket.IO when available
+            if (typeof io !== 'undefined') {
+                setTimeout(() => {
+                    window.socket = io();
+                    
+                    if (window.currentUser) {
+                        window.socket.emit('join-user', window.currentUser.id);
+                    }
+                    
+                    window.socket.on('connect', () => console.log('Socket connected'));
+                    window.socket.on('disconnect', () => console.log('Socket disconnected'));
+                    
+                    // Listen for real-time updates
+                    window.socket.on('stats-update', (data) => {
+                        if (window.updateFooterStats) {
+                            window.updateFooterStats(data);
+                        }
                     });
-            });
-        }
-        
-        // Initialize Socket.IO connection
-        if (typeof io !== 'undefined') {
-            window.socket = io();
-            
-            // Join user session if logged in
-            if (window.currentUser) {
-                window.socket.emit('join-user', window.currentUser.id);
+                }, 1000);
             }
-            
-            // Handle connection status
-            window.socket.on('connect', function() {
-                console.log('Socket connected');
-            });
-            
-            window.socket.on('disconnect', function() {
-                console.log('Socket disconnected');
-            });
-        }
+        });
         
-        // Utility functions
+        // Global utility functions
         window.showToast = function(message, type = 'info', duration = 3000) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             
             const colors = {
-                success: 'bg-green-500',
-                error: 'bg-red-500',
-                warning: 'bg-yellow-500',
-                info: 'bg-blue-500'
+                success: 'bg-green-500 border-green-600',
+                error: 'bg-red-500 border-red-600',
+                warning: 'bg-yellow-500 border-yellow-600',
+                info: 'bg-blue-500 border-blue-600'
             };
             
-            toast.className = `${colors[type] || colors.info} text-white px-4 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-x-full opacity-0`;
+            const icons = {
+                success: '✓',
+                error: '✕',
+                warning: '⚠',
+                info: 'ℹ'
+            };
+            
+            toast.className = `${colors[type] || colors.info} text-white px-4 py-3 rounded-lg shadow-lg border-l-4 transform transition-all duration-300 translate-x-full opacity-0 max-w-sm`;
             toast.innerHTML = `
                 <div class="flex items-center justify-between">
-                    <span>${message}</span>
-                    <button onclick="this.closest('.transform').remove()" class="ml-4 text-white hover:text-gray-200">
+                    <div class="flex items-center space-x-2">
+                        <span class="font-medium">${icons[type] || icons.info}</span>
+                        <span>${message}</span>
+                    </div>
+                    <button onclick="this.closest('.transform').remove()" class="ml-4 text-white hover:text-gray-200 focus:outline-none">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                         </svg>
@@ -331,15 +828,19 @@
                 toast.classList.remove('translate-x-full', 'opacity-0');
             });
             
-            // Auto-remove after duration
+            // Auto-remove
             setTimeout(() => {
                 toast.classList.add('translate-x-full', 'opacity-0');
                 setTimeout(() => toast.remove(), 300);
             }, duration);
         };
         
-        window.showLoading = function(show = true) {
+        window.showLoading = function(show = true, message = 'Loading...') {
             const overlay = document.getElementById('loading-overlay');
+            const title = document.getElementById('loading-title');
+            
+            if (title) title.textContent = message;
+            
             if (show) {
                 overlay.classList.remove('hidden');
                 overlay.classList.add('flex');
@@ -349,18 +850,78 @@
             }
         };
         
-        window.showError = function(message) {
+        window.showError = function(message, title = 'Something went wrong') {
             const boundary = document.getElementById('error-boundary');
+            const titleEl = document.getElementById('error-title');
             const messageEl = document.getElementById('error-message');
-            messageEl.textContent = message;
+            
+            if (titleEl) titleEl.textContent = title;
+            if (messageEl) messageEl.textContent = message;
+            
             boundary.classList.remove('hidden');
             boundary.classList.add('flex');
         };
+        
+        // Global error handling
+        window.addEventListener('error', function(event) {
+            console.error('Global error:', event.error);
+            if (!window.APP_CONFIG.isProduction) {
+                console.error('Error details:', {
+                    message: event.message,
+                    filename: event.filename,
+                    lineno: event.lineno,
+                    colno: event.colno,
+                    stack: event.error?.stack
+                });
+            }
+        });
+        
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('Unhandled promise rejection:', event.reason);
+            event.preventDefault();
+            
+            if (!window.APP_CONFIG.isProduction) {
+                window.showToast('An error occurred. Check console for details.', 'error');
+            }
+        });
+        
+        // Service Worker registration for PWA
+        if ('serviceWorker' in navigator && window.APP_CONFIG.features.pwa) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('SW registered:', registration);
+                        
+                        // Handle updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // Show update banner
+                                    document.getElementById('update-banner').classList.remove('-translate-y-full');
+                                    
+                                    document.getElementById('update-app').addEventListener('click', () => {
+                                        newWorker.postMessage({ action: 'skipWaiting' });
+                                        window.location.reload();
+                                    });
+                                    
+                                    document.getElementById('dismiss-update').addEventListener('click', () => {
+                                        document.getElementById('update-banner').classList.add('-translate-y-full');
+                                    });
+                                }
+                            });
+                        });
+                    })
+                    .catch(function(registrationError) {
+                        console.log('SW registration failed:', registrationError);
+                    });
+            });
+        }
     </script>
     
-    <!-- Analytics (if production) -->
-    {% if isProduction %}
-    <!-- Add your analytics code here -->
+    <!-- Analytics -->
+    {% if isProduction and analytics %}
+    <script defer data-domain="{{ siteUrl | replace("https://", "") | replace("http://", "") }}" src="https://plausible.io/js/script.js"></script>
     {% endif %}
 </body>
 </html>

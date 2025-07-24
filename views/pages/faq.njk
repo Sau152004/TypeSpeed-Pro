@@ -1,0 +1,1052 @@
+{% extends "layouts/main.njk" %}
+
+{% block title %}FAQs - TypeSpeed Pro{% endblock %}
+
+{% block content %}
+    <div class="max-w-4xl mx-auto space-y-8">
+        <!-- Header -->
+        <div class="text-center py-12">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">
+            Frequently Asked <span class="text-primary-600">Questions</span>
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            Find answers to common questions about typing, our platform, and improving your skills.
+        </p>
+            <nav class="flex justify-center space-x-4 text-sm">
+                <a href="/resources" class="text-primary-600 hover:underline">← Back to Resources</a>
+                <span class="text-gray-300">|</span>
+                <a href="#general" class="hover:text-primary-600">General</a>
+                <span class="text-gray-300">|</span>
+                <a href="#improvement" class="hover:text-primary-600">Improvement</a>
+                <span class="text-gray-300">|</span>
+                <a href="#technical" class="hover:text-primary-600">Technical</a>
+            </nav>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+            <div class="relative">
+                <input 
+                type="text" 
+                id="faq-search" 
+                placeholder="Search FAQs..." 
+                class="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            >
+                <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </div>
+            </div>
+            <div id="search-results" class="mt-4 hidden">
+                <h3 class="font-semibold mb-2">Search Results:</h3>
+                <div id="results-list"></div>
+            </div>
+        </div>
+
+        <!-- FAQ Categories -->
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 rounded-xl p-6 text-center">
+                <div class="text-4xl mb-3">❓</div>
+                <h3 class="font-bold text-lg mb-2">General Questions</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300">Basic questions about typing and our platform</p>
+            </div>
+            <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 rounded-xl p-6 text-center">
+                <div class="text-4xl mb-3">📈</div>
+                <h3 class="font-bold text-lg mb-2">Improvement Tips</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300">How to get better at typing faster and more accurately</p>
+            </div>
+            <div class="bg-purple-50 dark:bg-purple-900 dark:bg-opacity-20 rounded-xl p-6 text-center">
+                <div class="text-4xl mb-3">🔧</div>
+                <h3 class="font-bold text-lg mb-2">Technical Support</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300">Platform features, accounts, and troubleshooting</p>
+            </div>
+        </div>
+
+        <!-- General Questions -->
+        <section id="general" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-3">❓</span>
+            General Questions
+        </h2>
+
+            <div class="space-y-4">
+                <!-- FAQ Item -->
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="what typing speed good average wpm">
+                        <span>What is a good typing speed?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">Typing speeds vary by skill level and profession:</p>
+                        <ul class="list-disc list-inside space-y-1 mb-3">
+                            <li>
+                                <strong>Beginner:</strong> 10-25 WPM</li>
+                            <li>
+                                <strong>Average:</strong> 30-40 WPM</li>
+                            <li>
+                                <strong>Good:</strong> 50-60 WPM</li>
+                            <li>
+                                <strong>Excellent:</strong> 70+ WPM</li>
+                        </ul>
+                        <p>For most office jobs, 40-50 WPM is sufficient. Professional typists often achieve 60-80 WPM.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="how long learn touch typing time practice">
+                        <span>How long does it take to learn touch typing?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">The timeline depends on practice frequency and current skill level:</p>
+                        <ul class="list-disc list-inside space-y-1 mb-3">
+                            <li>
+                                <strong>Basic touch typing:</strong> 2-4 weeks with daily practice</li>
+                            <li>
+                                <strong>Comfortable speed (40 WPM):</strong> 2-3 months</li>
+                            <li>
+                                <strong>Professional speed (60+ WPM):</strong> 6-12 months</li>
+                        </ul>
+                        <p>Consistent daily practice of 15-30 minutes is more effective than long, infrequent sessions.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="accuracy vs speed which important first">
+                        <span>Should I focus on speed or accuracy first?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">
+                            <strong>Always prioritize accuracy first.</strong> Here's why:</p>
+                        <ul class="list-disc list-inside space-y-1 mb-3">
+                            <li>Accuracy builds proper muscle memory</li>
+                            <li>Speed naturally develops with good technique</li>
+                            <li>Fixing bad habits later is much harder</li>
+                            <li>Aim for 95%+ accuracy before focusing on speed</li>
+                        </ul>
+                        <p>Fast but inaccurate typing is counterproductive because you spend time correcting errors.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="keyboard layout qwerty dvorak colemak best">
+                        <span>Which keyboard layout is best for typing?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">The choice depends on your situation:</p>
+                        <div class="grid md:grid-cols-3 gap-4 mb-3">
+                            <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
+                                <h4 class="font-semibold">QWERTY</h4>
+                                <p class="text-sm">Most common, universal compatibility</p>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
+                                <h4 class="font-semibold">Dvorak</h4>
+                                <p class="text-sm">Designed for efficiency, less finger movement</p>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded">
+                                <h4 class="font-semibold">Colemak</h4>
+                                <p class="text-sm">Modern design, easier transition from QWERTY</p>
+                            </div>
+                        </div>
+                        <p>For most people, QWERTY is recommended due to its universal adoption. Alternative layouts can be more efficient but require significant relearning.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="mechanical keyboard membrane better typing">
+                        <span>Do I need a special keyboard for typing practice?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">Any keyboard works for learning, but some features can help:</p>
+                        <ul class="list-disc list-inside space-y-1 mb-3">
+                            <li>
+                                <strong>Tactile feedback:</strong> Mechanical keyboards provide better key feel</li>
+                            <li>
+                                <strong>Key spacing:</strong> Full-size keyboards are easier for beginners</li>
+                            <li>
+                                <strong>F and J bumps:</strong> Help find home row without looking</li>
+                            <li>
+                                <strong>Ergonomics:</strong> Comfortable design reduces fatigue</li>
+                        </ul>
+                        <p>Start with what you have. Upgrade to a better keyboard once you've developed basic skills.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Improvement Questions -->
+        <section id="improvement" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-3">📈</span>
+            Improvement Tips
+        </h2>
+
+            <div class="space-y-4">
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="improve typing speed faster practice methods">
+                        <span>How can I improve my typing speed faster?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">Follow these proven strategies:</p>
+                        <ol class="list-decimal list-inside space-y-1 mb-3">
+                            <li>
+                                <strong>Practice daily:</strong> 15-30 minutes consistently</li>
+                            <li>
+                                <strong>Master home row:</strong> Perfect finger placement first</li>
+                            <li>
+                                <strong>Don't look down:</strong> Train yourself not to peek at keys</li>
+                            <li>
+                                <strong>Focus on common words:</strong> The top 100 words make up 50% of text</li>
+                            <li>
+                                <strong>Practice difficult combinations:</strong> Work on your weak spots</li>
+                            <li>
+                                <strong>Use proper posture:</strong> Sit straight, feet flat, wrists floating</li>
+                            <li>
+                                <strong>Take breaks:</strong> Avoid fatigue and maintain quality</li>
+                        </ol>
+                        <p>Remember: consistent practice beats intensive cramming sessions.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="plateau stuck same speed not improving">
+                        <span>I'm stuck at the same speed. How do I break through?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">Plateaus are normal! Try these techniques to break through:</p>
+                        <ul class="list-disc list-inside space-y-1 mb-3">
+                            <li>
+                                <strong>Slow down temporarily:</strong> Practice at 50% of your max speed for accuracy</li>
+                            <li>
+                                <strong>Identify weak spots:</strong> Note which keys or combinations slow you down</li>
+                            <li>
+                                <strong>Practice specific drills:</strong> Target your problem areas</li>
+                            <li>
+                                <strong>Change text types:</strong> Try different content (technical, poetry, etc.)</li>
+                            <li>
+                                <strong>Take a short break:</strong> Sometimes rest helps consolidate learning</li>
+                            <li>
+                                <strong>Check your technique:</strong> Ensure you're using correct finger positioning</li>
+                        </ul>
+                        <p>Most plateaus last 1-2 weeks. Stay patient and focus on quality over speed.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="finger exercises stretches prevent injury pain">
+                        <span>What exercises help prevent typing-related injuries?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">Regular exercises and good habits prevent strain:</p>
+                        <div class="grid md:grid-cols-2 gap-4 mb-3">
+                            <div>
+                                <h4 class="font-semibold mb-2">Stretching Exercises:</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• Wrist circles (both directions)</li>
+                                    <li>• Finger stretches and extensions</li>
+                                    <li>• Shoulder rolls and neck stretches</li>
+                                    <li>• Prayer stretch for forearms</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-2">Prevention Tips:</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• Take breaks every 30 minutes</li>
+                                    <li>• Keep wrists straight and floating</li>
+                                    <li>• Adjust chair and monitor height</li>
+                                    <li>• Use light touch on keys</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p>If you experience persistent pain, consult a healthcare professional.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="numbers symbols special characters practice">
+                        <span>How do I get better at typing numbers and symbols?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">Numbers and symbols require dedicated practice:</p>
+                        <ol class="list-decimal list-inside space-y-1 mb-3">
+                            <li>
+                                <strong>Learn the finger assignments:</strong> Each finger has specific number keys</li>
+                            <li>
+                                <strong>Practice number sequences:</strong> 123, 456, 789, then random combinations</li>
+                            <li>
+                                <strong>Use the shift key properly:</strong> Use the opposite hand's pinky</li>
+                            <li>
+                                <strong>Practice common symbols:</strong> @, #, $, %, etc.</li>
+                            <li>
+                                <strong>Type dates and times:</strong> Real-world number practice</li>
+                            <li>
+                                <strong>Practice programming symbols:</strong> {}, [], (), &lt;&gt; if relevant</li>
+                        </ol>
+                        <p>Start slowly and build up speed. Numbers are typically 20-30% slower than letters initially.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="bad habits fix hunt peck looking keyboard">
+                        <span>How do I fix bad typing habits?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">Breaking bad habits takes patience and deliberate practice:</p>
+                        <div class="bg-yellow-50 dark:bg-yellow-900 dark:bg-opacity-20 p-4 rounded-lg mb-3">
+                            <h4 class="font-semibold mb-2">Common Bad Habits:</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• Looking at the keyboard</li>
+                                <li>• Using wrong fingers for keys</li>
+                                <li>• Hunt-and-peck typing</li>
+                                <li>• Resting wrists on desk</li>
+                            </ul>
+                        </div>
+                        <ol class="list-decimal list-inside space-y-1 mb-3">
+                            <li>
+                                <strong>Slow down initially:</strong> Focus on correct technique over speed</li>
+                            <li>
+                                <strong>Cover the keyboard:</strong> Force yourself not to look</li>
+                            <li>
+                                <strong>Use a typing tutor:</strong> Structured lessons reinforce good habits</li>
+                            <li>
+                                <strong>Practice finger exercises:</strong> Build proper muscle memory</li>
+                            <li>
+                                <strong>Be patient:</strong> Habit change takes 2-4 weeks of consistent practice</li>
+                        </ol>
+                        <p>Expect your speed to drop initially. This is normal and temporary.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Questions -->
+        <section id="technical" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-3">🔧</span>
+            Technical Support
+        </h2>
+
+            <div class="space-y-4">
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="account create profile registration">
+                        <span>How do I create an account and track my progress?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">Creating an account is free and easy:</p>
+                        <ol class="list-decimal list-inside space-y-1 mb-3">
+                            <li>Click "Sign Up" in the top navigation</li>
+                            <li>Enter your email, username, and password</li>
+                            <li>Verify your email address</li>
+                            <li>Complete your profile setup</li>
+                            <li>Start taking tests to build your progress history</li>
+                        </ol>
+                        <p class="mb-3">With an account, you get:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Detailed progress tracking and analytics</li>
+                            <li>Personal typing goals and milestones</li>
+                            <li>Access to leaderboards and competitions</li>
+                            <li>Custom practice exercises</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="typing test accurate results fair scoring">
+                        <span>How accurate are the typing test results?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">Our tests use industry-standard calculations:</p>
+                        <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 p-4 rounded-lg mb-3">
+                            <h4 class="font-semibold mb-2">WPM Calculation:</h4>
+                            <p class="text-sm">WPM = (Characters typed ÷ 5) ÷ (Time in minutes)</p>
+                            <p class="text-sm mt-1">We use 5 characters per word as the standard average.</p>
+                        </div>
+                        <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 p-4 rounded-lg mb-3">
+                            <h4 class="font-semibold mb-2">Accuracy Calculation:</h4>
+                            <p class="text-sm">Accuracy = (Correct characters ÷ Total characters) × 100</p>
+                            <p class="text-sm mt-1">Uncorrected errors count against accuracy.</p>
+                        </div>
+                        <p>Results are consistent with other major typing platforms and standardized tests.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="mobile tablet phone typing practice">
+                        <span>Can I practice on mobile devices?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">Yes! Our platform works on all devices:</p>
+                        <ul class="list-disc list-inside space-y-1 mb-3">
+                            <li>
+                                <strong>Desktop/Laptop:</strong> Full features, best experience</li>
+                            <li>
+                                <strong>Tablet:</strong> Good for touch typing practice</li>
+                            <li>
+                                <strong>Mobile Phone:</strong> Thumb typing and basic exercises</li>
+                        </ul>
+                        <p class="mb-3">Mobile-specific features:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Touch-optimized interface</li>
+                            <li>Thumb typing exercises</li>
+                            <li>Swipe gesture support</li>
+                            <li>Voice input alternatives</li>
+                        </ul>
+                        <p>However, desktop keyboards provide the best learning experience for traditional touch typing.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="data privacy security information safe">
+                        <span>Is my data safe and private?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">We take your privacy seriously:</p>
+                        <div class="grid md:grid-cols-2 gap-4 mb-3">
+                            <div>
+                                <h4 class="font-semibold mb-2">Data Security:</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• Encrypted data transmission (HTTPS)</li>
+                                    <li>• Secure password storage</li>
+                                    <li>• Regular security audits</li>
+                                    <li>• No selling of personal data</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-2">What We Store:</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• Typing test results and progress</li>
+                                    <li>• Account preferences</li>
+                                    <li>• Usage analytics (anonymous)</li>
+                                    <li>• Email for account management</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p>You can delete your account and all associated data at any time from your profile settings.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="keyboard not working browser compatibility issues">
+                        <span>The typing test isn't working properly. What should I do?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">Try these troubleshooting steps:</p>
+                        <ol class="list-decimal list-inside space-y-1 mb-3">
+                            <li>
+                                <strong>Refresh the page:</strong> Simple reload often fixes minor issues</li>
+                            <li>
+                                <strong>Check browser compatibility:</strong> We support Chrome, Firefox, Safari, Edge</li>
+                            <li>
+                                <strong>Disable extensions:</strong> Ad blockers or other extensions might interfere</li>
+                            <li>
+                                <strong>Clear browser cache:</strong> Old cached files might cause problems</li>
+                            <li>
+                                <strong>Try a different browser:</strong> Rule out browser-specific issues</li>
+                            <li>
+                                <strong>Check keyboard layout:</strong> Ensure your system uses the expected layout</li>
+                        </ol>
+                        <p class="mb-3">Still having issues? Contact support with:</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Browser name and version</li>
+                            <li>Operating system</li>
+                            <li>Description of the problem</li>
+                            <li>Any error messages</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question w-full text-left flex justify-between items-center py-2 font-semibold hover:text-primary-600 transition-colors" data-keywords="contact support help customer service">
+                        <span>How can I contact customer support?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden mt-2 text-gray-600 dark:text-gray-300">
+                        <p class="mb-3">We're here to help! Reach out through:</p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2">📧 Email Support</h4>
+                                <p class="text-sm mb-2">support@typespeedpro.com</p>
+                                <p class="text-xs text-gray-500">Response within 24 hours</p>
+                            </div>
+                            <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 p-4 rounded-lg">
+                                <h4 class="font-semibold mb-2">💬 Live Chat</h4>
+                                <p class="text-sm mb-2">Available Mon-Fri, 9AM-5PM EST</p>
+                                <p class="text-xs text-gray-500">Instant responses during business hours</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                            <h4 class="font-semibold mb-2">🎯 Help Us Help You</h4>
+                            <p class="text-sm">For faster resolution, include your account email, browser details, and specific steps to reproduce any issues.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Still Have Questions -->
+        <section class="bg-gradient-to-r from-primary-500 to-blue-600 rounded-xl text-white p-8 text-center">
+            <h2 class="text-3xl font-bold mb-4">Still Have Questions?</h2>
+            <p class="text-xl mb-6 opacity-90">
+            Can't find what you're looking for? Our support team is ready to help!
+        </p>
+            <div class="space-x-4">
+                <a href="mailto:support@typespeedpro.com" class="inline-block bg-white text-primary-600 font-semibold py-3 px-6 rounded-lg hover:bg-gray-100 transition-colors">
+                Email Support
+            </a>
+                <button onclick="openLiveChat()" class="inline-block border-2 border-white text-white font-semibold py-3 px-6 rounded-lg hover:bg-white hover:text-primary-600 transition-colors">
+                Live Chat
+            </button>
+            </div>
+        </section>
+
+        <!-- Quick Links -->
+        <section class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center">
+                <div class="text-3xl mb-4">📚</div>
+                <h3 class="font-bold text-lg mb-2">Learning Resources</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                Comprehensive guides and tutorials to improve your typing skills.
+            </p>
+                <a href="/resources" class="inline-block bg-primary-500 hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                Browse Resources
+            </a>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center">
+                <div class="text-3xl mb-4">🎯</div>
+                <h3 class="font-bold text-lg mb-2">Practice Exercises</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                Structured exercises for all skill levels to build your abilities.
+            </p>
+                <a href="/resources/practice-exercises" class="inline-block bg-primary-500 hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                Start Practicing
+            </a>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center">
+                <div class="text-3xl mb-4">🏆</div>
+                <h3 class="font-bold text-lg mb-2">Speed Goals</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                Set targets and track your progress with personalized goals.
+            </p>
+                <a href="/resources/speed-goals" class="inline-block bg-primary-500 hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                Set Goals
+            </a>
+            </div>
+        </section>
+    </div>
+
+    <style>
+        /* FAQ-specific styles */
+        .faq-question {
+            position: relative;
+        }
+
+        .faq-question:hover {
+            color: #3b82f6;
+        }
+
+        .faq-question svg {
+            transition: transform 0.2s ease;
+        }
+
+        .faq-question.active svg {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            line-height: 1.6;
+        }
+
+        .faq-answer ol,
+        .faq-answer ul {
+            margin-left: 1rem;
+        }
+
+        .faq-answer h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Search functionality */
+        #faq-search {
+            transition: all 0.2s ease;
+        }
+
+        #faq-search:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .search-highlight {
+            background-color: yellow;
+            font-weight: bold;
+            color: black;
+        }
+
+        .dark .search-highlight {
+            background-color: #fbbf24;
+            color: #1f2937;
+        }
+
+        /* Category cards hover effects */
+        .category-card {
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Smooth scrolling for navigation */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* FAQ animations */
+        .faq-item {
+            transition: all 0.2s ease;
+        }
+
+        .faq-item:hover {
+            background-color: rgba(59, 130, 246, 0.02);
+            border-radius: 8px;
+            padding-left: 4px;
+        }
+
+        .dark .faq-item:hover {
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+
+        /* Search results styling */
+        #search-results {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .search-result-item {
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .search-result-item:hover {
+            background-color: #f3f4f6;
+            border-color: #3b82f6;
+        }
+
+        .dark .search-result-item {
+            border-color: #4b5563;
+            background-color: #374151;
+        }
+
+        .dark .search-result-item:hover {
+            background-color: #4b5563;
+            border-color: #60a5fa;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .faq-question {
+                font-size: 0.9rem;
+            }
+
+            .faq-answer {
+                font-size: 0.85rem;
+            }
+
+            .grid.md\\:grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .faq-answer {
+                display: block !important;
+            }
+
+            .faq-question svg {
+                display: none;
+            }
+
+            #faq-search {
+                display: none;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeFAQ();
+            initializeSearch();
+            initializeSmoothScrolling();
+        });
+
+        function initializeFAQ() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function () {
+                    const answer = this.nextElementSibling;
+                    const isOpen = !answer
+                        .classList
+                        .contains('hidden');
+
+                    // Close all other answers
+                    document
+                        .querySelectorAll('.faq-answer')
+                        .forEach(ans => {
+                            ans
+                                .classList
+                                .add('hidden');
+                        });
+                    document
+                        .querySelectorAll('.faq-question')
+                        .forEach(q => {
+                            q
+                                .classList
+                                .remove('active');
+                        });
+
+                    // Toggle current answer
+                    if (!isOpen) {
+                        answer
+                            .classList
+                            .remove('hidden');
+                        this
+                            .classList
+                            .add('active');
+
+                        // Smooth scroll to question if needed
+                        setTimeout(() => {
+                            this.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+                        }, 100);
+                    }
+                });
+            });
+        }
+
+        function initializeSearch() {
+            const searchInput = document.getElementById('faq-search');
+            const searchResults = document.getElementById('search-results');
+            const resultsList = document.getElementById('results-list');
+
+            let searchTimeout;
+
+            searchInput.addEventListener('input', function () {
+                clearTimeout(searchTimeout);
+                const query = this
+                    .value
+                    .trim()
+                    .toLowerCase();
+
+                if (query.length < 2) {
+                    searchResults
+                        .classList
+                        .add('hidden');
+                    clearHighlights();
+                    return;
+                }
+
+                searchTimeout = setTimeout(() => {
+                    performSearch(query);
+                }, 300);
+            });
+
+            function performSearch(query) {
+                const faqItems = document.querySelectorAll('.faq-item');
+                const results = [];
+
+                // Clear previous highlights
+                clearHighlights();
+
+                faqItems.forEach(item => {
+                    const question = item
+                        .querySelector('.faq-question span')
+                        .textContent
+                        .toLowerCase();
+                    const answer = item
+                        .querySelector('.faq-answer')
+                        .textContent
+                        .toLowerCase();
+                    const keywords = item
+                        .querySelector('.faq-question')
+                        .dataset
+                        .keywords || '';
+
+                    const searchableText = `${question} ${answer} ${keywords}`.toLowerCase();
+
+                    if (searchableText.includes(query)) {
+                        results.push({
+                            element: item,
+                            question: item
+                                .querySelector('.faq-question span')
+                                .textContent,
+                            relevance: calculateRelevance(searchableText, query)
+                        });
+
+                        // Highlight matches in question
+                        highlightText(item.querySelector('.faq-question span'), query);
+                    }
+                });
+
+                // Sort by relevance
+                results.sort((a, b) => b.relevance - a.relevance);
+
+                displaySearchResults(results, query);
+            }
+
+            function calculateRelevance(text, query) {
+                let score = 0;
+                const words = query.split(' ');
+
+                words.forEach(word => {
+                    const regex = new RegExp(word, 'gi');
+                    const matches = text.match(regex);
+                    if (matches) {
+                        score += matches.length;
+                    }
+                });
+
+                return score;
+            }
+
+            function displaySearchResults(results, query) {
+                if (results.length === 0) {
+                    resultsList.innerHTML = '<p class="text-gray-500 dark:text-gray-400">No results found.</p>';
+                } else {
+                    resultsList.innerHTML = results
+                        .slice(0, 5)
+                        .map(result => `
+                <div class="search-result-item" onclick="scrollToFAQ(this)" data-target="${getItemId(result.element)}">
+                    <div class="font-medium">${highlightQueryInText(result.question, query)}</div>
+                </div>
+            `)
+                        .join('');
+                }
+
+                searchResults
+                    .classList
+                    .remove('hidden');
+            }
+
+            function highlightText(element, query) {
+                const text = element.textContent;
+                const regex = new RegExp(`(${query})`, 'gi');
+                element.innerHTML = text.replace(regex, '<span class="search-highlight">$1</span>');
+            }
+
+            function highlightQueryInText(text, query) {
+                const regex = new RegExp(`(${query})`, 'gi');
+                return text.replace(regex, '<span class="search-highlight">$1</span>');
+            }
+
+            function clearHighlights() {
+                document
+                    .querySelectorAll('.search-highlight')
+                    .forEach(highlight => {
+                        const parent = highlight.parentNode;
+                        parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+                        parent.normalize();
+                    });
+            }
+
+            function getItemId(element) {
+                return Array
+                    .from(document.querySelectorAll('.faq-item'))
+                    .indexOf(element);
+            }
+        }
+
+        function scrollToFAQ(resultElement) {
+            const targetIndex = parseInt(resultElement.dataset.target);
+            const faqItems = document.querySelectorAll('.faq-item');
+            const targetItem = faqItems[targetIndex];
+
+            if (targetItem) {
+                const questionButton = targetItem.querySelector('.faq-question');
+
+                // Open the FAQ
+                questionButton.click();
+
+                // Scroll to it
+                setTimeout(() => {
+                    targetItem.scrollIntoView({behavior: 'smooth', block: 'center'});
+                }, 100);
+
+                // Hide search results
+                document
+                    .getElementById('search-results')
+                    .classList
+                    .add('hidden');
+                document
+                    .getElementById('faq-search')
+                    .value = '';
+            }
+        }
+
+        function initializeSmoothScrolling() {
+            document
+                .querySelectorAll('a[href^="#"]')
+                .forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({behavior: 'smooth', block: 'start'});
+                        }
+                    });
+                });
+        }
+
+        function openLiveChat() {
+            // This would integrate with your live chat system
+            // For now, we'll show a placeholder
+            alert('Live chat would open here. For now, please email support@typespeedpro.com');
+
+            // Example integration with popular chat systems:
+            // Intercom: Intercom('show');
+            // Zendesk: zE('webWidget', 'open');
+            // Crisp: $crisp.push(['do', 'chat:open']);
+        }
+
+        // Keyboard shortcuts for FAQ navigation
+        document.addEventListener('keydown', function (e) {
+            // Press '/' to focus search
+            if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+                e.preventDefault();
+                document
+                    .getElementById('faq-search')
+                    .focus();
+            }
+
+            // Press Escape to clear search
+            if (e.key === 'Escape') {
+                const searchInput = document.getElementById('faq-search');
+                if (searchInput === document.activeElement) {
+                    searchInput.value = '';
+                    searchInput.blur();
+                    document
+                        .getElementById('search-results')
+                        .classList
+                        .add('hidden');
+                }
+            }
+        });
+
+        // Track FAQ engagement
+        function trackFAQInteraction(question) {
+            // Analytics tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'faq_interaction', {
+                    'event_category': 'engagement',
+                    'event_label': question
+                });
+            }
+        }
+
+        // Auto-expand FAQ from URL hash
+        window.addEventListener('load', function () {
+            if (window.location.hash) {
+                const targetSection = document.querySelector(window.location.hash);
+                if (targetSection) {
+                    setTimeout(() => {
+                        targetSection.scrollIntoView({behavior: 'smooth'});
+                    }, 100);
+                }
+            }
+        });
+
+        // FAQ voting system (for future implementation)
+        function voteFAQ(faqId, helpful) {
+            fetch('/api/faq/vote', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({faq_id: faqId, helpful: helpful})
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showFeedbackMessage('Thank you for your feedback!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error submitting feedback:', error);
+                });
+        }
+
+        function showFeedbackMessage(message) {
+            const feedbackDiv = document.createElement('div');
+            feedbackDiv.className = 'fixed top-4 right-4 bg-green-500 text-white p-3 rounded-lg shadow-lg z-50';
+            feedbackDiv.textContent = message;
+            document
+                .body
+                .appendChild(feedbackDiv);
+
+            setTimeout(() => {
+                feedbackDiv.remove();
+            }, 3000);
+        }
+    </script>
+{% endblock %}

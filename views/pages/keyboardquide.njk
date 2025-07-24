@@ -1,0 +1,859 @@
+{% extends "layouts/main.njk" %}
+
+{% block title %}Keyboard Guide - TypeSpeed Pro{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto space-y-8">
+    <!-- Header -->
+    <div class="text-center py-12">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+            <span class="text-primary-600">Keyboard</span> Guide
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            Master your keyboard layout, understand finger positioning, and learn the most efficient typing techniques.
+        </p>
+        <nav class="flex justify-center space-x-4 text-sm">
+            <a href="/resources" class="text-primary-600 hover:underline">← Back to Resources</a>
+            <span class="text-gray-300">|</span>
+            <a href="#layout" class="hover:text-primary-600">Layout</a>
+            <span class="text-gray-300">|</span>
+            <a href="#finger-map" class="hover:text-primary-600">Finger Map</a>
+            <span class="text-gray-300">|</span>
+            <a href="#special-keys" class="hover:text-primary-600">Special Keys</a>
+        </nav>
+    </div>
+
+    <!-- Interactive Keyboard Display -->
+    <section id="layout" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6 text-center">Interactive QWERTY Layout</h2>
+        <p class="text-center text-gray-600 dark:text-gray-300 mb-8">
+            Click on any key to see which finger should press it, or hover to see key information.
+        </p>
+        
+        <!-- Keyboard Layout -->
+        <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-8 max-w-4xl mx-auto">
+            <!-- Number Row -->
+            <div class="grid grid-cols-13 gap-1 mb-2" style="grid-template-columns: repeat(13, minmax(0, 1fr));">
+                <div class="keyboard-key" data-finger="left-pinky" data-key="`">
+                    <span class="main">~</span>
+                    <span class="sub">`</span>
+                </div>
+                <div class="keyboard-key" data-finger="left-pinky" data-key="1">
+                    <span class="main">!</span>
+                    <span class="sub">1</span>
+                </div>
+                <div class="keyboard-key" data-finger="left-ring" data-key="2">
+                    <span class="main">@</span>
+                    <span class="sub">2</span>
+                </div>
+                <div class="keyboard-key" data-finger="left-middle" data-key="3">
+                    <span class="main">#</span>
+                    <span class="sub">3</span>
+                </div>
+                <div class="keyboard-key" data-finger="left-index" data-key="4">
+                    <span class="main">$</span>
+                    <span class="sub">4</span>
+                </div>
+                <div class="keyboard-key" data-finger="left-index" data-key="5">
+                    <span class="main">%</span>
+                    <span class="sub">5</span>
+                </div>
+                <div class="keyboard-key" data-finger="right-index" data-key="6">
+                    <span class="main">^</span>
+                    <span class="sub">6</span>
+                </div>
+                <div class="keyboard-key" data-finger="right-index" data-key="7">
+                    <span class="main">&</span>
+                    <span class="sub">7</span>
+                </div>
+                <div class="keyboard-key" data-finger="right-middle" data-key="8">
+                    <span class="main">*</span>
+                    <span class="sub">8</span>
+                </div>
+                <div class="keyboard-key" data-finger="right-ring" data-key="9">
+                    <span class="main">(</span>
+                    <span class="sub">9</span>
+                </div>
+                <div class="keyboard-key" data-finger="right-pinky" data-key="0">
+                    <span class="main">)</span>
+                    <span class="sub">0</span>
+                </div>
+                <div class="keyboard-key" data-finger="right-pinky" data-key="-">
+                    <span class="main">_</span>
+                    <span class="sub">-</span>
+                </div>
+                <div class="keyboard-key" data-finger="right-pinky" data-key="=">
+                    <span class="main">+</span>
+                    <span class="sub">=</span>
+                </div>
+            </div>
+
+            <!-- Top Row (QWERTY) -->
+            <div class="grid grid-cols-12 gap-1 mb-2" style="grid-template-columns: 1.5fr repeat(10, 1fr) 1.5fr;">
+                <div class="keyboard-key special-key" data-key="Tab">Tab</div>
+                <div class="keyboard-key home-row" data-finger="left-pinky" data-key="q">Q</div>
+                <div class="keyboard-key" data-finger="left-ring" data-key="w">W</div>
+                <div class="keyboard-key" data-finger="left-middle" data-key="e">E</div>
+                <div class="keyboard-key" data-finger="left-index" data-key="r">R</div>
+                <div class="keyboard-key" data-finger="left-index" data-key="t">T</div>
+                <div class="keyboard-key" data-finger="right-index" data-key="y">Y</div>
+                <div class="keyboard-key" data-finger="right-index" data-key="u">U</div>
+                <div class="keyboard-key" data-finger="right-middle" data-key="i">I</div>
+                <div class="keyboard-key" data-finger="right-ring" data-key="o">O</div>
+                <div class="keyboard-key" data-finger="right-pinky" data-key="p">P</div>
+                <div class="keyboard-key" data-finger="right-pinky" data-key="[">
+                    <span class="main">{</span>
+                    <span class="sub">[</span>
+                </div>
+                <div class="keyboard-key" data-finger="right-pinky" data-key="]">
+                    <span class="main">}</span>
+                    <span class="sub">]</span>
+                </div>
+            </div>
+
+            <!-- Middle Row (Home Row) -->
+            <div class="grid grid-cols-12 gap-1 mb-2" style="grid-template-columns: 1.75fr repeat(9, 1fr) 2.25fr;">
+                <div class="keyboard-key special-key" data-key="Caps">Caps</div>
+                <div class="keyboard-key home-row" data-finger="left-pinky" data-key="a">A</div>
+                <div class="keyboard-key home-row" data-finger="left-ring" data-key="s">S</div>
+                <div class="keyboard-key home-row" data-finger="left-middle" data-key="d">D</div>
+                <div class="keyboard-key home-row" data-finger="left-index" data-key="f">F</div>
+                <div class="keyboard-key" data-finger="left-index" data-key="g">G</div>
+                <div class="keyboard-key" data-finger="right-index" data-key="h">H</div>
+                <div class="keyboard-key home-row" data-finger="right-index" data-key="j">J</div>
+                <div class="keyboard-key home-row" data-finger="right-middle" data-key="k">K</div>
+                <div class="keyboard-key home-row" data-finger="right-ring" data-key="l">L</div>
+                <div class="keyboard-key home-row" data-finger="right-pinky" data-key=";">
+                    <span class="main">:</span>
+                    <span class="sub">;</span>
+                </div>
+                <div class="keyboard-key" data-finger="right-pinky" data-key="'">
+                    <span class="main">"</span>
+                    <span class="sub">'</span>
+                </div>
+            </div>
+
+            <!-- Bottom Row -->
+            <div class="grid grid-cols-11 gap-1 mb-2" style="grid-template-columns: 2.25fr repeat(8, 1fr) 2.75fr;">
+                <div class="keyboard-key special-key" data-key="Shift">Shift</div>
+                <div class="keyboard-key" data-finger="left-pinky" data-key="z">Z</div>
+                <div class="keyboard-key" data-finger="left-ring" data-key="x">X</div>
+                <div class="keyboard-key" data-finger="left-middle" data-key="c">C</div>
+                <div class="keyboard-key" data-finger="left-index" data-key="v">V</div>
+                <div class="keyboard-key" data-finger="left-index" data-key="b">B</div>
+                <div class="keyboard-key" data-finger="right-index" data-key="n">N</div>
+                <div class="keyboard-key" data-finger="right-index" data-key="m">M</div>
+                <div class="keyboard-key" data-finger="right-middle" data-key=",">
+                    <span class="main">&lt;</span>
+                    <span class="sub">,</span>
+                </div>
+                <div class="keyboard-key" data-finger="right-ring" data-key=".">
+                    <span class="main">&gt;</span>
+                    <span class="sub">.</span>
+                </div>
+                <div class="keyboard-key" data-finger="right-pinky" data-key="/">
+                    <span class="main">?</span>
+                    <span class="sub">/</span>
+                </div>
+            </div>
+
+            <!-- Space Bar Row -->
+            <div class="grid grid-cols-7 gap-1" style="grid-template-columns: 1.25fr 1.25fr 1.25fr 6fr 1.25fr 1.25fr 1.25fr;">
+                <div class="keyboard-key special-key" data-key="Ctrl">Ctrl</div>
+                <div class="keyboard-key special-key" data-key="Win">Win</div>
+                <div class="keyboard-key special-key" data-key="Alt">Alt</div>
+                <div class="keyboard-key special-key" data-finger="thumb" data-key="Space">Space</div>
+                <div class="keyboard-key special-key" data-key="Alt">Alt</div>
+                <div class="keyboard-key special-key" data-key="Win">Win</div>
+                <div class="keyboard-key special-key" data-key="Ctrl">Ctrl</div>
+            </div>
+        </div>
+
+        <!-- Key Information Display -->
+        <div id="key-info" class="mt-8 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center">
+            <p class="text-gray-600 dark:text-gray-300">Click on a key to see which finger should press it</p>
+        </div>
+    </section>
+
+    <!-- Finger Mapping -->
+    <section id="finger-map" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6">Finger-to-Key Mapping</h2>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Left Hand -->
+            <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 rounded-xl p-6">
+                <h3 class="text-2xl font-bold mb-4 text-blue-600">Left Hand</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-pink-200 dark:bg-pink-800 rounded-full flex items-center justify-center font-bold">P</div>
+                        <div>
+                            <h4 class="font-semibold">Pinky Finger</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Q, A, Z, 1, `, Tab, Caps, Shift</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-yellow-200 dark:bg-yellow-800 rounded-full flex items-center justify-center font-bold">R</div>
+                        <div>
+                            <h4 class="font-semibold">Ring Finger</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">W, S, X, 2</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-green-200 dark:bg-green-800 rounded-full flex items-center justify-center font-bold">M</div>
+                        <div>
+                            <h4 class="font-semibold">Middle Finger</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">E, D, C, 3</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-blue-200 dark:bg-blue-800 rounded-full flex items-center justify-center font-bold">I</div>
+                        <div>
+                            <h4 class="font-semibold">Index Finger</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">R, T, F, G, V, B, 4, 5</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Hand -->
+            <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 rounded-xl p-6">
+                <h3 class="text-2xl font-bold mb-4 text-green-600">Right Hand</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-blue-200 dark:bg-blue-800 rounded-full flex items-center justify-center font-bold">I</div>
+                        <div>
+                            <h4 class="font-semibold">Index Finger</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Y, U, H, J, N, M, 6, 7</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-green-200 dark:bg-green-800 rounded-full flex items-center justify-center font-bold">M</div>
+                        <div>
+                            <h4 class="font-semibold">Middle Finger</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">I, K, &lt;, 8</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-yellow-200 dark:bg-yellow-800 rounded-full flex items-center justify-center font-bold">R</div>
+                        <div>
+                            <h4 class="font-semibold">Ring Finger</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">O, L, &gt;, 9</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-pink-200 dark:bg-pink-800 rounded-full flex items-center justify-center font-bold">P</div>
+                        <div>
+                            <h4 class="font-semibold">Pinky Finger</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">P, ;, ?, [, ], ', ", \, 0, -, =</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Row Emphasis -->
+        <div class="mt-8 bg-gradient-to-r from-primary-50 to-blue-50 dark:from-primary-900 dark:to-blue-900 dark:bg-opacity-20 rounded-xl p-6">
+            <h3 class="text-xl font-bold mb-4 text-center">🏠 Master the Home Row First</h3>
+            <div class="grid grid-cols-8 gap-2 max-w-md mx-auto mb-4">
+                <div class="bg-pink-200 dark:bg-pink-800 p-3 rounded text-center font-bold">A</div>
+                <div class="bg-yellow-200 dark:bg-yellow-800 p-3 rounded text-center font-bold">S</div>
+                <div class="bg-green-200 dark:bg-green-800 p-3 rounded text-center font-bold">D</div>
+                <div class="bg-blue-200 dark:bg-blue-800 p-3 rounded text-center font-bold">F</div>
+                <div class="bg-blue-200 dark:bg-blue-800 p-3 rounded text-center font-bold">J</div>
+                <div class="bg-green-200 dark:bg-green-800 p-3 rounded text-center font-bold">K</div>
+                <div class="bg-yellow-200 dark:bg-yellow-800 p-3 rounded text-center font-bold">L</div>
+                <div class="bg-pink-200 dark:bg-pink-800 p-3 rounded text-center font-bold">;</div>
+            </div>
+            <p class="text-center text-gray-600 dark:text-gray-300">
+                Your fingers should always return to these positions. The F and J keys have small bumps to help you find them without looking.
+            </p>
+        </div>
+    </section>
+
+    <!-- Special Keys Guide -->
+    <section id="special-keys" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6">Special Keys & Shortcuts</h2>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Modifier Keys -->
+            <div class="bg-purple-50 dark:bg-purple-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-lg font-bold mb-4 text-purple-600">Modifier Keys</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Shift</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-300">Capital letters, symbols</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Ctrl</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-300">Commands, shortcuts</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Alt</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-300">Menu access, special chars</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Win</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-300">System shortcuts</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Function Keys -->
+            <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-lg font-bold mb-4 text-blue-600">Function Keys</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">F1</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-300">Help</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">F2</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-300">Rename</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">F5</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-300">Refresh</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">F11</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-300">Fullscreen</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Keys -->
+            <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-lg font-bold mb-4 text-green-600">Navigation</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Home</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-300">Start of line</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">End</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-300">End of line</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Page Up/Down</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-300">Scroll pages</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium">Arrow Keys</span>
+                        <span class="text-sm text-gray-600 dark:text-gray-300">Move cursor</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Common Shortcuts -->
+        <div class="mt-8">
+            <h3 class="text-xl font-bold mb-6">Essential Keyboard Shortcuts</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div>
+                    <h4 class="font-semibold mb-3 text-blue-600">Text Editing</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl+C</span>
+                            <span>Copy</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl+V</span>
+                            <span>Paste</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl+X</span>
+                            <span>Cut</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl+Z</span>
+                            <span>Undo</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl+A</span>
+                            <span>Select All</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-3 text-green-600">File Operations</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl+S</span>
+                            <span>Save</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl+O</span>
+                            <span>Open</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl+N</span>
+                            <span>New</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl+P</span>
+                            <span>Print</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Alt+F4</span>
+                            <span>Close</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-3 text-purple-600">Navigation</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl+F</span>
+                            <span>Find</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl+H</span>
+                            <span>Replace</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl+G</span>
+                            <span>Go to line</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl+Home</span>
+                            <span>Start of document</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-mono bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded">Ctrl+End</span>
+                            <span>End of document</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips for Different Keyboard Types -->
+    <section class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6">Keyboard Types & Tips</h2>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="border-2 border-blue-200 dark:border-blue-700 rounded-lg p-6">
+                <h3 class="text-lg font-bold mb-4 text-blue-600">🖥️ Desktop Keyboards</h3>
+                <div class="space-y-3">
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Full-size keyboards with number pad</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-sm">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            More key spacing for accuracy
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            Dedicated function keys
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            Number pad for data entry
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-2 border-green-200 dark:border-green-700 rounded-lg p-6">
+                <h3 class="text-lg font-bold mb-4 text-green-600">💻 Laptop Keyboards</h3>
+                <div class="space-y-3">
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Compact layouts with shorter key travel</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-sm">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                            Lighter touch required
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                            Function key combinations
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                            Practice on trackpad placement
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-2 border-purple-200 dark:border-purple-700 rounded-lg p-6">
+                <h3 class="text-lg font-bold mb-4 text-purple-600">📱 Mobile/Tablet</h3>
+                <div class="space-y-3">
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Touch screens and virtual keyboards</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-sm">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                            Thumb typing technique
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                            Swipe and predictive text
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                            Voice input as alternative
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice Exercises -->
+    <section class="bg-gradient-to-r from-primary-500 to-blue-600 rounded-xl text-white p-8">
+        <h2 class="text-3xl font-bold mb-6 text-center">Keyboard Mastery Exercises</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="text-center">
+                <div class="bg-white bg-opacity-20 rounded-xl p-6 mb-4">
+                    <div class="text-3xl mb-2">🏠</div>
+                    <h3 class="font-bold mb-2">Home Row</h3>
+                    <p class="text-sm opacity-90">Master ASDF JKL; placement</p>
+                </div>
+                <a href="/practice/home-row" class="inline-block bg-white text-primary-600 font-medium py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors">
+                    Practice Now
+                </a>
+            </div>
+            
+            <div class="text-center">
+                <div class="bg-white bg-opacity-20 rounded-xl p-6 mb-4">
+                    <div class="text-3xl mb-2">🔢</div>
+                    <h3 class="font-bold mb-2">Numbers</h3>
+                    <p class="text-sm opacity-90">Number row and symbols</p>
+                </div>
+                <a href="/practice/numbers" class="inline-block bg-white text-primary-600 font-medium py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors">
+                    Practice Now
+                </a>
+            </div>
+            
+            <div class="text-center">
+                <div class="bg-white bg-opacity-20 rounded-xl p-6 mb-4">
+                    <div class="text-3xl mb-2">⌨️</div>
+                    <h3 class="font-bold mb-2">All Keys</h3>
+                    <p class="text-sm opacity-90">Complete keyboard coverage</p>
+                </div>
+                <a href="/practice/all-keys" class="inline-block bg-white text-primary-600 font-medium py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors">
+                    Practice Now
+                </a>
+            </div>
+            
+            <div class="text-center">
+                <div class="bg-white bg-opacity-20 rounded-xl p-6 mb-4">
+                    <div class="text-3xl mb-2">⚡</div>
+                    <h3 class="font-bold mb-2">Speed Test</h3>
+                    <p class="text-sm opacity-90">Test your keyboard knowledge</p>
+                </div>
+                <a href="/" class="inline-block bg-white text-primary-600 font-medium py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors">
+                    Test Speed
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.keyboard-key {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    padding: 8px 4px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    min-height: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dark .keyboard-key {
+    background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+    border-color: #6b7280;
+    color: #f3f4f6;
+}
+
+.keyboard-key:hover {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border-color: #2196f3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+}
+
+.dark .keyboard-key:hover {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    border-color: #60a5fa;
+}
+
+.keyboard-key.active {
+    background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+    border-color: #4caf50;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+}
+
+.keyboard-key.home-row {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffcc02 100%);
+    border-color: #ff9800;
+    font-weight: 900;
+}
+
+.dark .keyboard-key.home-row {
+    background: linear-gradient(135deg, #92400e 0%, #d97706 100%);
+    border-color: #f59e0b;
+}
+
+.keyboard-key.special-key {
+    background: linear-gradient(135deg, #f3e5f5 0%, #ce93d8 100%);
+    border-color: #9c27b0;
+    font-size: 12px;
+}
+
+.dark .keyboard-key.special-key {
+    background: linear-gradient(135deg, #581c87 0%, #8b5cf6 100%);
+    border-color: #a855f7;
+}
+
+.keyboard-key .main {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.keyboard-key .sub {
+    font-size: 10px;
+    opacity: 0.7;
+    line-height: 1;
+}
+
+/* Finger color coding */
+.keyboard-key[data-finger="left-pinky"],
+.keyboard-key[data-finger="right-pinky"] {
+    border-left: 4px solid #e91e63;
+}
+
+.keyboard-key[data-finger="left-ring"],
+.keyboard-key[data-finger="right-ring"] {
+    border-left: 4px solid #ff9800;
+}
+
+.keyboard-key[data-finger="left-middle"],
+.keyboard-key[data-finger="right-middle"] {
+    border-left: 4px solid #4caf50;
+}
+
+.keyboard-key[data-finger="left-index"],
+.keyboard-key[data-finger="right-index"] {
+    border-left: 4px solid #2196f3;
+}
+
+.keyboard-key[data-finger="thumb"] {
+    border-left: 4px solid #9c27b0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .keyboard-key {
+        padding: 6px 2px;
+        font-size: 12px;
+        min-height: 35px;
+    }
+    
+    .keyboard-key .main {
+        font-size: 14px;
+    }
+    
+    .keyboard-key .sub {
+        font-size: 8px;
+    }
+}
+
+/* Animation for key highlighting */
+@keyframes keyPress {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-3px) scale(1.05); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+.keyboard-key.pressed {
+    animation: keyPress 0.2s ease;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const keys = document.querySelectorAll('.keyboard-key[data-finger]');
+    const keyInfo = document.getElementById('key-info');
+    
+    // Finger names mapping
+    const fingerNames = {
+        'left-pinky': 'Left Pinky',
+        'left-ring': 'Left Ring Finger',
+        'left-middle': 'Left Middle Finger',
+        'left-index': 'Left Index Finger',
+        'right-index': 'Right Index Finger',
+        'right-middle': 'Right Middle Finger',
+        'right-ring': 'Right Ring Finger',
+        'right-pinky': 'Right Pinky',
+        'thumb': 'Thumb'
+    };
+    
+    // Finger colors
+    const fingerColors = {
+        'left-pinky': '#e91e63',
+        'right-pinky': '#e91e63',
+        'left-ring': '#ff9800',
+        'right-ring': '#ff9800',
+        'left-middle': '#4caf50',
+        'right-middle': '#4caf50',
+        'left-index': '#2196f3',
+        'right-index': '#2196f3',
+        'thumb': '#9c27b0'
+    };
+    
+    // Add click handlers to keys
+    keys.forEach(key => {
+        key.addEventListener('click', function() {
+            // Remove active class from all keys
+            keys.forEach(k => k.classList.remove('active'));
+            
+            // Add active class to clicked key
+            this.classList.add('active', 'pressed');
+            
+            // Remove pressed class after animation
+            setTimeout(() => {
+                this.classList.remove('pressed');
+            }, 200);
+            
+            // Update key info
+            const finger = this.dataset.finger;
+            const keyName = this.dataset.key;
+            const fingerName = fingerNames[finger];
+            const color = fingerColors[finger];
+            
+            keyInfo.innerHTML = `
+                <div class="flex items-center justify-center space-x-4">
+                    <div class="w-8 h-8 rounded-full" style="background-color: ${color}"></div>
+                    <div>
+                        <div class="font-bold text-lg">${keyName.toUpperCase()}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300">Press with: ${fingerName}</div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        // Add hover effect
+        key.addEventListener('mouseenter', function() {
+            if (!this.classList.contains('active')) {
+                const finger = this.dataset.finger;
+                const fingerName = fingerNames[finger];
+                
+                keyInfo.innerHTML = `
+                    <div class="text-center">
+                        <div class="text-sm text-gray-600 dark:text-gray-300">
+                            Hover: <strong>${this.dataset.key.toUpperCase()}</strong> - Use ${fingerName}
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    });
+    
+    // Highlight finger zone on key click
+    function highlightFingerZone(finger) {
+        keys.forEach(key => {
+            if (key.dataset.finger === finger) {
+                key.style.backgroundColor = fingerColors[finger];
+                key.style.opacity = '0.7';
+            } else {
+                key.style.backgroundColor = '';
+                key.style.opacity = '';
+            }
+        });
+    }
+    
+    // Reset highlighting
+    function resetHighlighting() {
+        keys.forEach(key => {
+            key.style.backgroundColor = '';
+            key.style.opacity = '';
+            key.classList.remove('active');
+        });
+    }
+    
+    // Keyboard event listeners for real typing
+    document.addEventListener('keydown', function(e) {
+        const key = e.key.toLowerCase();
+        const keyElement = document.querySelector(`[data-key="${key}"]`);
+        
+        if (keyElement) {
+            keyElement.classList.add('active', 'pressed');
+            
+            // Update info for real keypress
+            const finger = keyElement.dataset.finger;
+            if (finger) {
+                const fingerName = fingerNames[finger];
+                const color = fingerColors[finger];
+                
+                keyInfo.innerHTML = `
+                    <div class="flex items-center justify-center space-x-4">
+                        <div class="w-8 h-8 rounded-full" style="background-color: ${color}"></div>
+                        <div>
+                            <div class="font-bold text-lg">${key.toUpperCase()}</div>
+                            <div class="text-sm text-green-600">✓ Correct finger: ${fingerName}</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+    });
+    
+    document.addEventListener('keyup', function(e) {
+        const key = e.key.toLowerCase();
+        const keyElement = document.querySelector(`[data-key="${key}"]`);
+        
+        if (keyElement) {
+            setTimeout(() => {
+                keyElement.classList.remove('active', 'pressed');
+            }, 100);
+        }
+    });
+    
+    // Handle special keys
+    const specialKeyMappings = {
+        ' ': 'Space',
+        'Tab': 'Tab',
+        'CapsLock': 'Caps',
+        'Shift': 'Shift',
+        'Control': 'Ctrl',
+        'Alt': 'Alt',
+        'Meta': 'Win'
+    };
+    
+    document.addEventListener('keydown', function(e) {
+        const specialKey = specialKeyMappings[e.key];
+        if (specialKey) {
+            const keyElement = document.querySelector(`[data-key="${specialKey}"]`);
+            if (keyElement) {
+                keyElement.classList.add('active', 'pressed');
+            }
+        }
+    });
+    
+    document.addEventListener('keyup', function(e) {
+        const specialKey = specialKeyMappings[e.key];
+        if (specialKey) {
+            const keyElement = document.querySelector(`[data-key="${specialKey}"]`);
+            if (keyElement) {
+                setTimeout(() => {
+                    keyElement.classList.remove('active', 'pressed');
+                }, 100);
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

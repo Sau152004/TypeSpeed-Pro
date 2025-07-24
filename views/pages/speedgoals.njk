@@ -1,0 +1,1040 @@
+{% extends "layouts/main.njk" %}
+
+{% block title %}Speed Goals - TypeSpeed Pro{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto space-y-8">
+    <!-- Header -->
+    <div class="text-center py-12">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+            Speed <span class="text-primary-600">Goals</span>
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            Set realistic targets, track your progress, and achieve your typing speed milestones with structured goal-setting.
+        </p>
+        <nav class="flex justify-center space-x-4 text-sm">
+            <a href="/resources" class="text-primary-600 hover:underline">← Back to Resources</a>
+            <span class="text-gray-300">|</span>
+            <a href="#benchmarks" class="hover:text-primary-600">Benchmarks</a>
+            <span class="text-gray-300">|</span>
+            <a href="#goal-setting" class="hover:text-primary-600">Goal Setting</a>
+            <span class="text-gray-300">|</span>
+            <a href="#tracking" class="hover:text-primary-600">Progress Tracking</a>
+        </nav>
+    </div>
+
+    <!-- Current Status (if logged in) -->
+    {% if user %}
+    <div class="bg-gradient-to-r from-primary-50 to-blue-50 dark:from-primary-900 dark:to-blue-900 dark:bg-opacity-20 rounded-xl shadow-lg p-8">
+        <h2 class="text-2xl font-bold mb-6 text-center">Your Current Performance</h2>
+        <div class="grid md:grid-cols-4 gap-6">
+            <div class="text-center">
+                <div class="text-4xl font-bold text-primary-600 mb-2">{{ userStats.current_wpm or 0 }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-300">Current WPM</div>
+                <div class="text-xs text-gray-500 mt-1">Best: {{ userStats.best_wpm or 0 }} WPM</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-bold text-green-600 mb-2">{{ userStats.avg_accuracy or 0 }}%</div>
+                <div class="text-sm text-gray-600 dark:text-gray-300">Accuracy</div>
+                <div class="text-xs text-gray-500 mt-1">Target: 95%+</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-bold text-blue-600 mb-2">{{ userStats.current_level or 'Beginner' }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-300">Level</div>
+                <div class="text-xs text-gray-500 mt-1">{{ userStats.tests_taken or 0 }} tests taken</div>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-bold text-orange-600 mb-2">{{ userStats.goal_progress or 0 }}%</div>
+                <div class="text-sm text-gray-600 dark:text-gray-300">Goal Progress</div>
+                <div class="text-xs text-gray-500 mt-1">Target: {{ userStats.goal_wpm or 'Not set' }} WPM</div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Speed Benchmarks -->
+    <section id="benchmarks" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6">Typing Speed Benchmarks</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-8">
+            Understanding where you stand and what to aim for at different skill levels and professions.
+        </p>
+
+        <!-- Skill Level Benchmarks -->
+        <div class="mb-12">
+            <h3 class="text-xl font-semibold mb-6">General Skill Levels</h3>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 text-center">
+                    <div class="text-4xl mb-4">🌱</div>
+                    <h4 class="font-bold text-lg mb-2">Beginner</h4>
+                    <div class="text-3xl font-bold text-gray-600 mb-2">10-25 WPM</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400 mb-4">Hunt & peck typing</div>
+                    <ul class="text-xs text-left space-y-1">
+                        <li>• Learning key positions</li>
+                        <li>• Looking at keyboard</li>
+                        <li>• Building muscle memory</li>
+                        <li>• Focus on accuracy first</li>
+                    </ul>
+                </div>
+
+                <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 rounded-xl p-6 text-center">
+                    <div class="text-4xl mb-4">⚡</div>
+                    <h4 class="font-bold text-lg mb-2">Average</h4>
+                    <div class="text-3xl font-bold text-blue-600 mb-2">25-40 WPM</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400 mb-4">Casual computer user</div>
+                    <ul class="text-xs text-left space-y-1">
+                        <li>• Basic touch typing</li>
+                        <li>• Some finger coordination</li>
+                        <li>• Occasional keyboard glances</li>
+                        <li>• Comfortable for emails</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 rounded-xl p-6 text-center">
+                    <div class="text-4xl mb-4">💼</div>
+                    <h4 class="font-bold text-lg mb-2">Proficient</h4>
+                    <div class="text-3xl font-bold text-green-600 mb-2">40-60 WPM</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400 mb-4">Office worker level</div>
+                    <ul class="text-xs text-left space-y-1">
+                        <li>• Good touch typing</li>
+                        <li>• Minimal keyboard looking</li>
+                        <li>• Handles most tasks well</li>
+                        <li>• Professional competency</li>
+                    </ul>
+                </div>
+
+                <div class="bg-purple-50 dark:bg-purple-900 dark:bg-opacity-20 rounded-xl p-6 text-center">
+                    <div class="text-4xl mb-4">🚀</div>
+                    <h4 class="font-bold text-lg mb-2">Expert</h4>
+                    <div class="text-3xl font-bold text-purple-600 mb-2">60+ WPM</div>
+                    <div class="text-sm text-gray-500 dark:text-gray-400 mb-4">Professional typist</div>
+                    <ul class="text-xs text-left space-y-1">
+                        <li>• Excellent touch typing</li>
+                        <li>• Never looks at keyboard</li>
+                        <li>• High speed & accuracy</li>
+                        <li>• Professional advantage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professional Benchmarks -->
+        <div class="mb-12">
+            <h3 class="text-xl font-semibold mb-6">Professional Requirements</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="border-l-4 border-blue-500 bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 p-6 rounded-lg">
+                    <h4 class="font-bold mb-2">Data Entry</h4>
+                    <div class="text-2xl font-bold text-blue-600 mb-2">45-60 WPM</div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">High accuracy required (98%+)</p>
+                </div>
+                
+                <div class="border-l-4 border-green-500 bg-green-50 dark:bg-green-900 dark:bg-opacity-20 p-6 rounded-lg">
+                    <h4 class="font-bold mb-2">Administrative Assistant</h4>
+                    <div class="text-2xl font-bold text-green-600 mb-2">50-70 WPM</div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Document creation and correspondence</p>
+                </div>
+                
+                <div class="border-l-4 border-purple-500 bg-purple-50 dark:bg-purple-900 dark:bg-opacity-20 p-6 rounded-lg">
+                    <h4 class="font-bold mb-2">Transcriptionist</h4>
+                    <div class="text-2xl font-bold text-purple-600 mb-2">60-80 WPM</div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Audio-to-text conversion specialist</p>
+                </div>
+                
+                <div class="border-l-4 border-red-500 bg-red-50 dark:bg-red-900 dark:bg-opacity-20 p-6 rounded-lg">
+                    <h4 class="font-bold mb-2">Court Reporter</h4>
+                    <div class="text-2xl font-bold text-red-600 mb-2">200+ WPM</div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Specialized stenography equipment</p>
+                </div>
+                
+                <div class="border-l-4 border-orange-500 bg-orange-50 dark:bg-orange-900 dark:bg-opacity-20 p-6 rounded-lg">
+                    <h4 class="font-bold mb-2">Programmer</h4>
+                    <div class="text-2xl font-bold text-orange-600 mb-2">40-70 WPM</div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Code accuracy more important than speed</p>
+                </div>
+                
+                <div class="border-l-4 border-indigo-500 bg-indigo-50 dark:bg-indigo-900 dark:bg-opacity-20 p-6 rounded-lg">
+                    <h4 class="font-bold mb-2">Writer/Journalist</h4>
+                    <div class="text-2xl font-bold text-indigo-600 mb-2">60-80 WPM</div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Fast content creation needed</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- World Records -->
+        <div class="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900 dark:to-orange-900 dark:bg-opacity-20 rounded-xl p-6">
+            <h3 class="text-xl font-semibold mb-4 text-center">🏆 World Records & Extremes</h3>
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div>
+                    <div class="text-3xl font-bold text-yellow-600 mb-2">212 WPM</div>
+                    <div class="font-medium">Stella Pajunas (1946)</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-300">IBM Electric Typewriter</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-orange-600 mb-2">216 WPM</div>
+                    <div class="font-medium">Barbara Blackburn</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-300">Dvorak Keyboard (sustained)</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-bold text-red-600 mb-2">256 WPM</div>
+                    <div class="font-medium">Peak Speed Record</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-300">Short burst typing</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Goal Setting Framework -->
+    <section id="goal-setting" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6">SMART Goal Setting</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-8">
+            Set Specific, Measurable, Achievable, Relevant, and Time-bound goals for your typing improvement.
+        </p>
+
+        <!-- SMART Framework -->
+        <div class="grid md:grid-cols-5 gap-4 mb-12">
+            <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-blue-600 mb-2">S</div>
+                <div class="font-semibold mb-1">Specific</div>
+                <div class="text-xs text-gray-600 dark:text-gray-300">Clear, defined target</div>
+            </div>
+            <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-green-600 mb-2">M</div>
+                <div class="font-semibold mb-1">Measurable</div>
+                <div class="text-xs text-gray-600 dark:text-gray-300">Trackable progress</div>
+            </div>
+            <div class="bg-yellow-50 dark:bg-yellow-900 dark:bg-opacity-20 rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-yellow-600 mb-2">A</div>
+                <div class="font-semibold mb-1">Achievable</div>
+                <div class="text-xs text-gray-600 dark:text-gray-300">Realistic target</div>
+            </div>
+            <div class="bg-purple-50 dark:bg-purple-900 dark:bg-opacity-20 rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-purple-600 mb-2">R</div>
+                <div class="font-semibold mb-1">Relevant</div>
+                <div class="text-xs text-gray-600 dark:text-gray-300">Meaningful purpose</div>
+            </div>
+            <div class="bg-red-50 dark:bg-red-900 dark:bg-opacity-20 rounded-lg p-4 text-center">
+                <div class="text-2xl font-bold text-red-600 mb-2">T</div>
+                <div class="font-semibold mb-1">Time-bound</div>
+                <div class="text-xs text-gray-600 dark:text-gray-300">Deadline set</div>
+            </div>
+        </div>
+
+        <!-- Goal Templates -->
+        <div class="mb-12">
+            <h3 class="text-xl font-semibold mb-6">Goal Templates by Current Level</h3>
+            <div class="space-y-6">
+                <!-- Beginner Goals -->
+                <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 rounded-lg p-6">
+                    <h4 class="font-bold text-lg mb-4 text-green-600">Beginner Goals (10-25 WPM)</h4>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Short-term (1-2 weeks)</h5>
+                            <ul class="text-sm space-y-1">
+                                <li>• Master home row keys (ASDF JKL;)</li>
+                                <li>• Type without looking at home row</li>
+                                <li>• Achieve 95% accuracy on simple words</li>
+                                <li>• Practice 15 minutes daily</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Medium-term (1-2 months)</h5>
+                            <ul class="text-sm space-y-1">
+                                <li>• Reach 25-30 WPM consistently</li>
+                                <li>• Learn all letter keys</li>
+                                <li>• Type common words fluently</li>
+                                <li>• Maintain 95%+ accuracy</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Long-term (3-6 months)</h5>
+                            <ul class="text-sm space-y-1">
+                                <li>• Achieve 40+ WPM</li>
+                                <li>• Master numbers and punctuation</li>
+                                <li>• Type full sentences smoothly</li>
+                                <li>• Ready for office work</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Intermediate Goals -->
+                <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 rounded-lg p-6">
+                    <h4 class="font-bold text-lg mb-4 text-blue-600">Intermediate Goals (25-50 WPM)</h4>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Short-term (2-4 weeks)</h5>
+                            <ul class="text-sm space-y-1">
+                                <li>• Increase speed by 5-10 WPM</li>
+                                <li>• Perfect difficult letter combinations</li>
+                                <li>• Type numbers without looking</li>
+                                <li>• Practice 20 minutes daily</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Medium-term (2-3 months)</h5>
+                            <ul class="text-sm space-y-1">
+                                <li>• Reach 50-60 WPM</li>
+                                <li>• Master all special characters</li>
+                                <li>• Type paragraphs fluently</li>
+                                <li>• Maintain 97%+ accuracy</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Long-term (4-8 months)</h5>
+                            <ul class="text-sm space-y-1">
+                                <li>• Achieve 70+ WPM</li>
+                                <li>• Professional typing competency</li>
+                                <li>• Handle any text type efficiently</li>
+                                <li>• Qualify for advanced positions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Goals -->
+                <div class="bg-purple-50 dark:bg-purple-900 dark:bg-opacity-20 rounded-lg p-6">
+                    <h4 class="font-bold text-lg mb-4 text-purple-600">Advanced Goals (50+ WPM)</h4>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Short-term (1-2 months)</h5>
+                            <ul class="text-sm space-y-1">
+                                <li>• Break personal speed records</li>
+                                <li>• Perfect accuracy at current speed</li>
+                                <li>• Master specialized text types</li>
+                                <li>• Consistent performance</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Medium-term (3-6 months)</h5>
+                            <ul class="text-sm space-y-1">
+                                <li>• Reach 80-100+ WPM</li>
+                                <li>• Expert-level accuracy (99%+)</li>
+                                <li>• Speed typing competitions</li>
+                                <li>• Sustained high performance</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg">
+                            <h5 class="font-semibold mb-2">Long-term (6+ months)</h5>
+                            <ul class="text-sm space-y-1">
+                                <li>• Elite typing speeds (100+ WPM)</li>
+                                <li>• Teach others effectively</li>
+                                <li>• Professional typing mastery</li>
+                                <li>• Consider specialized careers</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Goal Setting Tool -->
+        {% if user %}
+        <div class="bg-gradient-to-r from-primary-50 to-blue-50 dark:from-primary-900 dark:to-blue-900 dark:bg-opacity-20 rounded-xl p-8">
+            <h3 class="text-xl font-bold mb-6 text-center">Set Your Personal Goal</h3>
+            <form id="goal-form" class="max-w-2xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Current WPM</label>
+                        <input type="number" id="current-wpm" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-3 bg-white dark:bg-gray-700" value="{{ userStats.current_wpm or 0 }}" readonly>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Target WPM</label>
+                        <input type="number" id="target-wpm" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-3 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Enter target WPM">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Target Date</label>
+                        <input type="date" id="target-date" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-3 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Daily Practice (minutes)</label>
+                        <select id="practice-time" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-3 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                            <option value="10">10 minutes</option>
+                            <option value="15" selected>15 minutes</option>
+                            <option value="20">20 minutes</option>
+                            <option value="30">30 minutes</option>
+                            <option value="45">45 minutes</option>
+                            <option value="60">60 minutes</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <label class="block text-sm font-medium mb-2">Motivation (Why is this goal important to you?)</label>
+                    <textarea id="motivation" class="w-full h-20 border border-gray-300 dark:border-gray-600 rounded-lg p-3 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="e.g., I want to improve my job prospects, increase productivity, etc."></textarea>
+                </div>
+                
+                <div class="mt-6 text-center">
+                    <button type="submit" class="bg-primary-500 hover:bg-primary-600 text-white font-medium py-3 px-8 rounded-lg transition-colors">
+                        Set My Goal
+                    </button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </section>
+
+    <!-- Progress Tracking -->
+    <section id="tracking" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6">Progress Tracking & Analytics</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-8">
+            Monitor your improvement with detailed analytics and visual progress indicators.
+        </p>
+
+        <!-- Key Metrics to Track -->
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="text-center">
+                <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 rounded-xl p-6">
+                    <div class="text-3xl mb-4">📈</div>
+                    <h3 class="font-bold text-lg mb-2">Speed (WPM)</h3>
+                    <ul class="text-sm text-left space-y-2">
+                        <li>• Average speed over time</li>
+                        <li>• Best speed achieved</li>
+                        <li>• Consistency metrics</li>
+                        <li>• Speed improvement rate</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 rounded-xl p-6">
+                    <div class="text-3xl mb-4">🎯</div>
+                    <h3 class="font-bold text-lg mb-2">Accuracy (%)</h3>
+                    <ul class="text-sm text-left space-y-2">
+                        <li>• Average accuracy rate</li>
+                        <li>• Error patterns analysis</li>
+                        <li>• Difficult keys identification</li>
+                        <li>• Accuracy vs speed balance</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <div class="bg-purple-50 dark:bg-purple-900 dark:bg-opacity-20 rounded-xl p-6">
+                    <div class="text-3xl mb-4">⏱️</div>
+                    <h3 class="font-bold text-lg mb-2">Practice Time</h3>
+                    <ul class="text-sm text-left space-y-2">
+                        <li>• Total practice hours</li>
+                        <li>• Daily practice streaks</li>
+                        <li>• Session duration trends</li>
+                        <li>• Practice consistency</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Visualization Examples -->
+        <div class="mb-12">
+            <h3 class="text-xl font-semibold mb-6">Track Your Journey</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Speed Progress Chart -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                    <h4 class="font-semibold mb-4">Speed Progress Over Time</h4>
+                    <div class="h-48 bg-white dark:bg-gray-800 rounded-lg flex items-center justify-center">
+                        <div class="text-center text-gray-500 dark:text-gray-400">
+                            <div class="text-3xl mb-2">📊</div>
+                            <p>Interactive chart showing your<br>WPM improvement over time</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Accuracy Heatmap -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                    <h4 class="font-semibold mb-4">Key Accuracy Heatmap</h4>
+                    <div class="h-48 bg-white dark:bg-gray-800 rounded-lg flex items-center justify-center">
+                        <div class="text-center text-gray-500 dark:text-gray-400">
+                            <div class="text-3xl mb-2">🔥</div>
+                            <p>Visual representation of<br>which keys need more practice</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Milestone Achievements -->
+        <div class="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900 dark:to-orange-900 dark:bg-opacity-20 rounded-xl p-8">
+            <h3 class="text-xl font-bold mb-6 text-center">🏆 Milestone Achievements</h3>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg">
+                    <div class="text-2xl mb-2">🥉</div>
+                    <div class="font-semibold">First Goal</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-300">Reach 25 WPM</div>
+                </div>
+                <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg">
+                    <div class="text-2xl mb-2">🥈</div>
+                    <div class="font-semibold">Office Ready</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-300">Reach 40 WPM</div>
+                </div>
+                <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg">
+                    <div class="text-2xl mb-2">🥇</div>
+                    <div class="font-semibold">Professional</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-300">Reach 60 WPM</div>
+                </div>
+                <div class="text-center p-4 bg-white dark:bg-gray-800 rounded-lg">
+                    <div class="text-2xl mb-2">👑</div>
+                    <div class="font-semibold">Elite Typist</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-300">Reach 80+ WPM</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips for Reaching Goals -->
+    <section class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6">Tips for Reaching Your Goals</h2>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Do's -->
+            <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4 text-green-600 flex items-center">
+                    <span class="text-2xl mr-3">✅</span>Best Practices
+                </h3>
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                        <div>
+                            <strong>Practice consistently:</strong> 15-20 minutes daily is better than 2 hours once a week
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                        <div>
+                            <strong>Focus on accuracy first:</strong> Speed naturally follows good technique
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                        <div>
+                            <strong>Set micro-goals:</strong> Break large goals into smaller, achievable milestones
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                        <div>
+                            <strong>Track progress:</strong> Regular testing helps maintain motivation
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                        <div>
+                            <strong>Stay motivated:</strong> Remember why your goal matters to you
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Don'ts -->
+            <div class="bg-red-50 dark:bg-red-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4 text-red-600 flex items-center">
+                    <span class="text-2xl mr-3">❌</span>Common Pitfalls
+                </h3>
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                        <div>
+                            <strong>Don't rush:</strong> Pushing too hard too fast leads to bad habits
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                        <div>
+                            <strong>Don't ignore accuracy:</strong> Fast but inaccurate typing is counterproductive
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                        <div>
+                            <strong>Don't skip practice:</strong> Consistency is key to building muscle memory
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                        <div>
+                            <strong>Don't compare constantly:</strong> Focus on your own progress, not others'
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                        <div>
+                            <strong>Don't get discouraged:</strong> Plateaus are normal parts of the learning process
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Goal Achievement Timeline -->
+        <div class="mt-12">
+            <h3 class="text-xl font-semibold mb-6">Realistic Timeline Expectations</h3>
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                <div class="space-y-6">
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-blue-100 dark:bg-blue-800 rounded-full flex items-center justify-center font-bold text-blue-600 mr-4">
+                            Week 1
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold">Foundation Building</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Learn proper posture, finger placement, and home row keys. Expect 10-15 WPM.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-green-100 dark:bg-green-800 rounded-full flex items-center justify-center font-bold text-green-600 mr-4">
+                            Month 1
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold">Basic Competency</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Touch typing all letters, reaching 25-35 WPM with good accuracy.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-yellow-100 dark:bg-yellow-800 rounded-full flex items-center justify-center font-bold text-yellow-600 mr-4">
+                            Month 3
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold">Practical Speed</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">40-50 WPM with numbers and punctuation. Suitable for most office work.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-purple-100 dark:bg-purple-800 rounded-full flex items-center justify-center font-bold text-purple-600 mr-4">
+                            Month 6
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold">Professional Level</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">60-70 WPM consistently. Ready for advanced typing positions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-red-100 dark:bg-red-800 rounded-full flex items-center justify-center font-bold text-red-600 mr-4">
+                            Year 1
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold">Expert Status</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">80+ WPM with exceptional accuracy. Elite typing capabilities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="bg-gradient-to-r from-primary-500 to-blue-600 rounded-xl text-white p-8 text-center">
+        <h2 class="text-3xl font-bold mb-4">Ready to Achieve Your Typing Goals?</h2>
+        <p class="text-xl mb-6 opacity-90">
+            Start your journey today with a clear plan and consistent practice. Every expert was once a beginner!
+        </p>
+        <div class="space-x-4">
+            <a href="/" class="inline-block bg-white text-primary-600 font-semibold py-3 px-6 rounded-lg hover:bg-gray-100 transition-colors">
+                Take Speed Test
+            </a>
+            <a href="/resources/practice-exercises" class="inline-block border-2 border-white text-white font-semibold py-3 px-6 rounded-lg hover:bg-white hover:text-primary-600 transition-colors">
+                Start Practicing
+            </a>
+        </div>
+    </section>
+</div>
+
+<style>
+/* Goal form styling */
+#goal-form input, #goal-form select, #goal-form textarea {
+    transition: all 0.2s ease;
+}
+
+#goal-form input:focus, #goal-form select:focus, #goal-form textarea:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+/* Progress indicators */
+.progress-ring {
+    width: 120px;
+    height: 120px;
+    position: relative;
+}
+
+.progress-ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.progress-ring circle {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+}
+
+.progress-ring .bg {
+    stroke: #e5e7eb;
+}
+
+.progress-ring .progress {
+    stroke: #3b82f6;
+    stroke-dasharray: 314;
+    stroke-dashoffset: 314;
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+/* Milestone achievement animations */
+.milestone-card {
+    transition: all 0.3s ease;
+}
+
+.milestone-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.milestone-card.achieved {
+    background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+    border: 2px solid #f59e0b;
+}
+
+.milestone-card.achieved .emoji {
+    animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Timeline styling */
+.timeline-item {
+    position: relative;
+}
+
+.timeline-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 32px;
+    top: 64px;
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, #e5e7eb, transparent);
+}
+
+.dark .timeline-item:not(:last-child)::after {
+    background: linear-gradient(to bottom, #4b5563, transparent);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .timeline-item .w-16.h-16 {
+        width: 3rem;
+        height: 3rem;
+        font-size: 0.75rem;
+    }
+    
+    .milestone-card {
+        padding: 1rem;
+    }
+}
+
+/* Smooth scrolling for navigation */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Goal setting form validation */
+.invalid {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+.valid {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Goal form handling
+    const goalForm = document.getElementById('goal-form');
+    if (goalForm) {
+        goalForm.addEventListener('submit', handleGoalSubmission);
+        
+        // Real-time validation
+        const targetWpmInput = document.getElementById('target-wpm');
+        const currentWpmInput = document.getElementById('current-wpm');
+        
+        if (targetWpmInput && currentWpmInput) {
+            targetWpmInput.addEventListener('input', function() {
+                validateGoal();
+                updateGoalPrediction();
+            });
+        }
+    }
+    
+    // Initialize progress rings
+    initializeProgressRings();
+    
+    // Initialize milestone tracking
+    initializeMilestones();
+    
+    // Smooth scrolling for navigation
+    initializeSmoothScrolling();
+});
+
+function handleGoalSubmission(e) {
+    e.preventDefault();
+    
+    const formData = {
+        current_wpm: parseInt(document.getElementById('current-wpm').value),
+        target_wpm: parseInt(document.getElementById('target-wpm').value),
+        target_date: document.getElementById('target-date').value,
+        practice_time: parseInt(document.getElementById('practice-time').value),
+        motivation: document.getElementById('motivation').value
+    };
+    
+    // Validate the goal
+    if (!validateGoalData(formData)) {
+        return;
+    }
+    
+    // Submit to server
+    submitGoal(formData);
+}
+
+function validateGoalData(data) {
+    let isValid = true;
+    
+    // Check if target WPM is realistic
+    if (data.target_wpm <= data.current_wpm) {
+        showValidationError('target-wpm', 'Target WPM must be higher than current WPM');
+        isValid = false;
+    } else if (data.target_wpm - data.current_wpm > 50) {
+        showValidationError('target-wpm', 'Goal seems too ambitious. Consider a smaller increase.');
+        isValid = false;
+    } else {
+        clearValidationError('target-wpm');
+    }
+    
+    // Check target date
+    const targetDate = new Date(data.target_date);
+    const today = new Date();
+    const daysDiff = (targetDate - today) / (1000 * 60 * 60 * 24);
+    
+    if (daysDiff < 7) {
+        showValidationError('target-date', 'Allow at least one week to reach your goal');
+        isValid = false;
+    } else if (daysDiff > 365) {
+        showValidationError('target-date', 'Consider setting a shorter-term goal (within one year)');
+        isValid = false;
+    } else {
+        clearValidationError('target-date');
+    }
+    
+    return isValid;
+}
+
+function showValidationError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    field.classList.add('invalid');
+    field.classList.remove('valid');
+    
+    // Show error message
+    let errorDiv = field.parentNode.querySelector('.error-message');
+    if (!errorDiv) {
+        errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message text-red-500 text-xs mt-1';
+        field.parentNode.appendChild(errorDiv);
+    }
+    errorDiv.textContent = message;
+}
+
+function clearValidationError(fieldId) {
+    const field = document.getElementById(fieldId);
+    field.classList.remove('invalid');
+    field.classList.add('valid');
+    
+    const errorDiv = field.parentNode.querySelector('.error-message');
+    if (errorDiv) {
+        errorDiv.remove();
+    }
+}
+
+function validateGoal() {
+    const currentWpm = parseInt(document.getElementById('current-wpm').value) || 0;
+    const targetWpm = parseInt(document.getElementById('target-wpm').value) || 0;
+    
+    if (targetWpm > 0) {
+        validateGoalData({
+            current_wpm: currentWpm,
+            target_wpm: targetWpm,
+            target_date: document.getElementById('target-date').value,
+            practice_time: parseInt(document.getElementById('practice-time').value) || 15,
+            motivation: document.getElementById('motivation').value
+        });
+    }
+}
+
+function updateGoalPrediction() {
+    const currentWpm = parseInt(document.getElementById('current-wpm').value) || 0;
+    const targetWpm = parseInt(document.getElementById('target-wpm').value) || 0;
+    const practiceTime = parseInt(document.getElementById('practice-time').value) || 15;
+    
+    if (targetWpm > currentWpm && currentWpm > 0) {
+        const wpmIncrease = targetWpm - currentWpm;
+        // Rough estimate: 1-2 WPM improvement per week with regular practice
+        const estimatedWeeks = Math.ceil(wpmIncrease / (practiceTime >= 20 ? 2 : 1));
+        
+        // Show prediction
+        let predictionDiv = document.querySelector('#goal-prediction');
+        if (!predictionDiv) {
+            predictionDiv = document.createElement('div');
+            predictionDiv.id = 'goal-prediction';
+            predictionDiv.className = 'mt-4 p-3 bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 rounded-lg text-sm';
+            document.getElementById('goal-form').appendChild(predictionDiv);
+        }
+        
+        predictionDiv.innerHTML = `
+            <div class="flex items-center">
+                <span class="text-blue-600 mr-2">💡</span>
+                <strong>Prediction:</strong> With ${practiceTime} minutes daily practice, 
+                you could reach ${targetWpm} WPM in approximately ${estimatedWeeks} weeks.
+            </div>
+        `;
+    }
+}
+
+function submitGoal(goalData) {
+    // Show loading state
+    const submitBtn = document.querySelector('#goal-form button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Setting Goal...';
+    submitBtn.disabled = true;
+    
+    fetch('/api/goals/set', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(goalData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showSuccessMessage('Goal set successfully! Good luck on your typing journey.');
+            // Optionally redirect or update UI
+        } else {
+            showErrorMessage('Failed to set goal. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error setting goal:', error);
+        showErrorMessage('An error occurred. Please try again.');
+    })
+    .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    });
+}
+
+function showSuccessMessage(message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg z-50';
+    alertDiv.textContent = message;
+    document.body.appendChild(alertDiv);
+    
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 3000);
+}
+
+function showErrorMessage(message) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50';
+    alertDiv.textContent = message;
+    document.body.appendChild(alertDiv);
+    
+    setTimeout(() => {
+        alertDiv.remove();
+    }, 3000);
+}
+
+function initializeProgressRings() {
+    // Create animated progress rings for goals
+    const progressContainers = document.querySelectorAll('.progress-ring');
+    progressContainers.forEach(container => {
+        const progress = container.dataset.progress || 0;
+        const circle = container.querySelector('.progress');
+        if (circle) {
+            const offset = 314 - (314 * progress / 100);
+            circle.style.strokeDashoffset = offset;
+        }
+    });
+}
+
+function initializeMilestones() {
+    // Check user's current WPM and mark achieved milestones
+    const currentWpm = parseInt(document.querySelector('.text-4xl.font-bold.text-primary-600')?.textContent) || 0;
+    const milestones = [
+        { wpm: 25, element: document.querySelector('[data-milestone="25"]') },
+        { wpm: 40, element: document.querySelector('[data-milestone="40"]') },
+        { wpm: 60, element: document.querySelector('[data-milestone="60"]') },
+        { wpm: 80, element: document.querySelector('[data-milestone="80"]') }
+    ];
+    
+    milestones.forEach(milestone => {
+        if (milestone.element && currentWpm >= milestone.wpm) {
+            milestone.element.classList.add('achieved');
+        }
+    });
+}
+
+function initializeSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+
+// Auto-update target date based on goal
+function updateTargetDate() {
+    const currentWpm = parseInt(document.getElementById('current-wpm').value) || 0;
+    const targetWpm = parseInt(document.getElementById('target-wpm').value) || 0;
+    const practiceTime = parseInt(document.getElementById('practice-time').value) || 15;
+    
+    if (targetWpm > currentWpm) {
+        const wpmIncrease = targetWpm - currentWpm;
+        const estimatedWeeks = Math.ceil(wpmIncrease / (practiceTime >= 20 ? 2 : 1));
+        
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + (estimatedWeeks * 7));
+        
+        document.getElementById('target-date').value = targetDate.toISOString().split('T')[0];
+    }
+}
+
+// Add event listeners for auto-suggestions
+document.addEventListener('DOMContentLoaded', function() {
+    const targetWpmInput = document.getElementById('target-wpm');
+    const practiceTimeSelect = document.getElementById('practice-time');
+    
+    if (targetWpmInput && practiceTimeSelect) {
+        targetWpmInput.addEventListener('input', updateTargetDate);
+        practiceTimeSelect.addEventListener('change', updateTargetDate);
+    }
+});
+</script>
+{% endblock %}

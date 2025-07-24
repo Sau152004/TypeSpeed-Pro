@@ -1,0 +1,363 @@
+{# 
+  Leaderboard Partial
+  Usage: {% include "partials/leaderboard.njk" %}
+  
+  Expected data structure:
+  - leaderboard: { entries: [], timeframe: 'daily|weekly|monthly|all-time', category: 'speed|accuracy|consistency' }
+  - currentUser: { id: number, username: string }
+#}
+
+{% set timeframe = leaderboard.timeframe or 'daily' %}
+{% set category = leaderboard.category or 'speed' %}
+{% set entries = leaderboard.entries or [] %}
+
+<div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <h2 class="text-2xl font-bold text-white mb-1">
+                    🏆 Leaderboard
+                </h2>
+                <p class="text-primary-100 text-sm">
+                    Top performers in typing excellence
+                </p>
+            </div>
+            <div class="flex items-center space-x-2 mt-3 sm:mt-0">
+                <span class="text-primary-100 text-sm">Updated:</span>
+                <span class="text-white text-sm font-medium">{{ "now" | date("h:mm A") }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="border-b border-gray-200 dark:border-gray-700">
+        <div class="flex overflow-x-auto">
+            <!-- Timeframe Filters -->
+            <div class="flex min-w-max">
+                {% set timeframes = [
+                    { key: 'daily', label: 'Today', icon: '📅' },
+                    { key: 'weekly', label: 'This Week', icon: '📆' },
+                    { key: 'monthly', label: 'This Month', icon: '🗓️' },
+                    { key: 'all-time', label: 'All Time', icon: '⏰' }
+                ] %}
+                
+                {% for tf in timeframes %}
+                <button class="flex items-center px-4 py-3 text-sm font-medium border-b-2 transition-colors
+                    {% if timeframe == tf.key %}
+                        border-primary-500 text-primary-600 dark:text-primary-400
+                    {% else %}
+                        border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:border-gray-300
+                    {% endif %}"
+                    data-timeframe="{{ tf.key }}">
+                    <span class="mr-2">{{ tf.icon }}</span>
+                    {{ tf.label }}
+                </button>
+                {% endfor %}
+            </div>
+            
+            <!-- Category Filters -->
+            <div class="flex min-w-max ml-auto">
+                {% set categories = [
+                    { key: 'speed', label: 'Speed', icon: '⚡' },
+                    { key: 'accuracy', label: 'Accuracy', icon: '🎯' },
+                    { key: 'consistency', label: 'Consistency', icon: '📊' }
+                ] %}
+                
+                {% for cat in categories %}
+                <button class="flex items-center px-4 py-3 text-sm font-medium border-b-2 transition-colors
+                    {% if category == cat.key %}
+                        border-primary-500 text-primary-600 dark:text-primary-400
+                    {% else %}
+                        border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:border-gray-300
+                    {% endif %}"
+                    data-category="{{ cat.key }}">
+                    <span class="mr-2">{{ cat.icon }}</span>
+                    {{ cat.label }}
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaderboard Content -->
+    <div class="p-6">
+        {% if entries.length > 0 %}
+            <!-- Top 3 Podium (Mobile Hidden) -->
+            {% if entries.length >= 3 %}
+            <div class="hidden lg:flex justify-center items-end mb-8 space-x-4">
+                <!-- 2nd Place -->
+                <div class="text-center">
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-full w-16 h-16 flex items-center justify-center mb-2 mx-auto">
+                        {% if entries[1].avatar %}
+                            <img src="{{ entries[1].avatar }}" alt="{{ entries[1].username }}" class="w-14 h-14 rounded-full object-cover">
+                        {% else %}
+                            <span class="text-2xl">{{ entries[1].username | first | upper }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="bg-gray-300 dark:bg-gray-600 rounded-t-lg px-4 py-6">
+                        <div class="text-4xl mb-2">🥈</div>
+                        <div class="font-bold text-gray-900 dark:text-white">{{ entries[1].username }}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300">
+                            {% if category == 'speed' %}
+                                {{ entries[1].wpm }} WPM
+                            {% elif category == 'accuracy' %}
+                                {{ entries[1].accuracy }}% accuracy
+                            {% else %}
+                                {{ entries[1].consistency }}% consistency
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1st Place -->
+                <div class="text-center">
+                    <div class="bg-yellow-100 dark:bg-yellow-900 rounded-full w-20 h-20 flex items-center justify-center mb-2 mx-auto">
+                        {% if entries[0].avatar %}
+                            <img src="{{ entries[0].avatar }}" alt="{{ entries[0].username }}" class="w-18 h-18 rounded-full object-cover">
+                        {% else %}
+                            <span class="text-3xl">{{ entries[0].username | first | upper }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="bg-yellow-300 dark:bg-yellow-600 rounded-t-lg px-4 py-8">
+                        <div class="text-5xl mb-2">🥇</div>
+                        <div class="font-bold text-gray-900 dark:text-white text-lg">{{ entries[0].username }}</div>
+                        <div class="text-sm text-gray-800 dark:text-gray-200 font-medium">
+                            {% if category == 'speed' %}
+                                {{ entries[0].wpm }} WPM
+                            {% elif category == 'accuracy' %}
+                                {{ entries[0].accuracy }}% accuracy
+                            {% else %}
+                                {{ entries[0].consistency }}% consistency
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3rd Place -->
+                <div class="text-center">
+                    <div class="bg-orange-100 dark:bg-orange-900 rounded-full w-16 h-16 flex items-center justify-center mb-2 mx-auto">
+                        {% if entries[2].avatar %}
+                            <img src="{{ entries[2].avatar }}" alt="{{ entries[2].username }}" class="w-14 h-14 rounded-full object-cover">
+                        {% else %}
+                            <span class="text-2xl">{{ entries[2].username | first | upper }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="bg-orange-300 dark:bg-orange-600 rounded-t-lg px-4 py-6">
+                        <div class="text-4xl mb-2">🥉</div>
+                        <div class="font-bold text-gray-900 dark:text-white">{{ entries[2].username }}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300">
+                            {% if category == 'speed' %}
+                                {{ entries[2].wpm }} WPM
+                            {% elif category == 'accuracy' %}
+                                {{ entries[2].accuracy }}% accuracy
+                            {% else %}
+                                {{ entries[2].consistency }}% consistency
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Full Rankings Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-200 dark:border-gray-700">
+                            <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white">Rank</th>
+                            <th class="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white">Player</th>
+                            {% if category == 'speed' %}
+                                <th class="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white">Speed</th>
+                                <th class="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white">Accuracy</th>
+                            {% elif category == 'accuracy' %}
+                                <th class="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white">Accuracy</th>
+                                <th class="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white">Speed</th>
+                            {% else %}
+                                <th class="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white">Consistency</th>
+                                <th class="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white">Speed</th>
+                            {% endif %}
+                            <th class="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white">Tests</th>
+                            <th class="text-right py-3 px-4 font-semibold text-gray-900 dark:text-white">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in entries %}
+                        <tr class="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors
+                            {% if currentUser and entry.id == currentUser.id %}
+                                bg-primary-50 dark:bg-primary-900 dark:bg-opacity-20 border-primary-200 dark:border-primary-800
+                            {% endif %}">
+                            <!-- Rank -->
+                            <td class="py-4 px-4">
+                                <div class="flex items-center">
+                                    {% if loop.index <= 3 %}
+                                        <span class="text-2xl mr-2">
+                                            {% if loop.index == 1 %}🥇
+                                            {% elif loop.index == 2 %}🥈
+                                            {% else %}🥉
+                                            {% endif %}
+                                        </span>
+                                    {% endif %}
+                                    <span class="font-bold text-lg
+                                        {% if currentUser and entry.id == currentUser.id %}
+                                            text-primary-600 dark:text-primary-400
+                                        {% else %}
+                                            text-gray-900 dark:text-white
+                                        {% endif %}">
+                                        #{{ loop.index }}
+                                    </span>
+                                </div>
+                            </td>
+
+                            <!-- Player -->
+                            <td class="py-4 px-4">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center mr-3 flex-shrink-0">
+                                        {% if entry.avatar %}
+                                            <img src="{{ entry.avatar }}" alt="{{ entry.username }}" class="w-10 h-10 rounded-full object-cover">
+                                        {% else %}
+                                            <span class="text-sm font-medium text-gray-600 dark:text-gray-300">
+                                                {{ entry.username | first | upper }}
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <div class="font-medium 
+                                            {% if currentUser and entry.id == currentUser.id %}
+                                                text-primary-600 dark:text-primary-400
+                                            {% else %}
+                                                text-gray-900 dark:text-white
+                                            {% endif %}">
+                                            {{ entry.username }}
+                                            {% if currentUser and entry.id == currentUser.id %}
+                                                <span class="ml-2 text-xs bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 px-2 py-1 rounded-full">You</span>
+                                            {% endif %}
+                                        </div>
+                                        {% if entry.country %}
+                                            <div class="text-sm text-gray-500 dark:text-gray-400">
+                                                {{ entry.country }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+
+                            <!-- Primary Metric -->
+                            <td class="py-4 px-4 text-center">
+                                <div class="font-bold text-lg text-gray-900 dark:text-white">
+                                    {% if category == 'speed' %}
+                                        {{ entry.wpm }}
+                                        <span class="text-sm font-normal text-gray-500 dark:text-gray-400">WPM</span>
+                                    {% elif category == 'accuracy' %}
+                                        {{ entry.accuracy }}%
+                                    {% else %}
+                                        {{ entry.consistency }}%
+                                    {% endif %}
+                                </div>
+                            </td>
+
+                            <!-- Secondary Metric -->
+                            <td class="py-4 px-4 text-center">
+                                <div class="text-gray-600 dark:text-gray-300">
+                                    {% if category == 'speed' %}
+                                        {{ entry.accuracy }}%
+                                    {% elif category == 'accuracy' %}
+                                        {{ entry.wpm }} WPM
+                                    {% else %}
+                                        {{ entry.wpm }} WPM
+                                    {% endif %}
+                                </div>
+                            </td>
+
+                            <!-- Tests Completed -->
+                            <td class="py-4 px-4 text-center">
+                                <div class="text-gray-600 dark:text-gray-300">
+                                    {{ entry.testsCompleted | number }}
+                                </div>
+                            </td>
+
+                            <!-- Date -->
+                            <td class="py-4 px-4 text-right">
+                                <div class="text-sm text-gray-500 dark:text-gray-400">
+                                    {{ entry.lastTest | date("MMM D") }}
+                                </div>
+                                <div class="text-xs text-gray-400 dark:text-gray-500">
+                                    {{ entry.lastTest | date("h:mm A") }}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Load More Button -->
+            {% if entries.length >= 10 %}
+            <div class="text-center mt-6">
+                <button class="inline-flex items-center px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                    Load More Results
+                </button>
+            </div>
+            {% endif %}
+
+        {% else %}
+            <!-- Empty State -->
+            <div class="text-center py-12">
+                <div class="text-6xl mb-4">🏃‍♂️</div>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                    No Results Yet
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-6">
+                    Be the first to complete a typing test and claim the top spot!
+                </p>
+                <a href="/test" class="inline-flex items-center px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors">
+                    <span class="mr-2">⚡</span>
+                    Start Typing Test
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Stats Footer -->
+    <div class="bg-gray-50 dark:bg-gray-900 px-6 py-4 border-t border-gray-200 dark:border-gray-700">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm text-gray-600 dark:text-gray-400">
+            <div class="flex items-center space-x-4">
+                <span>📊 {{ entries.length }} active players</span>
+                <span>🎯 {{ timeframe | title }} rankings</span>
+            </div>
+            <div class="mt-2 sm:mt-0">
+                <span>Updated every 5 minutes</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for tab switching (if needed) -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle timeframe filter clicks
+    document.querySelectorAll('[data-timeframe]').forEach(button => {
+        button.addEventListener('click', function() {
+            const timeframe = this.dataset.timeframe;
+            // Emit event or make API call to update leaderboard
+            window.dispatchEvent(new CustomEvent('leaderboard:changeTimeframe', { 
+                detail: { timeframe } 
+            }));
+        });
+    });
+
+    // Handle category filter clicks
+    document.querySelectorAll('[data-category]').forEach(button => {
+        button.addEventListener('click', function() {
+            const category = this.dataset.category;
+            // Emit event or make API call to update leaderboard
+            window.dispatchEvent(new CustomEvent('leaderboard:changeCategory', { 
+                detail: { category } 
+            }));
+        });
+    });
+});
+</script>

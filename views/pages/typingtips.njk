@@ -1,0 +1,585 @@
+{% extends "layouts/main.njk" %}
+
+{% block title %}Typing Tips - TypeSpeed Pro{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-8">
+    <!-- Header -->
+    <div class="text-center py-12">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+            <span class="text-primary-600">Typing</span> Tips
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            Master the art of efficient typing with proven techniques, expert advice, and practical strategies.
+        </p>
+        <nav class="flex justify-center space-x-4 text-sm">
+            <a href="/resources" class="text-primary-600 hover:underline">← Back to Resources</a>
+            <span class="text-gray-300">|</span>
+            <a href="#fundamentals" class="hover:text-primary-600">Fundamentals</a>
+            <span class="text-gray-300">|</span>
+            <a href="#techniques" class="hover:text-primary-600">Techniques</a>
+            <span class="text-gray-300">|</span>
+            <a href="#advanced" class="hover:text-primary-600">Advanced</a>
+        </nav>
+    </div>
+
+    <!-- Quick Tips Overview -->
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+        <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 rounded-xl p-6 text-center">
+            <div class="text-3xl mb-3">🎯</div>
+            <h3 class="font-bold text-lg mb-2">Accuracy First</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Focus on precision before speed. Accuracy builds the foundation for fast typing.</p>
+        </div>
+        <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 rounded-xl p-6 text-center">
+            <div class="text-3xl mb-3">🏠</div>
+            <h3 class="font-bold text-lg mb-2">Home Row Mastery</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Keep fingers anchored to ASDF and JKL; keys. This is your typing foundation.</p>
+        </div>
+        <div class="bg-purple-50 dark:bg-purple-900 dark:bg-opacity-20 rounded-xl p-6 text-center">
+            <div class="text-3xl mb-3">🔄</div>
+            <h3 class="font-bold text-lg mb-2">Consistent Practice</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Regular short sessions are more effective than occasional long practices.</p>
+        </div>
+    </div>
+
+    <!-- Fundamentals Section -->
+    <section id="fundamentals" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-3">1</span>
+            Fundamentals
+        </h2>
+        
+        <!-- Proper Posture -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                <span class="text-2xl mr-3">🪑</span>Proper Posture
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-medium mb-3 text-green-600">✅ Do This</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Sit up straight with back against chair
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Feet flat on floor, thighs parallel to ground
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Elbows at 90-degree angle
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Wrists straight and floating above keyboard
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Monitor at eye level, arm's length away
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-3 text-red-600">❌ Avoid This</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Slouching or leaning forward
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Resting wrists on desk while typing
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Hunching shoulders
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Looking down at keyboard
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Crossing legs or awkward foot positioning
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Finger Placement -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                <span class="text-2xl mr-3">👆</span>Finger Placement
+            </h3>
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                <div class="text-center mb-4">
+                    <h4 class="font-medium mb-2">Home Row Position</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Place your fingers on these keys as your starting position:</p>
+                </div>
+                <div class="grid grid-cols-8 gap-2 max-w-md mx-auto">
+                    <div class="bg-pink-200 dark:bg-pink-800 p-2 rounded text-center text-xs font-medium">A<br><span class="text-xs">Pinky</span></div>
+                    <div class="bg-yellow-200 dark:bg-yellow-800 p-2 rounded text-center text-xs font-medium">S<br><span class="text-xs">Ring</span></div>
+                    <div class="bg-green-200 dark:bg-green-800 p-2 rounded text-center text-xs font-medium">D<br><span class="text-xs">Middle</span></div>
+                    <div class="bg-blue-200 dark:bg-blue-800 p-2 rounded text-center text-xs font-medium">F<br><span class="text-xs">Index</span></div>
+                    <div class="bg-blue-200 dark:bg-blue-800 p-2 rounded text-center text-xs font-medium">J<br><span class="text-xs">Index</span></div>
+                    <div class="bg-green-200 dark:bg-green-800 p-2 rounded text-center text-xs font-medium">K<br><span class="text-xs">Middle</span></div>
+                    <div class="bg-yellow-200 dark:bg-yellow-800 p-2 rounded text-center text-xs font-medium">L<br><span class="text-xs">Ring</span></div>
+                    <div class="bg-pink-200 dark:bg-pink-800 p-2 rounded text-center text-xs font-medium">;<br><span class="text-xs">Pinky</span></div>
+                </div>
+                <p class="text-center text-sm text-gray-600 dark:text-gray-300 mt-4">
+                    <strong>Left Hand:</strong> A S D F &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Right Hand:</strong> J K L ;
+                </p>
+            </div>
+        </div>
+
+        <!-- Basic Rules -->
+        <div>
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                <span class="text-2xl mr-3">📏</span>Basic Rules
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h4 class="font-medium mb-2">One Finger Per Key</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Each finger has designated keys. Never use the wrong finger for a key.</p>
+                    </div>
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <h4 class="font-medium mb-2">Return to Home Row</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Always return fingers to home row position after each keystroke.</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="border-l-4 border-purple-500 pl-4">
+                        <h4 class="font-medium mb-2">Light Touch</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Press keys gently. Pounding the keyboard slows you down and causes fatigue.</p>
+                    </div>
+                    <div class="border-l-4 border-orange-500 pl-4">
+                        <h4 class="font-medium mb-2">Rhythm & Flow</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Develop a steady rhythm. Avoid bursts of speed followed by pauses.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Techniques Section -->
+    <section id="techniques" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-3">2</span>
+            Core Techniques
+        </h2>
+
+        <!-- Touch Typing -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                <span class="text-2xl mr-3">👀</span>Touch Typing Mastery
+            </h3>
+            <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 rounded-lg p-6 mb-4">
+                <h4 class="font-medium mb-3">The Goal: Type Without Looking</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    Touch typing means typing without looking at the keyboard. This skill dramatically increases speed and allows you to focus on your content rather than finding keys.
+                </p>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="text-center p-3 bg-white dark:bg-gray-800 rounded">
+                        <div class="text-lg font-bold text-blue-600">Week 1-2</div>
+                        <div class="text-sm">Learn home row</div>
+                    </div>
+                    <div class="text-center p-3 bg-white dark:bg-gray-800 rounded">
+                        <div class="text-lg font-bold text-blue-600">Week 3-4</div>
+                        <div class="text-sm">Add top/bottom rows</div>
+                    </div>
+                    <div class="text-center p-3 bg-white dark:bg-gray-800 rounded">
+                        <div class="text-lg font-bold text-blue-600">Week 5+</div>
+                        <div class="text-sm">Build speed & accuracy</div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-medium mb-3 text-green-600">Training Steps</h4>
+                    <ol class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <span class="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-3 mt-0.5 flex-shrink-0">1</span>
+                            Cover keyboard or look away completely
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-3 mt-0.5 flex-shrink-0">2</span>
+                            Start with home row keys only
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-3 mt-0.5 flex-shrink-0">3</span>
+                            Practice letter combinations (th, er, ing)
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-3 mt-0.5 flex-shrink-0">4</span>
+                            Gradually add more keys
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-3 mt-0.5 flex-shrink-0">5</span>
+                            Practice with real words and sentences
+                        </li>
+                    </ol>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-3 text-red-600">Common Mistakes</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Peeking at difficult keys
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Rushing before muscle memory develops
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Using hunt-and-peck for special characters
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Practicing irregularly
+                        </li>
+                        <li class="flex items-start">
+                            <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                            Focusing on speed over accuracy
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accuracy vs Speed -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                <span class="text-2xl mr-3">⚖️</span>Accuracy vs Speed Balance
+            </h3>
+            <div class="bg-yellow-50 dark:bg-yellow-900 dark:bg-opacity-20 rounded-lg p-6 mb-4">
+                <div class="text-center mb-4">
+                    <h4 class="font-medium text-lg">The 95% Rule</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Maintain at least 95% accuracy before focusing on speed improvements</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-red-600 mb-2">❌</div>
+                        <h5 class="font-medium mb-2">Speed-First Approach</h5>
+                        <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                            <li>• Reinforces bad habits</li>
+                            <li>• More time spent correcting</li>
+                            <li>• Inconsistent performance</li>
+                            <li>• Plateau at lower speeds</li>
+                        </ul>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-600 mb-2">✅</div>
+                        <h5 class="font-medium mb-2">Accuracy-First Approach</h5>
+                        <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                            <li>• Builds correct muscle memory</li>
+                            <li>• Speed develops naturally</li>
+                            <li>• Consistent improvement</li>
+                            <li>• Higher speed potential</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Common Words Practice -->
+        <div>
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                <span class="text-2xl mr-3">📝</span>Focus on Common Words
+            </h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+                The top 100 most common English words make up about 50% of all written text. Master these first for maximum impact.
+            </p>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                    <h4 class="font-medium mb-3">Top 20 Words</h4>
+                    <div class="text-sm space-y-1">
+                        <div>the, of, and, a, to</div>
+                        <div>in, is, you, that, it</div>
+                        <div>he, was, for, on, are</div>
+                        <div>as, with, his, they, i</div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                    <h4 class="font-medium mb-3">Practice Tips</h4>
+                    <ul class="text-sm space-y-1">
+                        <li>• Type each word 10 times</li>
+                        <li>• Focus on smooth transitions</li>
+                        <li>• Practice word combinations</li>
+                        <li>• Time yourself regularly</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                    <h4 class="font-medium mb-3">Benefits</h4>
+                    <ul class="text-sm space-y-1">
+                        <li>• Faster overall typing</li>
+                        <li>• Improved flow</li>
+                        <li>• Better rhythm</li>
+                        <li>• Reduced thinking time</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Techniques -->
+    <section id="advanced" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-3">3</span>
+            Advanced Strategies
+        </h2>
+
+        <!-- Muscle Memory Development -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                <span class="text-2xl mr-3">🧠</span>Building Muscle Memory
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-medium mb-3">Effective Practice Methods</h4>
+                    <div class="space-y-3">
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h5 class="font-medium">Slow & Deliberate</h5>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Type slowly with perfect form. Speed comes from accuracy, not force.</p>
+                        </div>
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h5 class="font-medium">Repetition Patterns</h5>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Practice difficult letter combinations repeatedly until they become automatic.</p>
+                        </div>
+                        <div class="border-l-4 border-purple-500 pl-4">
+                            <h5 class="font-medium">Mental Mapping</h5>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">Visualize the keyboard layout. Know where keys are without looking.</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-3">Practice Schedule</h4>
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="border-b border-gray-300 dark:border-gray-600">
+                                    <th class="text-left py-2">Duration</th>
+                                    <th class="text-left py-2">Frequency</th>
+                                    <th class="text-left py-2">Focus</th>
+                                </tr>
+                            </thead>
+                            <tbody class="space-y-1">
+                                <tr>
+                                    <td class="py-1">15-20 min</td>
+                                    <td class="py-1">Daily</td>
+                                    <td class="py-1">Optimal</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">30-45 min</td>
+                                    <td class="py-1">3x/week</td>
+                                    <td class="py-1">Good</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">60+ min</td>
+                                    <td class="py-1">Weekly</td>
+                                    <td class="py-1">Minimal</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Correction -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                <span class="text-2xl mr-3">🔧</span>Smart Error Correction
+            </h3>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-red-50 dark:bg-red-900 dark:bg-opacity-20 rounded-lg p-4">
+                    <h4 class="font-medium mb-2 text-red-600">Immediate Correction</h4>
+                    <p class="text-sm mb-3">Stop and fix errors as they happen during practice sessions.</p>
+                    <div class="text-xs text-gray-600 dark:text-gray-400">
+                        <strong>When:</strong> Learning new patterns<br>
+                        <strong>Goal:</strong> Build correct habits
+                    </div>
+                </div>
+                <div class="bg-yellow-50 dark:bg-yellow-900 dark:bg-opacity-20 rounded-lg p-4">
+                    <h4 class="font-medium mb-2 text-yellow-600">End Correction</h4>
+                    <p class="text-sm mb-3">Complete the text, then go back and practice problem areas.</p>
+                    <div class="text-xs text-gray-600 dark:text-gray-400">
+                        <strong>When:</strong> Speed tests<br>
+                        <strong>Goal:</strong> Maintain flow
+                    </div>
+                </div>
+                <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 rounded-lg p-4">
+                    <h4 class="font-medium mb-2 text-green-600">Pattern Practice</h4>
+                    <p class="text-sm mb-3">Identify error patterns and create targeted exercises.</p>
+                    <div class="text-xs text-gray-600 dark:text-gray-400">
+                        <strong>When:</strong> After tests<br>
+                        <strong>Goal:</strong> Eliminate weaknesses
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Speed Plateaus -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                <span class="text-2xl mr-3">📈</span>Breaking Through Plateaus
+            </h3>
+            <div class="bg-orange-50 dark:bg-orange-900 dark:bg-opacity-20 rounded-lg p-6">
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Speed plateaus are normal! Here's how to push through when progress stalls:
+                </p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-medium mb-3">Diagnosis</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                Track which letters/combinations slow you down
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                Monitor accuracy patterns
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                Check for bad habits (looking at keys)
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                Assess finger independence
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-medium mb-3">Solutions</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                Practice at 50% of max speed for accuracy
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                Focus on problem areas exclusively
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                Try different text types (technical, poetry)
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                Take a break, then return fresh
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mental Techniques -->
+        <div>
+            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                <span class="text-2xl mr-3">🎯</span>Mental Techniques
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <div class="border-l-4 border-indigo-500 pl-4">
+                        <h4 class="font-medium mb-2">Think Ahead</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Read 2-3 words ahead of what you're typing. This keeps your hands moving smoothly.</p>
+                    </div>
+                    <div class="border-l-4 border-teal-500 pl-4">
+                        <h4 class="font-medium mb-2">Word Chunking</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Type whole words as units, not individual letters. Think "typing" not "t-y-p-i-n-g".</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="border-l-4 border-pink-500 pl-4">
+                        <h4 class="font-medium mb-2">Rhythm & Flow</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Find your natural rhythm. Some prefer steady beats, others like varied pacing.</p>
+                    </div>
+                    <div class="border-l-4 border-cyan-500 pl-4">
+                        <h4 class="font-medium mb-2">Stay Relaxed</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Tension slows you down. Keep hands, wrists, and shoulders relaxed while typing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice Routine -->
+    <section class="bg-gradient-to-r from-primary-500 to-blue-600 rounded-xl text-white p-8">
+        <h2 class="text-3xl font-bold mb-6 text-center">Daily Practice Routine</h2>
+        <div class="grid md:grid-cols-4 gap-6">
+            <div class="text-center">
+                <div class="bg-white bg-opacity-20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold">5</span>
+                </div>
+                <h3 class="font-semibold mb-2">Warm-up</h3>
+                <p class="text-sm opacity-90">Start with home row exercises and finger stretches</p>
+            </div>
+            <div class="text-center">
+                <div class="bg-white bg-opacity-20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold">10</span>
+                </div>
+                <h3 class="font-semibold mb-2">Accuracy</h3>
+                <p class="text-sm opacity-90">Focus on precision with challenging text</p>
+            </div>
+            <div class="text-center">
+                <div class="bg-white bg-opacity-20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold">10</span>
+                </div>
+                <h3 class="font-semibold mb-2">Speed</h3>
+                <p class="text-sm opacity-90">Push your limits with familiar content</p>
+            </div>
+            <div class="text-center">
+                <div class="bg-white bg-opacity-20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl font-bold">5</span>
+                </div>
+                <h3 class="font-semibold mb-2">Review</h3>
+                <p class="text-sm opacity-90">Analyze mistakes and plan improvements</p>
+            </div>
+        </div>
+        <div class="text-center mt-8">
+            <a href="/" class="inline-block bg-white text-primary-600 font-semibold py-3 px-6 rounded-lg hover:bg-gray-100 transition-colors">
+                Start Practicing Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Quick Reference -->
+    <section class="bg-gray-50 dark:bg-gray-800 rounded-xl p-8">
+        <h2 class="text-2xl font-bold mb-6 text-center">Quick Reference</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div>
+                <h3 class="font-semibold mb-3 text-blue-600">Speed Targets</h3>
+                <ul class="text-sm space-y-1">
+                    <li>• Beginner: 20-30 WPM</li>
+                    <li>• Average: 40-50 WPM</li>
+                    <li>• Professional: 60-70 WPM</li>
+                    <li>• Expert: 80+ WPM</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-semibold mb-3 text-green-600">Accuracy Goals</h3>
+                <ul class="text-sm space-y-1">
+                    <li>• Minimum: 95%</li>
+                    <li>• Good: 97%</li>
+                    <li>• Excellent: 99%</li>
+                    <li>• Perfect: 100%</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-semibold mb-3 text-purple-600">Practice Time</h3>
+                <ul class="text-sm space-y-1">
+                    <li>• Daily: 15-20 minutes</li>
+                    <li>• Consistent schedule</li>
+                    <li>• Quality over quantity</li>
+                    <li>• Regular breaks</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

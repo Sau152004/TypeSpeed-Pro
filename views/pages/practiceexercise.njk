@@ -1,0 +1,845 @@
+{% extends "layouts/main.njk" %}
+
+{% block title %}Practice Exercises - TypeSpeed Pro{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto space-y-8">
+    <!-- Header -->
+    <div class="text-center py-12">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+            Practice <span class="text-primary-600">Exercises</span>
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+            Structured exercises designed to build muscle memory, improve accuracy, and increase your typing speed systematically.
+        </p>
+        <nav class="flex justify-center space-x-4 text-sm">
+            <a href="/resources" class="text-primary-600 hover:underline">← Back to Resources</a>
+            <span class="text-gray-300">|</span>
+            <a href="#beginner" class="hover:text-primary-600">Beginner</a>
+            <span class="text-gray-300">|</span>
+            <a href="#intermediate" class="hover:text-primary-600">Intermediate</a>
+            <span class="text-gray-300">|</span>
+            <a href="#advanced" class="hover:text-primary-600">Advanced</a>
+        </nav>
+    </div>
+
+    <!-- Progress Tracker -->
+    {% if user %}
+    <div class="bg-gradient-to-r from-primary-50 to-blue-50 dark:from-primary-900 dark:to-blue-900 dark:bg-opacity-20 rounded-xl shadow-lg p-6">
+        <h2 class="text-xl font-bold mb-4">Your Progress</h2>
+        <div class="grid md:grid-cols-4 gap-4">
+            <div class="text-center">
+                <div class="text-2xl font-bold text-green-600">{{ userProgress.completed_exercises or 0 }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-300">Completed</div>
+            </div>
+            <div class="text-center">
+                <div class="text-2xl font-bold text-blue-600">{{ userProgress.current_level or 'Beginner' }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-300">Current Level</div>
+            </div>
+            <div class="text-center">
+                <div class="text-2xl font-bold text-purple-600">{{ userProgress.avg_accuracy or 0 }}%</div>
+                <div class="text-sm text-gray-600 dark:text-gray-300">Avg Accuracy</div>
+            </div>
+            <div class="text-center">
+                <div class="text-2xl font-bold text-orange-600">{{ userProgress.practice_time or 0 }}h</div>
+                <div class="text-sm text-gray-600 dark:text-gray-300">Practice Time</div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Exercise Categories -->
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+        <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 rounded-xl p-6 text-center">
+            <div class="text-4xl mb-3">🌱</div>
+            <h3 class="font-bold text-lg mb-2 text-green-600">Beginner Level</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Master the basics with home row and fundamental patterns</p>
+            <div class="text-xs text-green-600 bg-green-100 dark:bg-green-800 px-2 py-1 rounded">15-30 WPM Target</div>
+        </div>
+        <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 rounded-xl p-6 text-center">
+            <div class="text-4xl mb-3">⚡</div>
+            <h3 class="font-bold text-lg mb-2 text-blue-600">Intermediate Level</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Build speed with complex combinations and common words</p>
+            <div class="text-xs text-blue-600 bg-blue-100 dark:bg-blue-800 px-2 py-1 rounded">30-60 WPM Target</div>
+        </div>
+        <div class="bg-purple-50 dark:bg-purple-900 dark:bg-opacity-20 rounded-xl p-6 text-center">
+            <div class="text-4xl mb-3">🚀</div>
+            <h3 class="font-bold text-lg mb-2 text-purple-600">Advanced Level</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Challenge yourself with technical text and speed drills</p>
+            <div class="text-xs text-purple-600 bg-purple-100 dark:bg-purple-800 px-2 py-1 rounded">60+ WPM Target</div>
+        </div>
+    </div>
+
+    <!-- Beginner Exercises -->
+    <section id="beginner" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-3">1</span>
+            Beginner Exercises
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Home Row Mastery -->
+            <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <span class="text-2xl mr-3">🏠</span>Home Row Mastery
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Master the foundation keys: A S D F J K L ;
+                </p>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Basic Home Row</h4>
+                            <span class="text-xs bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200 px-2 py-1 rounded">Level 1</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            asdf jkl; asdf jkl; asdf jkl;
+                        </div>
+                        <button class="mt-2 w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('home-row-basic')">
+                            Start Exercise
+                        </button>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Home Row Words</h4>
+                            <span class="text-xs bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200 px-2 py-1 rounded">Level 2</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            ask lad dad fall sad lass falls dads
+                        </div>
+                        <button class="mt-2 w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('home-row-words')">
+                            Start Exercise
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Row Introduction -->
+            <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <span class="text-2xl mr-3">⬆️</span>Top Row Keys
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Add the QWERTY row: Q W E R T Y U I O P
+                </p>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Top Row Drill</h4>
+                            <span class="text-xs bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 px-2 py-1 rounded">Level 3</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            qwer tyui qwer tyui qwer tyui
+                        </div>
+                        <button class="mt-2 w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('top-row-drill')">
+                            Start Exercise
+                        </button>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Mixed Rows</h4>
+                            <span class="text-xs bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 px-2 py-1 rounded">Level 4</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            quit said word task left write
+                        </div>
+                        <button class="mt-2 w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('mixed-rows')">
+                            Start Exercise
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Row Introduction -->
+            <div class="bg-purple-50 dark:bg-purple-900 dark:bg-purple-opacity-20 rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <span class="text-2xl mr-3">⬇️</span>Bottom Row Keys
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Complete the alphabet: Z X C V B N M
+                </p>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Bottom Row Drill</h4>
+                            <span class="text-xs bg-purple-100 dark:bg-purple-800 text-purple-700 dark:text-purple-200 px-2 py-1 rounded">Level 5</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            zxcv bnm, zxcv bnm, zxcv bnm,
+                        </div>
+                        <button class="mt-2 w-full bg-purple-500 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('bottom-row-drill')">
+                            Start Exercise
+                        </button>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">All Rows Combined</h4>
+                            <span class="text-xs bg-purple-100 dark:bg-purple-800 text-purple-700 dark:text-purple-200 px-2 py-1 rounded">Level 6</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            quick brown fox jumps maze
+                        </div>
+                        <button class="mt-2 w-full bg-purple-500 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('all-rows')">
+                            Start Exercise
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Common Digraphs -->
+            <div class="bg-orange-50 dark:bg-orange-900 dark:bg-orange-opacity-20 rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <span class="text-2xl mr-3">🔗</span>Letter Combinations
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Practice common two-letter combinations
+                </p>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Common Digraphs</h4>
+                            <span class="text-xs bg-orange-100 dark:bg-orange-800 text-orange-700 dark:text-orange-200 px-2 py-1 rounded">Level 7</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            th er in an re ed nd ha et ou
+                        </div>
+                        <button class="mt-2 w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('digraphs')">
+                            Start Exercise
+                        </button>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Double Letters</h4>
+                            <span class="text-xs bg-orange-100 dark:bg-orange-800 text-orange-700 dark:text-orange-200 px-2 py-1 rounded">Level 8</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            all see too book feel call tell
+                        </div>
+                        <button class="mt-2 w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('double-letters')">
+                            Start Exercise
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intermediate Exercises -->
+    <section id="intermediate" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-3">2</span>
+            Intermediate Exercises
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Common Words -->
+            <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <span class="text-2xl mr-3">📚</span>Common Words
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Master the most frequently used English words
+                </p>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Top 100 Words</h4>
+                            <span class="text-xs bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 px-2 py-1 rounded">Level 9</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            the and you that was for are with his they
+                        </div>
+                        <button class="mt-2 w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('top-100-words')">
+                            Start Exercise
+                        </button>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Word Phrases</h4>
+                            <span class="text-xs bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 px-2 py-1 rounded">Level 10</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            in the world of all time and place
+                        </div>
+                        <button class="mt-2 w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('word-phrases')">
+                            Start Exercise
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Punctuation Practice -->
+            <div class="bg-green-50 dark:bg-green-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <span class="text-2xl mr-3">.,!?</span>Punctuation
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Learn to type punctuation marks smoothly and accurately
+                </p>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Basic Punctuation</h4>
+                            <span class="text-xs bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200 px-2 py-1 rounded">Level 11</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            Hello, world! How are you? I'm fine.
+                        </div>
+                        <button class="mt-2 w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('basic-punctuation')">
+                            Start Exercise
+                        </button>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Advanced Punctuation</h4>
+                            <span class="text-xs bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200 px-2 py-1 rounded">Level 12</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            "Yes," she said, "that's correct!"
+                        </div>
+                        <button class="mt-2 w-full bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('advanced-punctuation')">
+                            Start Exercise
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Numbers and Symbols -->
+            <div class="bg-purple-50 dark:bg-purple-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <span class="text-2xl mr-3">123</span>Numbers & Symbols
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Master the number row and special characters
+                </p>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Number Practice</h4>
+                            <span class="text-xs bg-purple-100 dark:bg-purple-800 text-purple-700 dark:text-purple-200 px-2 py-1 rounded">Level 13</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            123 456 789 0 1234567890
+                        </div>
+                        <button class="mt-2 w-full bg-purple-500 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('numbers')">
+                            Start Exercise
+                        </button>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Symbols & Special Characters</h4>
+                            <span class="text-xs bg-purple-100 dark:bg-purple-800 text-purple-700 dark:text-purple-200 px-2 py-1 rounded">Level 14</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            @#$%^&*()_+-=[]{}|;':\",./<>?
+                        </div>
+                        <button class="mt-2 w-full bg-purple-500 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('symbols')">
+                            Start Exercise
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sentence Practice -->
+            <div class="bg-orange-50 dark:bg-orange-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <span class="text-2xl mr-3">📝</span>Sentences
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Practice typing complete sentences with proper capitalization
+                </p>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Simple Sentences</h4>
+                            <span class="text-xs bg-orange-100 dark:bg-orange-800 text-orange-700 dark:text-orange-200 px-2 py-1 rounded">Level 15</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            The quick brown fox jumps over the lazy dog.
+                        </div>
+                        <button class="mt-2 w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('simple-sentences')">
+                            Start Exercise
+                        </button>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Complex Sentences</h4>
+                            <span class="text-xs bg-orange-100 dark:bg-orange-800 text-orange-700 dark:text-orange-200 px-2 py-1 rounded">Level 16</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            Practice makes perfect when you type daily.
+                        </div>
+                        <button class="mt-2 w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('complex-sentences')">
+                            Start Exercise
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Exercises -->
+    <section id="advanced" class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6 flex items-center">
+            <span class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm mr-3">3</span>
+            Advanced Exercises
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Technical Text -->
+            <div class="bg-purple-50 dark:bg-purple-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <span class="text-2xl mr-3">💻</span>Technical Text
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Practice programming and technical terminology
+                </p>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Programming Keywords</h4>
+                            <span class="text-xs bg-purple-100 dark:bg-purple-800 text-purple-700 dark:text-purple-200 px-2 py-1 rounded">Level 17</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            function variable array object method class
+                        </div>
+                        <button class="mt-2 w-full bg-purple-500 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('programming-keywords')">
+                            Start Exercise
+                        </button>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Code Snippets</h4>
+                            <span class="text-xs bg-purple-100 dark:bg-purple-800 text-purple-700 dark:text-purple-200 px-2 py-1 rounded">Level 18</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            if (condition) { return true; }
+                        </div>
+                        <button class="mt-2 w-full bg-purple-500 hover:bg-purple-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('code-snippets')">
+                            Start Exercise
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Speed Drills -->
+            <div class="bg-red-50 dark:bg-red-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <span class="text-2xl mr-3">⚡</span>Speed Drills
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    High-speed exercises to push your limits
+                </p>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Burst Typing</h4>
+                            <span class="text-xs bg-red-100 dark:bg-red-800 text-red-700 dark:text-red-200 px-2 py-1 rounded">Level 19</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            30-second speed bursts with familiar text
+                        </div>
+                        <button class="mt-2 w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('burst-typing')">
+                            Start Exercise
+                        </button>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Endurance Test</h4>
+                            <span class="text-xs bg-red-100 dark:bg-red-800 text-red-700 dark:text-red-200 px-2 py-1 rounded">Level 20</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            5-minute sustained typing at target speed
+                        </div>
+                        <button class="mt-2 w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('endurance-test')">
+                            Start Exercise
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accuracy Challenges -->
+            <div class="bg-indigo-50 dark:bg-indigo-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <span class="text-2xl mr-3">🎯</span>Accuracy Challenges
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Focus on perfect accuracy at moderate speeds
+                </p>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Zero Error Challenge</h4>
+                            <span class="text-xs bg-indigo-100 dark:bg-indigo-800 text-indigo-700 dark:text-indigo-200 px-2 py-1 rounded">Level 21</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            Type with 100% accuracy - no backspace allowed
+                        </div>
+                        <button class="mt-2 w-full bg-indigo-500 hover:bg-indigo-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('zero-error')">
+                            Start Exercise
+                        </button>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Precision Typing</h4>
+                            <span class="text-xs bg-indigo-100 dark:bg-indigo-800 text-indigo-700 dark:text-indigo-200 px-2 py-1 rounded">Level 22</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            Complex text requiring perfect accuracy
+                        </div>
+                        <button class="mt-2 w-full bg-indigo-500 hover:bg-indigo-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('precision-typing')">
+                            Start Exercise
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-World Practice -->
+            <div class="bg-teal-50 dark:bg-teal-900 dark:bg-opacity-20 rounded-lg p-6">
+                <h3 class="text-xl font-semibold mb-4 flex items-center">
+                    <span class="text-2xl mr-3">🌍</span>Real-World Text
+                </h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-4">
+                    Practice with actual content from various fields
+                </p>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">News Articles</h4>
+                            <span class="text-xs bg-teal-100 dark:bg-teal-800 text-teal-700 dark:text-teal-200 px-2 py-1 rounded">Level 23</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            Type excerpts from current news articles
+                        </div>
+                        <button class="mt-2 w-full bg-teal-500 hover:bg-teal-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('news-articles')">
+                            Start Exercise
+                        </button>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium">Literature Passages</h4>
+                            <span class="text-xs bg-teal-100 dark:bg-teal-800 text-teal-700 dark:text-teal-200 px-2 py-1 rounded">Level 24</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-3 rounded font-mono text-sm">
+                            Classic and modern literature excerpts
+                        </div>
+                        <button class="mt-2 w-full bg-teal-500 hover:bg-teal-600 text-white font-medium py-2 px-4 rounded transition-colors" onclick="startExercise('literature')">
+                            Start Exercise
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Practice -->
+    <section class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+        <h2 class="text-3xl font-bold mb-6">Create Custom Exercise</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-6">
+            Design your own practice session with custom text and settings.
+        </p>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <div>
+                <label class="block text-sm font-medium mb-2">Practice Text</label>
+                <textarea 
+                    id="custom-text" 
+                    class="w-full h-32 border border-gray-300 dark:border-gray-600 rounded-lg p-3 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    placeholder="Enter your custom text here..."
+                ></textarea>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Duration (minutes)</label>
+                    <select id="custom-duration" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-3 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                        <option value="1">1 minute</option>
+                        <option value="3">3 minutes</option>
+                        <option value="5" selected>5 minutes</option>
+                        <option value="10">10 minutes</option>
+                        <option value="15">15 minutes</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Focus</label>
+                    <select id="custom-focus" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg p-3 bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                        <option value="accuracy">Accuracy</option>
+                        <option value="speed" selected>Speed</option>
+                        <option value="balanced">Balanced</option>
+                    </select>
+                </div>
+                <button 
+                    onclick="startCustomExercise()" 
+                    class="w-full bg-primary-500 hover:bg-primary-600 text-white font-medium py-3 px-6 rounded-lg transition-colors"
+                >
+                    Start Custom Exercise
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercise Tips -->
+    <section class="bg-gradient-to-r from-primary-500 to-blue-600 rounded-xl text-white p-8">
+        <h2 class="text-3xl font-bold mb-6 text-center">Exercise Tips</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="text-center">
+                <div class="text-4xl mb-4">🎯</div>
+                <h3 class="font-bold mb-2">Start Slow</h3>
+                <p class="opacity-90">Begin each exercise slowly to ensure accuracy. Speed will come naturally with practice.</p>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl mb-4">🔄</div>
+                <h3 class="font-bold mb-2">Regular Practice</h3>
+                <p class="opacity-90">Consistent daily practice is more effective than long, infrequent sessions.</p>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl mb-4">📊</div>
+                <h3 class="font-bold mb-2">Track Progress</h3>
+                <p class="opacity-90">Monitor your improvement over time and celebrate small victories.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.exercise-item {
+    transition: all 0.2s ease;
+}
+
+.exercise-item:hover {
+    transform: translateY(-2px);
+}
+
+.exercise-item button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Progress indicators */
+.level-badge {
+    position: relative;
+    overflow: hidden;
+}
+
+.level-badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.level-badge:hover::before {
+    left: 100%;
+}
+
+/* Difficulty color coding */
+.difficulty-beginner {
+    border-left: 4px solid #10b981;
+}
+
+.difficulty-intermediate {
+    border-left: 4px solid #3b82f6;
+}
+
+.difficulty-advanced {
+    border-left: 4px solid #8b5cf6;
+}
+
+.difficulty-expert {
+    border-left: 4px solid #ef4444;
+}
+
+/* Custom scrollbar for text areas */
+#custom-text::-webkit-scrollbar {
+    width: 8px;
+}
+
+#custom-text::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+#custom-text::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+#custom-text::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.dark #custom-text::-webkit-scrollbar-track {
+    background: #374151;
+}
+
+.dark #custom-text::-webkit-scrollbar-thumb {
+    background: #6b7280;
+}
+
+.dark #custom-text::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+</style>
+
+<script>
+function startExercise(exerciseType) {
+    // Store the exercise type and redirect to practice mode
+    localStorage.setItem('selectedExercise', exerciseType);
+    window.location.href = `/practice?exercise=${exerciseType}`;
+}
+
+function startCustomExercise() {
+    const text = document.getElementById('custom-text').value.trim();
+    const duration = document.getElementById('custom-duration').value;
+    const focus = document.getElementById('custom-focus').value;
+    
+    if (!text) {
+        alert('Please enter some text for your custom exercise.');
+        return;
+    }
+    
+    // Store custom exercise data
+    const customData = {
+        text: text,
+        duration: parseInt(duration),
+        focus: focus,
+        type: 'custom'
+    };
+    
+    localStorage.setItem('customExercise', JSON.stringify(customData));
+    window.location.href = '/practice?exercise=custom';
+}
+
+// Track exercise completion and progress
+function trackExerciseCompletion(exerciseType, results) {
+    // Send progress data to server
+    fetch('/api/exercises/complete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            exercise_type: exerciseType,
+            wpm: results.wpm,
+            accuracy: results.accuracy,
+            duration: results.duration,
+            errors: results.errors
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            updateProgressDisplay(data.progress);
+        }
+    })
+    .catch(error => {
+        console.error('Error tracking exercise:', error);
+    });
+}
+
+function updateProgressDisplay(progress) {
+    // Update the progress section if it exists
+    const progressSection = document.querySelector('.grid.md\\:grid-cols-4');
+    if (progressSection) {
+        const elements = progressSection.querySelectorAll('.text-2xl.font-bold');
+        if (elements.length >= 4) {
+            elements[0].textContent = progress.completed_exercises || 0;
+            elements[1].textContent = progress.current_level || 'Beginner';
+            elements[2].textContent = (progress.avg_accuracy || 0) + '%';
+            elements[3].textContent = (progress.practice_time || 0) + 'h';
+        }
+    }
+}
+
+// Initialize exercise difficulty indicators
+document.addEventListener('DOMContentLoaded', function() {
+    const exercises = document.querySelectorAll('.exercise-item');
+    
+    exercises.forEach((exercise, index) => {
+        const level = index + 1;
+        let difficulty = 'beginner';
+        
+        if (level <= 8) difficulty = 'beginner';
+        else if (level <= 16) difficulty = 'intermediate';
+        else if (level <= 20) difficulty = 'advanced';
+        else difficulty = 'expert';
+        
+        exercise.classList.add(`difficulty-${difficulty}`);
+    });
+    
+    // Add smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+
+// Exercise data for different types
+const exerciseData = {
+    'home-row-basic': {
+        text: 'asdf jkl; asdf jkl; asdf jkl; asdf jkl; asdf jkl; asdf jkl; asdf jkl; asdf jkl;',
+        focus: 'accuracy',
+        description: 'Basic home row positioning practice'
+    },
+    'home-row-words': {
+        text: 'ask lad dad fall sad lass falls dads asks lads dads falls sadslass fall dad ask lad',
+        focus: 'accuracy',
+        description: 'Simple words using only home row keys'
+    },
+    'top-100-words': {
+        text: 'the and you that was for are with his they at be this have from or one had by but not what all were we when your can said there each which she do how their if will way about out many then them these so some her would make like into him has two more time very what know take years them very what when',
+        focus: 'speed',
+        description: 'Most common English words for speed building'
+    },
+    'programming-keywords': {
+        text: 'function variable array object method class constructor prototype return if else for while do switch case break continue try catch finally throw new delete typeof instanceof',
+        focus: 'accuracy',
+        description: 'Common programming terminology'
+    }
+};
+
+// Load exercise data when needed
+function getExerciseData(type) {
+    return exerciseData[type] || {
+        text: 'Default practice text for typing speed improvement.',
+        focus: 'balanced',
+        description: 'General typing practice'
+    };
+}
+</script>
+{% endblock %}
